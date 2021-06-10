@@ -9,7 +9,7 @@ def main():
   
     folder = input()
     for count, filename in enumerate(os.listdir(folder)):
-        dst = "card" + str(count) + ".png"
+        dst = "card" + str(count + 900) + ".png"
         src = folder + filename
         dst = folder + dst
           
