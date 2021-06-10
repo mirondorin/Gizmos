@@ -1,0 +1,20 @@
+Making sense of the name codes:
+"Tier level of card" + "card number" + "card type"
+card number = counting up->down & left->right from gizmos distribution pdf
+card types :
+A - archive
+P - pick
+B - build
+C - converter
+U - upgrade
+
+Format for card cost : [R, Y, U, B]
+R - red,
+Y - yellow,
+U - blue,
+B - black
+The cost of a card is considered to be paid if array looks like [0, 0, 0, 0]
+
+setBuildCost(tier, cost)
+reduceArchiveBuild(cost) - reduces building cost of gizmos from archive by cost
+reduceTierBuild([tier, cost]) - reduces building cost of buildings of tier, by cost

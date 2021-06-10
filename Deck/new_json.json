@@ -1,0 +1,1298 @@
+{
+    "0": {
+        "id": 0,
+        "tier": 1,
+        "cost": [
+            1,
+            0,
+            0,
+            0
+        ],
+        "action": "archive",
+        "effect": "pick(X)"
+    },
+    "1": {
+        "id": 1,
+        "tier": 1,
+        "cost": [
+            0,
+            1,
+            0,
+            0
+        ],
+        "action": "archive",
+        "effect": "pick(X)"
+    },
+    "2": {
+        "id": 2,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "action": "archive",
+        "effect": "pick(X)"
+    },
+    "3": {
+        "id": 3,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "action": "archive",
+        "effect": "pick(X)"
+    },
+    "4": {
+        "id": 4,
+        "tier": 1,
+        "cost": [
+            1,
+            0,
+            0,
+            0
+        ],
+        "action": "pick(U)",
+        "effect": "pick(?)"
+    },
+    "5": {
+        "id": 5,
+        "tier": 1,
+        "cost": [
+            0,
+            1,
+            0,
+            0
+        ],
+        "action": "pick(R)",
+        "effect": "pick(?)"
+    },
+    "6": {
+        "id": 6,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "action": "pick(B)",
+        "effect": "pick(?)"
+    },
+    "7": {
+        "id": 7,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "action": "pick(Y)",
+        "effect": "pick(?)"
+    },
+    "8": {
+        "id": 8,
+        "tier": 1,
+        "cost": [
+            1,
+            0,
+            0,
+            0
+        ],
+        "action": "pick(Y)",
+        "effect": "pick(?)"
+    },
+    "9": {
+        "id": 9,
+        "tier": 1,
+        "cost": [
+            0,
+            1,
+            0,
+            0
+        ],
+        "action": "pick(B)",
+        "effect": "pick(?)"
+    },
+    "10": {
+        "id": 10,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "action": "pick(R)",
+        "effect": "pick(?)"
+    },
+    "11": {
+        "id": 11,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "action": "pick(U)",
+        "effect": "pick(?)"
+    },
+    "12": {
+        "id": 12,
+        "tier": 1,
+        "cost": [
+            1,
+            0,
+            0,
+            0
+        ],
+        "action": "build(B)",
+        "effect": "pick(X)"
+    },
+    "13": {
+        "id": 13,
+        "tier": 1,
+        "cost": [
+            0,
+            1,
+            0,
+            0
+        ],
+        "action": "build(R)",
+        "effect": "pick(X)"
+    },
+    "14": {
+        "id": 14,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "action": "build(Y)",
+        "effect": "pick(X)"
+    },
+    "15": {
+        "id": 15,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "action": "build(U)",
+        "effect": "pick(X)"
+    },
+    "16": {
+        "id": 16,
+        "tier": 1,
+        "cost": [
+            1,
+            0,
+            0,
+            0
+        ],
+        "action": "build(Y)",
+        "effect": "getVP(1)"
+    },
+    "17": {
+        "id": 17,
+        "tier": 1,
+        "cost": [
+            0,
+            1,
+            0,
+            0
+        ],
+        "action": "build(U)",
+        "effect": "getVP(1)"
+    },
+    "18": {
+        "id": 18,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "action": "build(B)",
+        "effect": "getVP(1)"
+    },
+    "19": {
+        "id": 19,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "action": "build(R)",
+        "effect": "getVP(1)"
+    },
+    "20": {
+        "id": 20,
+        "tier": 1,
+        "cost": [
+            1,
+            0,
+            0,
+            0
+        ],
+        "action": "convert(B)",
+        "effect": "getEnergy(X)"
+    },
+    "21": {
+        "id": 21,
+        "tier": 1,
+        "cost": [
+            0,
+            1,
+            0,
+            0
+        ],
+        "action": "convert(U)",
+        "effect": "getEnergy(X)"
+    },
+    "22": {
+        "id": 22,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "action": "convert(R)",
+        "effect": "getEnergy(X)"
+    },
+    "23": {
+        "id": 23,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "action": "convert(Y)",
+        "effect": "getEnergy(X)"
+    },
+    "24": {
+        "id": 24,
+        "tier": 1,
+        "cost": [
+            1,
+            0,
+            0,
+            0
+        ],
+        "action": "convert(U)",
+        "effect": "getEnergy(X)"
+    },
+    "25": {
+        "id": 25,
+        "tier": 1,
+        "cost": [
+            0,
+            1,
+            0,
+            0
+        ],
+        "action": "convert(B)",
+        "effect": "getEnergy(X)"
+    },
+    "26": {
+        "id": 26,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "action": "convert(Y)",
+        "effect": "getEnergy(X)"
+    },
+    "27": {
+        "id": 27,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "action": "convert(R)",
+        "effect": "getEnergy(X)"
+    },
+    "28": {
+        "id": 28,
+        "tier": 1,
+        "cost": [
+            1,
+            0,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(1, 0, 1)"
+    },
+    "29": {
+        "id": 29,
+        "tier": 1,
+        "cost": [
+            0,
+            1,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(1, 0, 1)"
+    },
+    "30": {
+        "id": 30,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(1, 0, 1)"
+    },
+    "31": {
+        "id": 31,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "action": "",
+        "effect": "upgrade(1, 0, 1)"
+    },
+    "32": {
+        "id": 32,
+        "tier": 1,
+        "cost": [
+            1,
+            0,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(1, 1, 0)"
+    },
+    "33": {
+        "id": 33,
+        "tier": 1,
+        "cost": [
+            0,
+            1,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(1, 1, 0)"
+    },
+    "34": {
+        "id": 34,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(1, 1, 0)"
+    },
+    "35": {
+        "id": 35,
+        "tier": 1,
+        "cost": [
+            0,
+            0,
+            0,
+            1
+        ],
+        "action": "",
+        "effect": "upgrade(1, 1, 0)"
+    },
+    "36": {
+        "id": 0,
+        "tier": 2,
+        "cost": [
+            2,
+            0,
+            0,
+            0
+        ],
+        "action": "pick(U/B)",
+        "effect": "pick(?)"
+    },
+    "37": {
+        "id": 1,
+        "tier": 2,
+        "cost": [
+            0,
+            2,
+            0,
+            0
+        ],
+        "action": "pick(R/U)",
+        "effect": "pick(?)"
+    },
+    "38": {
+        "id": 2,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            2,
+            0
+        ],
+        "action": "pick(Y/B)",
+        "effect": "pick(?)"
+    },
+    "39": {
+        "id": 3,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            0,
+            2
+        ],
+        "action": "pick(Y/R)",
+        "effect": "pick(?)"
+    },
+    "40": {
+        "id": 4,
+        "tier": 2,
+        "cost": [
+            3,
+            0,
+            0,
+            0
+        ],
+        "action": "build(Y/B)",
+        "effect": "getVP(1)"
+    },
+    "41": {
+        "id": 5,
+        "tier": 2,
+        "cost": [
+            0,
+            3,
+            0,
+            0
+        ],
+        "action": "build(R/U)",
+        "effect": "getVP(1)"
+    },
+    "42": {
+        "id": 6,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            3,
+            0
+        ],
+        "action": "build(B/R)",
+        "effect": "getVP(1)"
+    },
+    "43": {
+        "id": 7,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            0,
+            3
+        ],
+        "action": "build(U/Y)",
+        "effect": "getVP(1)"
+    },
+    "44": {
+        "id": 8,
+        "tier": 2,
+        "cost": [
+            2,
+            0,
+            0,
+            0
+        ],
+        "action": "build(U/Y)",
+        "effect": "pick(X)"
+    },
+    "45": {
+        "id": 9,
+        "tier": 2,
+        "cost": [
+            0,
+            2,
+            0,
+            0
+        ],
+        "action": "build(U/B)",
+        "effect": "pick(X)"
+    },
+    "46": {
+        "id": 10,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            2,
+            0
+        ],
+        "action": "build(Y/R)",
+        "effect": "pick(X)"
+    },
+    "47": {
+        "id": 11,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            0,
+            2
+        ],
+        "action": "build(R/U)",
+        "effect": "pick(X)"
+    },
+    "48": {
+        "id": 12,
+        "tier": 2,
+        "cost": [
+            2,
+            0,
+            0,
+            0
+        ],
+        "action": "build(U/B)",
+        "effect": "pick(X)"
+    },
+    "49": {
+        "id": 13,
+        "tier": 2,
+        "cost": [
+            0,
+            2,
+            0,
+            0
+        ],
+        "action": "build(B/R)",
+        "effect": "pick(X)"
+    },
+    "50": {
+        "id": 14,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            2,
+            0
+        ],
+        "action": "build(Y/B)",
+        "effect": "pick(X)"
+    },
+    "51": {
+        "id": 15,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            0,
+            2
+        ],
+        "action": "build(Y/R)",
+        "effect": "pick(X)"
+    },
+    "52": {
+        "id": 16,
+        "tier": 2,
+        "cost": [
+            3,
+            0,
+            0,
+            0
+        ],
+        "action": "buildFromArchive()",
+        "effect": "pick(X, X)"
+    },
+    "53": {
+        "id": 17,
+        "tier": 2,
+        "cost": [
+            0,
+            3,
+            0,
+            0
+        ],
+        "action": "buildFromArchive()",
+        "effect": "pick(X, X)"
+    },
+    "54": {
+        "id": 18,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            3,
+            0
+        ],
+        "action": "buildFromArchive()",
+        "effect": "pick(X, X)"
+    },
+    "55": {
+        "id": 19,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            0,
+            3
+        ],
+        "action": "buildFromArchive()",
+        "effect": "pick(X, X)"
+    },
+    "56": {
+        "id": 20,
+        "tier": 2,
+        "cost": [
+            2,
+            0,
+            0,
+            0
+        ],
+        "action": "convert(Y, Y)",
+        "effect": "getEnergy(X, X)"
+    },
+    "57": {
+        "id": 21,
+        "tier": 2,
+        "cost": [
+            0,
+            2,
+            0,
+            0
+        ],
+        "action": "convert(R, R)",
+        "effect": "getEnergy(X, X)"
+    },
+    "58": {
+        "id": 22,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            2,
+            0
+        ],
+        "action": "convert(B, B)",
+        "effect": "getEnergy(X, X)"
+    },
+    "59": {
+        "id": 23,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            0,
+            2
+        ],
+        "action": "convert(U, U)",
+        "effect": "getEnergy(X, X)"
+    },
+    "60": {
+        "id": 24,
+        "tier": 2,
+        "cost": [
+            3,
+            0,
+            0,
+            0
+        ],
+        "action" : "convert(B)",
+        "effect" : "getEnergy(B, B)"
+    },
+    "61": {
+        "id": 25,
+        "tier": 2,
+        "cost": [
+            0,
+            3,
+            0,
+            0
+        ],
+        "action" : "convert(U)",
+        "effect" : "getEnergy(U, U)"
+    },
+    "62": {
+        "id": 26,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            3,
+            0
+        ],
+        "action" : "convert(R)",
+        "effect" : "getEnergy(R, R)"
+    },
+    "63": {
+        "id": 27,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            0,
+            3
+        ],
+        "action" : "convert(Y)",
+        "effect" : "getEnergy(Y, Y)"
+    },
+    "64": {
+        "id": 28,
+        "tier": 2,
+        "cost": [
+            3,
+            0,
+            0,
+            0
+        ],
+        "action" : "convert(U)",
+        "effect" : "getEnergy(U, U)"
+    },
+    "65": {
+        "id": 29,
+        "tier": 2,
+        "cost": [
+            0,
+            3,
+            0,
+            0
+        ],
+        "action" : "convert(B)",
+        "effect" : "getEnergy(B, B)"
+    },
+    "66": {
+        "id": 30,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            3,
+            0
+        ],
+        "action" : "convert(Y)",
+        "effect" : "getEnergy(Y, Y)"
+    },
+    "67": {
+        "id": 31,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            0,
+            3
+        ],
+        "action" : "convert(R)",
+        "effect" : "getEnergy(R, R)"
+    },
+    "68": {
+        "id": 32,
+        "tier": 2,
+        "cost": [
+            3,
+            0,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(2, 1, 2)"
+    },
+    "69": {
+        "id": 33,
+        "tier": 2,
+        "cost": [
+            0,
+            3,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(2, 1, 2)"
+    },
+    "70": {
+        "id": 34,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            3,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(2, 1, 2)"
+    },
+    "71": {
+        "id": 35,
+        "tier": 2,
+        "cost": [
+            0,
+            0,
+            0,
+            3
+        ],
+        "action": "",
+        "effect": "upgrade(2, 1, 2)"
+    },
+    "72": {
+        "id": 0,
+        "tier": 3,
+        "cost": [
+            5,
+            0,
+            0,
+            0
+        ],
+        "action": "build(U/Y)",
+        "effect": "getVP(2)"
+    },
+    "73": {
+        "id": 1,
+        "tier": 3,
+        "cost": [
+            0,
+            6,
+            0,
+            0
+        ],
+        "action": "build(U/B)",
+        "effect": "setBuildCost(1, 0)"
+    },
+    "74": {
+        "id": 2,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            6,
+            0
+        ],
+        "action": "build(Y/R)",
+        "effect": "setBuildCost(1, 0)"
+    },
+    "75": {
+        "id": 3,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            7,
+            0
+        ],
+        "action": "build(Y/R)",
+        "effect": "research"
+    },
+    "76": {
+        "id": 4,
+        "tier": 3,
+        "cost": [
+            7,
+            0,
+            0,
+            0
+        ],
+        "action": "build(U/B)",
+        "effect": "research"
+    },
+    "77": {
+        "id": 5,
+        "tier": 3,
+        "cost": [
+            5,
+            0,
+            0,
+            0
+        ],
+        "action": "buildFromArchive()",
+        "effect": "getVP(2)"
+    },
+    "78": {
+        "id": 6,
+        "tier": 3,
+        "cost": [
+            0,
+            5,
+            0,
+            0
+        ],
+        "action": "buildFromArchive()",
+        "effect": "getVP(2)"
+    },
+    "79": {
+        "id": 7,
+        "tier": 3,
+        "cost": [
+            6,
+            0,
+            0,
+            0
+        ],
+        "action": "buildTier(2)",
+        "effect": "pick(X, X)"
+    },
+    "80": {
+        "id": 8,
+        "tier": 3,
+        "cost": [
+            4,
+            0,
+            0,
+            0
+        ],
+        "action": "archive",
+        "effect": "getVP(1)"
+    },
+    "81": {
+        "id": 9,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            0,
+            6
+        ],
+        "action": "buildTier(2)",
+        "effect": "pick(X, X)"
+    },
+    "82": {
+        "id": 10,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            0,
+            4
+        ],
+        "action": "archive",
+        "effect": "getVP(1)"
+    },
+    "83": {
+        "id": 11,
+        "tier": 3,
+        "cost": [
+            0,
+            4,
+            0,
+            0
+        ],
+        "action": "archive",
+        "effect": "pick(?, ?, ?)"
+    },
+    "84": {
+        "id": 12,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            4,
+            0
+        ],
+        "action": "archive",
+        "effect":"pick(?, ?, ?)"
+    },
+    "85": {
+        "id": 13,
+        "tier": 3,
+        "cost": [
+            0,
+            5,
+            0,
+            0
+        ],
+        "action": "build(B/R)",
+        "effect": "archive"
+    },
+    "86": {
+        "id": 14,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            0,
+            4
+        ],
+        "action": "build(U/Y)",
+        "effect": "archive"
+    },
+    "87": {
+        "id": 15,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            0,
+            5
+        ],
+        "action": "build(R/U)",
+        "effect": "getVP(2)"
+    },
+    "88": {
+        "id": 16,
+        "tier": 3,
+        "cost": [
+            4,
+            0,
+            0,
+            0
+        ],
+        "action": "convert(X)",
+        "effect": "getEnergy(X)"
+    },
+    "89": {
+        "id": 17,
+        "tier": 3,
+        "cost": [
+            0,
+            4,
+            0,
+            0
+        ],
+        "action": "convert(X)",
+        "effect": "getEnergy(X)"
+    },
+    "90": {
+        "id": 18,
+        "tier": 3,
+        "cost": [
+            5,
+            0,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "reduceArchiveBuild(1)"
+    },
+    "91": {
+        "id": 19,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            5,
+            0
+        ],
+        "action": "",
+        "effect": "reduceArchiveBuild(1)"
+    },
+    "92": {
+        "id": 20,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            6,
+            0
+        ],
+        "action": "",
+        "effect": "reduceResearchBuild(1)"
+    },
+    "93": {
+        "id": 21,
+        "tier": 3,
+        "cost": [
+            0,
+            6,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "reduceResearchBuild(1)"
+    },
+    "94": {
+        "id": 22,
+        "tier": 3,
+        "cost": [
+            0,
+            4,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "disableResearch()"
+    },
+    "95": {
+        "id": 23,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            0,
+            4
+        ],
+        "action": "",
+        "effect": "disableResearch()"
+    },
+    "96": {
+        "id": 24,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            4,
+            0
+        ],
+        "action": "",
+        "effect": "disableArchive()"
+    },
+    "97": {
+        "id": 25,
+        "tier": 3,
+        "cost": [
+            4,
+            0,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "disableArchive()"
+    },
+    "98": {
+        "id": 26,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            0,
+            5
+        ],
+        "action": "convert(U, Y)",
+        "effect": "getEnergy([U, U], [Y, Y])"
+    },
+    "99": {
+        "id": 27,
+        "tier": 3,
+        "cost": [
+            7,
+            7,
+            7,
+            7
+        ],
+        "action": "",
+        "effect": "getPoints(player_VP)"
+    },
+    "100": {
+        "id": 28,
+        "tier": 3,
+        "cost": [
+            7,
+            7,
+            7,
+            7
+        ],
+        "action": "",
+        "effect": "getPoints(player_VP)"
+    },
+    "101": {
+        "id": 29,
+        "tier": 3,
+        "cost": [
+            7,
+            7,
+            7,
+            7
+        ],
+        "action": "",
+        "effect": "getPoints(player_energy)"
+    },
+    "102": {
+        "id": 30,
+        "tier": 3,
+        "cost": [
+            7,
+            7,
+            7,
+            7
+        ],
+        "action": "",
+        "effect": "getPoints(player_energy)"
+    },
+    "103": {
+        "id": 31,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            5,
+            0
+        ],
+        "action": "convert(B, R)",
+        "effect": "getEnergy([B, B], [R, R])"
+    },
+    "104": {
+        "id": 32,
+        "tier": 3,
+        "cost": [
+            0,
+            5,
+            0,
+            0
+        ],
+        "action": "",
+        "effect": "reduceTierBuild([2, 1])"
+    },
+    "105": {
+        "id": 33,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            5,
+            0
+        ],
+        "action": "",
+        "effect": "reduceTierBuild([2, 1])"
+    },
+    "106": {
+        "id": 34,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            4,
+            0
+        ],
+        "action": "",
+        "effect": "upgrade(4, 0, 0)"
+    },
+    "107": {
+        "id": 35,
+        "tier": 3,
+        "cost": [
+            0,
+            0,
+            0,
+            4
+        ],
+        "action": "",
+        "effect": "upgrade(4, 0, 0)"
+    }
+}
