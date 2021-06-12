@@ -13,18 +13,23 @@
 [ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=11]
 
 [node name="PlayerBoard" type="GridContainer"]
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 100.0
-margin_top = 100.0
-margin_right = 1800.0
-margin_bottom = 184.0
-columns = 6
+margin_left = -861.282
+margin_top = 137.0
+margin_right = 838.718
+margin_bottom = 243.0
+rect_scale = Vector2( 1, 0.9 )
+columns = 7
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRect" parent="." instance=ExtResource( 1 )]
+margin_right = 239.0
+margin_bottom = 106.0
 texture_normal = ExtResource( 3 )
 action = "nothing"
 
@@ -33,10 +38,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -51.2245
-margin_top = -62.8017
-margin_right = 256.775
-margin_bottom = 37.1983
+margin_left = -59.8352
+margin_top = -65.1801
+margin_right = 248.165
+margin_bottom = 34.8199
 rect_scale = Vector2( 0.6, 0.6 )
 columns = 3
 __meta__ = {
@@ -105,33 +110,50 @@ __meta__ = {
 }
 
 [node name="TextureRect2" parent="." instance=ExtResource( 1 )]
-margin_left = 284.0
-margin_right = 564.0
+margin_left = 243.0
+margin_right = 482.0
+margin_bottom = 106.0
 texture_normal = ExtResource( 7 )
 action = "nothing"
 
 [node name="TextureRect3" parent="." instance=ExtResource( 1 )]
-margin_left = 568.0
-margin_right = 848.0
+margin_left = 486.0
+margin_right = 725.0
+margin_bottom = 106.0
 texture_normal = ExtResource( 2 )
 action = "archive"
 
 [node name="TextureRect4" parent="." instance=ExtResource( 1 )]
-margin_left = 852.0
-margin_right = 1132.0
+margin_left = 729.0
+margin_right = 968.0
+margin_bottom = 106.0
 texture_normal = ExtResource( 6 )
 action = "pick"
 
 [node name="TextureRect5" parent="." instance=ExtResource( 1 )]
-margin_left = 1136.0
-margin_right = 1416.0
+margin_left = 972.0
+margin_right = 1211.0
+margin_bottom = 106.0
 texture_normal = ExtResource( 4 )
 action = "build"
 
 [node name="TextureRect6" parent="." instance=ExtResource( 1 )]
-margin_left = 1420.0
-margin_right = 1700.0
+margin_left = 1215.0
+margin_right = 1454.0
+margin_bottom = 106.0
 texture_normal = ExtResource( 5 )
 action = "research"
 
+[node name="TextureRect7" parent="." instance=ExtResource( 1 )]
+margin_left = 1458.0
+margin_right = 1697.0
+margin_bottom = 106.0
+texture_normal = ExtResource( 10 )
+action = "nothing"
+
+[node name="ColorRect" parent="TextureRect7" index="0"]
+color = Color( 0.313726, 0.231373, 0.231373, 1 )
+
 [editable path="TextureRect"]
+
+[editable path="TextureRect7"]

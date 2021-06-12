@@ -23,6 +23,9 @@ const YELLOW = 1
 const BLUE = 2
 const BLACK = 3
 
+const MAX_DISPENSER = 13
+const MAX_ENERGY_ROW = 6
+
 # Functions
 
 # Called when the node enters the scene tree for the first time.
@@ -32,6 +35,7 @@ func _ready():
 	active_player = game.get_node("Player1")
 	node_energy_row = game.get_node("EnergyRow")
 	init_energy_dispenser_row()
+
 
 # TODO: Remove some cards from tier3 at the beginning of game
 func set_deck():
@@ -45,6 +49,7 @@ func set_deck():
 			it += 1
 
 
+# Fills all tier decks with cards from tier_decks
 func fill_all():
 	randomize()
 	for i in range (0, 3):
@@ -63,16 +68,38 @@ func fill_tier_deck(tier : int, count : int):
 		size += 1
 
 
+func get_energy_row_count():
+	var sum = 0
+	for count in energy_row:
+		sum += count
+	return sum
+
+
 func init_energy_dispenser_row():
 	energy_dispenser = []
 	energy_row = [0, 0, 0, 0]
-	for _i in range(13):
+	for _i in range(MAX_DISPENSER):
 		energy_dispenser.append(RED)
 		energy_dispenser.append(YELLOW)
 		energy_dispenser.append(BLUE)
 		energy_dispenser.append(BLACK)
-	for _i in range(6):
-		var rand_energy = energy_dispenser[randi() % energy_dispenser.size()]
-		energy_row[rand_energy] += 1
-		energy_dispenser.erase(rand_energy)
+	restock_energy_row()
+
+
+func rand_from_dispenser():
+	var dispenser_size = energy_dispenser.size()
+	if dispenser_size == 0:
+		print("Dispenser is empty")
+		return
+	var rand_energy = energy_dispenser[randi() % dispenser_size]
+	energy_dispenser.erase(rand_energy)
 	node_energy_row.update_energy_counters(energy_row)
+	return rand_energy
+
+
+# !Not treating case where dispenser is empty
+func restock_energy_row():
+	while get_energy_row_count() != MAX_ENERGY_ROW:
+		var rand_energy = rand_from_dispenser()
+		energy_row[rand_energy] += 1
+		node_energy_row.update_energy_counters(energy_row)

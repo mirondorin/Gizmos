@@ -14,6 +14,7 @@ func give_energy(player : Player, energy_type : int):
 			player.update_energy_counters()
 			GameManager.energy_row[energy_type] -= 1
 			decrement_counter()
+			GameManager.restock_energy_row()
 			print(player.name + "'s energy ", player.stats['energy'])
 		else:
 			print(player.name + " does not have enough energy capacity")

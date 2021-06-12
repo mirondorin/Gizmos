@@ -24,11 +24,11 @@ __meta__ = {
 [node name="GridTier1" type="GridContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -240.0
-margin_top = 178.0
-margin_right = 240.0
-margin_bottom = 242.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = -372.0
+margin_top = 528.0
+margin_right = 108.0
+margin_bottom = 592.0
+rect_scale = Vector2( 0.6, 0.6 )
 columns = 4
 __meta__ = {
 "_edit_use_anchors_": false
@@ -37,11 +37,11 @@ __meta__ = {
 [node name="GridTier2" type="GridContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -240.0
-margin_top = 104.0
-margin_right = 240.0
-margin_bottom = 168.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = -372.0
+margin_top = 443.0
+margin_right = 108.0
+margin_bottom = 507.0
+rect_scale = Vector2( 0.6, 0.6 )
 columns = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -50,11 +50,11 @@ __meta__ = {
 [node name="GridTier3" type="GridContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -240.0
-margin_top = 30.0
-margin_right = 240.0
-margin_bottom = 94.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = -372.0
+margin_top = 363.0
+margin_right = 108.0
+margin_bottom = 427.0
+rect_scale = Vector2( 0.6, 0.6 )
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -64,4 +64,6 @@ __meta__ = {
 
 [node name="EnergyRow" parent="." instance=ExtResource( 3 )]
 margin_left = -385.674
+margin_top = 41.8041
 margin_right = -77.674
+margin_bottom = 115.804
