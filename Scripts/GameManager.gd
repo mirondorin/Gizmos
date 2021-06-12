@@ -1,16 +1,37 @@
 extends Node
 
 onready var game = get_node('/root/Game/')
+
+# Variables
+
 var _deck_object = Deck.new()
 var deck = _deck_object.deck
 var tier_decks = [[], [], []]
 var revealed_cards = [[], [], []]
+var energy_dispenser# 13 for each energy type
+var energy_row # 6 energy always available 
+var node_energy_row
+var players
+var active_player # indicates whose turn it is
+var current_state
+
+# Constants
+
+# Energy type codes
+const RED = 0
+const YELLOW = 1
+const BLUE = 2
+const BLACK = 3
+
+# Functions
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_deck()
 	fill_all()
-
+	active_player = game.get_node("Player1")
+	node_energy_row = game.get_node("EnergyRow")
+	init_energy_dispenser_row()
 
 # TODO: Remove some cards from tier3 at the beginning of game
 func set_deck():
@@ -40,3 +61,18 @@ func fill_tier_deck(tier : int, count : int):
 		game.get_node('GridTier' + str(tier + 1)).add_child(rand_card)
 		revealed_cards[tier].push_back(rand_card_id)
 		size += 1
+
+
+func init_energy_dispenser_row():
+	energy_dispenser = []
+	energy_row = [0, 0, 0, 0]
+	for _i in range(13):
+		energy_dispenser.append(RED)
+		energy_dispenser.append(YELLOW)
+		energy_dispenser.append(BLUE)
+		energy_dispenser.append(BLACK)
+	for _i in range(6):
+		var rand_energy = energy_dispenser[randi() % energy_dispenser.size()]
+		energy_row[rand_energy] += 1
+		energy_dispenser.erase(rand_energy)
+	node_energy_row.update_counters(energy_row)

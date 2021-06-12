@@ -1,0 +1,93 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/ActionButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/ArchiveIcon.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UpgradeIcon.png" type="Texture" id=3]
+[ext_resource path="res://Assets/BuildIcon.png" type="Texture" id=4]
+[ext_resource path="res://Assets/research.png" type="Texture" id=5]
+[ext_resource path="res://Assets/PickIcon.png" type="Texture" id=6]
+[ext_resource path="res://Assets/ConvertIcon.png" type="Texture" id=7]
+[ext_resource path="res://Assets/ResearchCap.png" type="Texture" id=8]
+[ext_resource path="res://Assets/EnergyCap.png" type="Texture" id=9]
+[ext_resource path="res://Assets/ArchiveCap.png" type="Texture" id=10]
+
+[node name="PlayerBoard" type="GridContainer"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 1800.0
+margin_bottom = 184.0
+columns = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" parent="." instance=ExtResource( 1 )]
+texture_normal = ExtResource( 3 )
+action = "nothing"
+
+[node name="UpgradeContainer" type="GridContainer" parent="TextureRect"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -19.1884
+margin_top = -52.123
+margin_right = 288.812
+margin_bottom = 47.877
+rect_scale = Vector2( 0.5, 0.5 )
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/UpgradeContainer"]
+margin_right = 100.0
+margin_bottom = 100.0
+size_flags_horizontal = 2
+texture = ExtResource( 9 )
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/UpgradeContainer"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 100.0
+texture = ExtResource( 10 )
+
+[node name="TextureRect3" type="TextureRect" parent="TextureRect/UpgradeContainer"]
+margin_left = 208.0
+margin_right = 308.0
+margin_bottom = 100.0
+texture = ExtResource( 8 )
+
+[node name="TextureRect2" parent="." instance=ExtResource( 1 )]
+margin_left = 284.0
+margin_right = 564.0
+texture_normal = ExtResource( 7 )
+action = "nothing"
+
+[node name="TextureRect3" parent="." instance=ExtResource( 1 )]
+margin_left = 568.0
+margin_right = 848.0
+texture_normal = ExtResource( 2 )
+action = "archive"
+
+[node name="TextureRect4" parent="." instance=ExtResource( 1 )]
+margin_left = 852.0
+margin_right = 1132.0
+texture_normal = ExtResource( 6 )
+action = "pick"
+
+[node name="TextureRect5" parent="." instance=ExtResource( 1 )]
+margin_left = 1136.0
+margin_right = 1416.0
+texture_normal = ExtResource( 4 )
+action = "build"
+
+[node name="TextureRect6" parent="." instance=ExtResource( 1 )]
+margin_left = 1420.0
+margin_right = 1700.0
+texture_normal = ExtResource( 5 )
+action = "research"
+
+[editable path="TextureRect"]
