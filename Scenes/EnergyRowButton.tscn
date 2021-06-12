@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/EnergyButton.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=2]
 
 [node name="EnergyButton" type="TextureButton"]
 anchor_right = 1.0
@@ -13,13 +14,13 @@ __meta__ = {
 }
 
 [node name="Counter" type="Label" parent="."]
-anchor_left = 0.5
+anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -4.0
-margin_top = -14.0
-margin_right = 4.0
+margin_left = -17.0
+margin_top = -42.0
+custom_fonts/font = ExtResource( 2 )
 text = "0"
 __meta__ = {
 "_edit_use_anchors_": false

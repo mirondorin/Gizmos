@@ -75,4 +75,4 @@ func init_energy_dispenser_row():
 		var rand_energy = energy_dispenser[randi() % energy_dispenser.size()]
 		energy_row[rand_energy] += 1
 		energy_dispenser.erase(rand_energy)
-	node_energy_row.update_counters(energy_row)
+	node_energy_row.update_energy_counters(energy_row)

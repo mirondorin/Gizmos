@@ -7,10 +7,11 @@ func _on_Control_pressed():
 		give_energy(GameManager.active_player, type)
 
 
-func give_energy(player, energy_type):
+func give_energy(player : Player, energy_type : int):
 	if GameManager.energy_row[energy_type] > 0:
 		if player.get_energy_count() < player.stats['max_energy']:
 			player.stats['energy'][energy_type] += 1
+			player.update_energy_counters()
 			GameManager.energy_row[energy_type] -= 1
 			decrement_counter()
 			print(player.name + "'s energy ", player.stats['energy'])

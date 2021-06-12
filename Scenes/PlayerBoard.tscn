@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/ActionButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/ArchiveIcon.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Assets/ResearchCap.png" type="Texture" id=8]
 [ext_resource path="res://Assets/EnergyCap.png" type="Texture" id=9]
 [ext_resource path="res://Assets/ArchiveCap.png" type="Texture" id=10]
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=11]
 
 [node name="PlayerBoard" type="GridContainer"]
 anchor_top = 0.5
@@ -32,11 +33,11 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -19.1884
-margin_top = -52.123
-margin_right = 288.812
-margin_bottom = 47.877
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = -51.2245
+margin_top = -62.8017
+margin_right = 256.775
+margin_bottom = 37.1983
+rect_scale = Vector2( 0.6, 0.6 )
 columns = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -48,17 +49,60 @@ margin_bottom = 100.0
 size_flags_horizontal = 2
 texture = ExtResource( 9 )
 
+[node name="Label" type="Label" parent="TextureRect/UpgradeContainer/TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.5
+margin_top = -21.0
+margin_right = 8.5
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 11 )
+text = "5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TextureRect2" type="TextureRect" parent="TextureRect/UpgradeContainer"]
 margin_left = 104.0
 margin_right = 204.0
 margin_bottom = 100.0
 texture = ExtResource( 10 )
 
+[node name="Label" type="Label" parent="TextureRect/UpgradeContainer/TextureRect2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.5
+margin_top = -18.6216
+margin_right = 8.5
+margin_bottom = 23.3784
+custom_fonts/font = ExtResource( 11 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TextureRect3" type="TextureRect" parent="TextureRect/UpgradeContainer"]
 margin_left = 208.0
 margin_right = 308.0
 margin_bottom = 100.0
 texture = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="TextureRect/UpgradeContainer/TextureRect3"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 1.60828
+margin_top = 21.4058
+margin_right = 18.6083
+margin_bottom = 63.4058
+custom_fonts/font = ExtResource( 11 )
+text = "3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextureRect2" parent="." instance=ExtResource( 1 )]
 margin_left = 284.0

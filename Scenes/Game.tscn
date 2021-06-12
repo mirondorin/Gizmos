@@ -63,3 +63,5 @@ __meta__ = {
 [node name="Player1" parent="." instance=ExtResource( 2 )]
 
 [node name="EnergyRow" parent="." instance=ExtResource( 3 )]
+margin_left = -385.674
+margin_right = -77.674

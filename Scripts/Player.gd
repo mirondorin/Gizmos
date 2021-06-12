@@ -1,5 +1,7 @@
 extends Node
 
+class_name Player
+
 var stats = {
 	"max_energy": 5,
 	"max_archive": 1,
@@ -10,9 +12,14 @@ var stats = {
 }
 var used_action = false
 
+
 func get_energy_count():
 	var sum = 0
 	for count in stats['energy']:
 		sum += count
 	print(self.name + "'s energy count is ", sum)
 	return sum
+
+
+func update_energy_counters():
+	$PlayerEnergy.update_energy_counters(stats['energy'])
