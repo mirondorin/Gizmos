@@ -23,3 +23,8 @@ func get_energy_count():
 
 func update_energy_counters():
 	$PlayerEnergy.update_energy_counters(stats['energy'])
+
+
+func _on_EndBtn_button_up():
+	$EndBtn.visible = false
+	GameManager.end_turn()

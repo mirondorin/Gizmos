@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/PlayerBoard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/PlayerEnergy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=7]
 
 [node name="Player" type="Control"]
@@ -18,3 +19,15 @@ __meta__ = {
 [node name="PlayerEnergy" parent="." instance=ExtResource( 2 )]
 margin_top = 41.804
 margin_bottom = 115.804
+
+[node name="EndBtn" type="Button" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -83.5
+margin_top = 41.2724
+margin_right = 83.5
+margin_bottom = 89.2724
+custom_fonts/font = ExtResource( 3 )
+text = "END TURN"
+[connection signal="button_up" from="EndBtn" to="." method="_on_EndBtn_button_up"]

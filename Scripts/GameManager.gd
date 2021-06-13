@@ -96,6 +96,7 @@ func finished_action():
 	if active_player.using_action == true:
 		active_player.using_action = false
 		active_player.used_action = true
+		active_player.get_node("EndBtn").visible = true
 
 func get_energy_row_count():
 	var sum = 0
@@ -132,3 +133,23 @@ func restock_energy_row():
 		var rand_energy = rand_from_dispenser()
 		energy_row[rand_energy] += 1
 		node_energy_row.update_energy_counters(energy_row)
+
+
+func reset_action_status(plyr : Player):
+	plyr.used_action = false
+	plyr.using_action = false
+
+
+func get_next_player():
+	var player_nr = (int(active_player.name) + 1) % (players_count + 1)
+	if player_nr == 0:
+		player_nr += 1
+	return "Player" + str(player_nr)
+
+
+func end_turn():
+	active_player.visible = false
+	reset_action_status(active_player)
+	var next_player = get_next_player()
+	active_player = game.get_node('Players/' + next_player)
+	active_player.visible = true
