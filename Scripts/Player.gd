@@ -4,7 +4,7 @@ class_name Player
 
 var stats = {
 	"max_energy": 5,
-	"max_archive": 1,
+	"max_archive": 2,
 	"max_research": 3,
 	"energy": [0, 0, 0, 0],
 	"archive": [],
@@ -28,3 +28,7 @@ func update_energy_counters():
 func _on_EndBtn_button_up():
 	$EndBtn.visible = false
 	GameManager.end_turn()
+
+
+func card_to_container(card, id : int):
+	get_node("ScrollContainer" + str(id) + "/VBoxContainer").add_child(card)
