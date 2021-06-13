@@ -60,10 +60,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Players" type="Node" parent="."]
+
 [node name="Player1" parent="." instance=ExtResource( 2 )]
+
+[node name="PlayerBoard" parent="Player1" index="0"]
+visible = false
+
+[node name="PlayerEnergy" parent="Player1" index="1"]
+visible = false
 
 [node name="EnergyRow" parent="." instance=ExtResource( 3 )]
 margin_left = -385.674
 margin_top = 41.8041
 margin_right = -77.674
 margin_bottom = 115.804
+
+[editable path="Player1"]

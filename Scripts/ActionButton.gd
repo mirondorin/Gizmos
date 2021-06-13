@@ -14,6 +14,14 @@ func _on_TextureRect_pressed():
 			build()
 		"research":
 			research()
+		_:
+			GameManager.current_state = "nothing"
+
+	if action != "nothing":
+		GameManager.active_player.using_action = true
+	else:
+		GameManager.active_player.using_action = false
+#	print(GameManager.active_player.using_action)
 
 
 func archive():

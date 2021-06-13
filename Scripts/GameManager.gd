@@ -8,10 +8,11 @@ var _deck_object = Deck.new()
 var deck = _deck_object.deck
 var tier_decks = [[], [], []]
 var revealed_cards = [[], [], []]
-var energy_dispenser# 13 for each energy type
-var energy_row # 6 energy always available 
+var energy_dispenser
+var energy_row
 var node_energy_row
-var players
+var player = preload("res://Scenes/Player.tscn")
+var players_count = 2
 var active_player # indicates whose turn it is
 var current_state
 
@@ -32,7 +33,7 @@ const MAX_ENERGY_ROW = 6
 func _ready():
 	set_deck()
 	fill_all()
-	active_player = game.get_node("Player1")
+	instance_players()
 	node_energy_row = game.get_node("EnergyRow")
 	init_energy_dispenser_row()
 
@@ -67,6 +68,34 @@ func fill_tier_deck(tier : int, count : int):
 		revealed_cards[tier].push_back(rand_card_id)
 		size += 1
 
+
+func get_all_nodes(node):
+	for N in node.get_children():
+		if N.get_child_count() > 0:
+			print("["+N.get_name()+"]")
+			get_all_nodes(N)
+		else:
+			# Do something
+			print("- "+N.get_name())
+
+
+func instance_players():
+	for _i in range(players_count):
+		var new_player = player.instance()
+		new_player.name = "Player" + str(_i + 1)
+		new_player.visible = false
+		game.get_node('Players').add_child(new_player)
+	active_player = game.get_node('Players/Player1')
+	active_player.visible = true
+#	var test = game.get_node('Players')
+#	get_all_nodes(test)
+
+
+# Sets used_action to true if action finalized using action button
+func finished_action():
+	if active_player.using_action == true:
+		active_player.using_action = false
+		active_player.used_action = true
 
 func get_energy_row_count():
 	var sum = 0

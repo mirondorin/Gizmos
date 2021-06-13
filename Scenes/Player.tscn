@@ -4,8 +4,14 @@
 [ext_resource path="res://Scenes/PlayerEnergy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=7]
 
-[node name="Player" type="Node"]
+[node name="Player" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PlayerBoard" parent="." instance=ExtResource( 1 )]
 

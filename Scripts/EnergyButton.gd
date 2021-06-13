@@ -8,18 +8,23 @@ func _on_Control_pressed():
 
 
 func give_energy(player : Player, energy_type : int):
-	if GameManager.energy_row[energy_type] > 0:
-		if player.get_energy_count() < player.stats['max_energy']:
-			player.stats['energy'][energy_type] += 1
-			player.update_energy_counters()
-			GameManager.energy_row[energy_type] -= 1
-			decrement_counter()
-			GameManager.restock_energy_row()
-			print(player.name + "'s energy ", player.stats['energy'])
+	# Need to add 'OR' condition in case gizmos was used to take energy
+	if GameManager.active_player.used_action == false:
+		if GameManager.energy_row[energy_type] > 0:
+			if player.get_energy_count() < player.stats['max_energy']:
+				player.stats['energy'][energy_type] += 1
+				player.update_energy_counters()
+				GameManager.energy_row[energy_type] -= 1
+				decrement_counter()
+				GameManager.restock_energy_row()
+				GameManager.finished_action()
+				print(player.name + "'s energy ", player.stats['energy'])
+			else:
+				print(player.name + " does not have enough energy capacity")
 		else:
-			print(player.name + " does not have enough energy capacity")
+			print("No more energy of this type")
 	else:
-		print("No more energy of this type")
+		print("Player already used action")
 
 
 func decrement_counter():

@@ -11,7 +11,7 @@ var stats = {
 	"gizmos": []
 }
 var used_action = false
-
+var using_action = false
 
 func get_energy_count():
 	var sum = 0
