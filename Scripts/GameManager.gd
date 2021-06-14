@@ -31,6 +31,7 @@ const MAX_ENERGY_ROW = 6
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	set_deck()
 	fill_all()
 	instance_players()
@@ -52,7 +53,6 @@ func set_deck():
 
 # Fills all tier decks with cards from tier_decks
 func fill_all():
-	randomize()
 	for i in range (0, 3):
 		fill_tier_deck(i, 5 - (i + 1))
 
@@ -62,10 +62,10 @@ func fill_tier_deck(tier : int, count : int):
 	while size < count:
 		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
 		tier_decks[tier].erase(rand_card_id)
+		revealed_cards[tier].push_back(rand_card_id)
 		rand_card_id = rand_card_id + 36 * tier
 		var rand_card = Card.new(deck[str(rand_card_id)])
 		game.get_node('GridTier' + str(tier + 1)).add_child(rand_card)
-		revealed_cards[tier].push_back(rand_card_id)
 		size += 1
 
 
@@ -102,6 +102,15 @@ func get_energy_row_count():
 	for count in energy_row:
 		sum += count
 	return sum
+
+
+func add_to_energy_row(energy_arr):
+	for energy_type in range(0, 4):
+		var count = energy_arr[energy_type]
+		for _i in range (0, count):
+			energy_dispenser.append(energy_type)
+	restock_energy_row()
+	node_energy_row.update_energy_counters(energy_row)
 
 
 func init_energy_dispenser_row():
@@ -154,10 +163,28 @@ func end_turn():
 	active_player.visible = true
 
 
-# TODO come up with a system to place card to their container
-func give_card(card : Card, player : Player):
+func remove_revealed_card(card : Card):
+	var tier = card.card_info['tier'] - 1
+	var id = card.card_info['id']
+	revealed_cards[tier].erase(id)
+	print("After removing card ", revealed_cards)
+
+# Could add some flags to know what color the building was
+# TODO add energy back to dispenser
+func player_built():
+	active_player.update_energy_counters()
+	
+
+func give_card(card : Card, player : Player, type : int):
 	var card_parent = card.get_parent()
 	card_parent.remove_child(card)
-	player.card_to_container(card, 7)
+	remove_revealed_card(card)
+	player.card_to_container(card, type)
+	fill_all()
+	
+	if current_state == 'build':
+		player_built()
+	
 	if player.using_action == true:
 		finished_action()
+	

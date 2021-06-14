@@ -2,7 +2,7 @@ extends Node
 
 class_name Deck
 
-var deck_path = "res://Deck/new_json.json"
+var deck_path = "res://Deck/deck_json.json"
 var deck
 var deck_json
 

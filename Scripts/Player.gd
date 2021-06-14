@@ -4,7 +4,7 @@ class_name Player
 
 var stats = {
 	"max_energy": 5,
-	"max_archive": 2,
+	"max_archive": 1,
 	"max_research": 3,
 	"energy": [0, 0, 0, 0],
 	"archive": [],
