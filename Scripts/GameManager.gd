@@ -65,7 +65,7 @@ func fill_tier_deck(tier : int, count : int):
 		revealed_cards[tier].push_back(rand_card_id)
 		rand_card_id = rand_card_id + 36 * tier
 		var rand_card = Card.new(deck[str(rand_card_id)])
-		game.get_node('GridTier' + str(tier + 1)).add_child(rand_card)
+		game.get_node('Container/GridTier' + str(tier + 1)).add_child(rand_card)
 		size += 1
 
 
@@ -96,6 +96,7 @@ func finished_action():
 		active_player.using_action = false
 		active_player.used_action = true
 		active_player.get_node("EndBtn").visible = true
+
 
 func get_energy_row_count():
 	var sum = 0
@@ -163,28 +164,42 @@ func end_turn():
 	active_player.visible = true
 
 
-func remove_revealed_card(card : Card):
+# arr HAS TO BE revealed_cards or tier_decks
+func remove_card(card : Card, arr):
 	var tier = card.card_info['tier'] - 1
 	var id = card.card_info['id']
-	revealed_cards[tier].erase(id)
-	print("After removing card ", revealed_cards)
+#	print("Before removing card ", arr)
+	arr[tier].erase(id)
+#	print("After removing card ", arr)
 
-# Could add some flags to know what color the building was
-# TODO add energy back to dispenser
+
+# Add some flags to know color of built gizmos in that turn
 func player_built():
-	active_player.update_energy_counters()
+	pass
 	
 
 func give_card(card : Card, player : Player, type : int):
 	var card_parent = card.get_parent()
 	card_parent.remove_child(card)
-	remove_revealed_card(card)
+	match current_state:
+		"build":
+			remove_card(card, revealed_cards)
+			player_built()
+		"research":
+			remove_card(card, tier_decks)
+
 	player.card_to_container(card, type)
-	fill_all()
-	
-	if current_state == 'build':
-		player_built()
-	
+	player.update_energy_counters()
 	if player.using_action == true:
-		finished_action()
-	
+			finished_action()
+	fill_all()
+
+
+func research(tier : int):
+	var research_tab = active_player.get_node("ResearchTab")
+	for _i in range(0, active_player.stats['max_research']):
+		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
+		rand_card_id = rand_card_id + 36 * tier
+		var rand_card = Card.new(deck[str(rand_card_id)])
+		research_tab.add_card(rand_card)
+	research_tab.visible = true

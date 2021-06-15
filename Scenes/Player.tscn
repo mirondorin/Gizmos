@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/PlayerBoard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/PlayerEnergy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scenes/ResearchTab.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/ResearchCap.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=7]
 
 [node name="Player" type="Control"]
@@ -142,4 +144,20 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer7"]
+
+[node name="ResearchTab" parent="." instance=ExtResource( 4 )]
+visible = false
+
+[node name="ResearchBtn" type="Button" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_bottom = 106.0
+rect_scale = Vector2( 0.6, 0.6 )
+icon = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="button_up" from="EndBtn" to="." method="_on_EndBtn_button_up"]
+[connection signal="pressed" from="ResearchBtn" to="." method="_on_ResearchBtn_pressed"]

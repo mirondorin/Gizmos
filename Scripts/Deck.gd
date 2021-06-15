@@ -6,6 +6,7 @@ var deck_path = "res://Deck/deck_json.json"
 var deck
 var deck_json
 
+
 func _init():
 	var deck_file = File.new()
 	deck_file.open(deck_path, File.READ)

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/TierDeck.gd" type="Script" id=2]
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=3]
+
+[node name="TierDeck" type="TextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1743.0
+margin_bottom = -902.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -42.0
+custom_fonts/font = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="." to="." method="_on_TierDeck_pressed"]

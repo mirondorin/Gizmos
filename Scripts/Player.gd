@@ -32,3 +32,12 @@ func _on_EndBtn_button_up():
 
 func card_to_container(card, id : int):
 	get_node("ScrollContainer" + str(id) + "/VBoxContainer").add_child(card)
+
+
+func _on_ResearchBtn_pressed():
+	$ResearchTab.visible = true
+	$ResearchBtn.visible = false
+
+
+func hide_research_tab():
+	$ResearchTab.visible = false

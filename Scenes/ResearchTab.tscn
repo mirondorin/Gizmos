@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Fonts/OpenSans14.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Scripts/ResearchTab.gd" type="Script" id=3]
+
+[node name="ResearchTab" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DarkBg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.352941 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResearchContainer" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -385.0
+margin_top = -221.5
+margin_right = 385.0
+margin_bottom = 221.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bg" type="ColorRect" parent="ResearchContainer"]
+margin_right = 770.0
+margin_bottom = 443.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ResearchContainer/Bg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -335.0
+margin_top = -191.5
+margin_right = 335.0
+margin_bottom = 191.5
+mouse_filter = 1
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="ResearchContainer/Bg/ScrollContainer"]
+columns = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResearchContainer"]
+margin_right = 770.0
+margin_bottom = 26.0
+size_flags_vertical = 0
+
+[node name="HideBtn" type="Button" parent="ResearchContainer/HBoxContainer"]
+margin_right = 383.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "HIDE"
+
+[node name="DoneBtn" type="Button" parent="ResearchContainer/HBoxContainer"]
+margin_left = 387.0
+margin_right = 770.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "DONE"
+[connection signal="pressed" from="ResearchContainer/HBoxContainer/HideBtn" to="." method="_on_HideBtn_pressed"]
+[connection signal="pressed" from="ResearchContainer/HBoxContainer/DoneBtn" to="." method="_on_DoneBtn_pressed"]
