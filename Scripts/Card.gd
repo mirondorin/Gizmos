@@ -5,6 +5,7 @@ class_name Card
 # Variables
 
 var card_info = {} # id, tier, cost, action, effect, type_id, vp
+var is_active
 var is_usable
 var face
 var back
@@ -22,18 +23,28 @@ func _init(var card_json):
 #	back = load("res://Assets/CardBack"+str(card_info['tier'])+".png")
 	set_normal_texture(face)
 	init_card_actions_container()
+	is_active = false
+	is_usable = false
 
 
 func _pressed():
-	get_card_info()
 	var action = GameManager.current_state
-	match action:
-		"archive":
-			archive(GameManager.active_player)
-		"build":
-			build(GameManager.active_player)
-		"research":
-			action_container.visible = true
+	get_card_info()
+	if is_active:
+		use_effect()
+	else:
+		match action:
+			"archive":
+				archive(GameManager.active_player)
+			"build":
+				build(GameManager.active_player)
+			"research":
+				action_container.visible = true
+
+
+func set_active():
+	is_active = true
+	is_usable = true
 
 
 func init_card_actions_container():
@@ -46,7 +57,8 @@ func init_card_actions_container():
 	
 
 func get_card_info():
-	print(card_info)
+#	print(card_info)
+	print("Usable, active ", is_usable, is_active)
 
 
 func get_deck_id():
@@ -60,6 +72,7 @@ func archive(player : Player) -> bool:
 			GameManager.give_card(self, player, ARCHIVE)
 			player.stats['archive'].append(get_deck_id())
 			action_container.visible = false
+			player.set_flag('archived', true)
 			return true
 		else:
 			print(player.name + " has no more archive space")
@@ -89,3 +102,23 @@ func build(player : Player) -> bool:
 	else:
 		print("Player already used action")
 		return false
+
+
+func use_effect():
+	if is_usable:
+		var condition_check = card_info['action'].split('(')[0]
+		if GameManager.active_player.call(condition_check):
+			var split = card_info['effect'].split('(')
+			var effect_func = split[0]
+			var param = split[1].split(')')[0]
+			
+			if param.is_valid_integer():
+				param = int(param)
+	#		print(effect_func)
+	#		print(param)
+			GameManager.call(effect_func, param)
+			is_usable = false
+		else:
+			print("Condition for effect was not met")
+	else:
+		print("Gizmos was already used")

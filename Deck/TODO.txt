@@ -1,3 +1,0 @@
-Cards from tier 1, 2 are not in the order of the gizmos_card_distribution.pdf (Need to change ids of cards)
-Fix card with id = 1 from tier 3. Has bad picture.
-Need to add new field in card json: victory points

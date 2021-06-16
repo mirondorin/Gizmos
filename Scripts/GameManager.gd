@@ -14,7 +14,7 @@ var energy_row
 var node_energy_row
 var player_scene = preload("res://Scenes/Player.tscn")
 var players_count = 2
-var active_player # indicates whose turn it is
+var active_player: Player # indicates whose turn it is
 var current_state
 
 # Constants
@@ -42,8 +42,8 @@ func _ready():
 
 
 # TODO: Remove some cards from tier3 at the beginning of game
-# Last card is start card
-func set_deck():
+# Last card from deck is start_card
+func set_deck() -> void:
 	if typeof(deck) == TYPE_DICTIONARY:
 		var it = 0
 		var deck_size = deck.size() - 1
@@ -55,13 +55,14 @@ func set_deck():
 		start_card = deck[str(it)]
 
 
-# Fills all tier decks with cards from tier_decks
-func fill_all():
+# Fills all revealed_cards with cards from tier_decks
+func fill_all() -> void:
 	for i in range (0, 3):
 		fill_tier_deck(i, 5 - (i + 1))
 
 
-func fill_tier_deck(tier : int, count : int):
+# Fills revealed_cards[tier] with count cards
+func fill_tier_deck(tier : int, count : int) -> void:
 	var size = revealed_cards[tier].size()
 	while size < count:
 		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
@@ -73,30 +74,23 @@ func fill_tier_deck(tier : int, count : int):
 		size += 1
 
 
-func get_all_nodes(node):
-	for N in node.get_children():
-		if N.get_child_count() > 0:
-			print("["+N.get_name()+"]")
-			get_all_nodes(N)
-		else:
-			# Do something
-			print("- "+N.get_name())
-
-
-func instance_players():
+# Create players_count instances of Player class and adds them to Game scene
+# Sets up Player1 as first active player
+func instance_players() -> void:
 	for _i in range(players_count):
 		var new_player = player_scene.instance()
 		new_player.name = "Player" + str(_i + 1)
 		new_player.visible = false
 		game.get_node('Players').add_child(new_player)
 		var start_card_instance = Card.new(start_card)
+		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 
 
 # Sets used_action to true if action finalized using action button
-func finished_action():
+func finished_action() -> void:
 	if active_player.using_action == true:
 		current_state = "nothing"
 		active_player.using_action = false
@@ -104,14 +98,40 @@ func finished_action():
 		active_player.get_node("EndBtn").visible = true
 
 
-func get_energy_row_count():
+# Used in end_turn for setting up next active player
+func get_next_player() -> String:
+	var player_nr = (int(active_player.name) + 1) % (players_count + 1)
+	if player_nr == 0:
+		player_nr += 1
+	return "Player" + str(player_nr)
+
+
+# Used in end_turn for reseting values of used_action and using_action 
+# for active_player
+func reset_action_status(player : Player) -> void:
+	player.used_action = false
+	player.using_action = false
+
+
+# Ends turn for active_player and gets next active_player
+func end_turn() -> void:
+	active_player.visible = false
+	reset_action_status(active_player)
+	var next_player = get_next_player()
+	active_player = game.get_node('Players/' + next_player)
+	active_player.visible = true
+
+
+# Returns total energy in energy_row
+func get_energy_row_count() -> int:
 	var sum = 0
 	for count in energy_row:
 		sum += count
 	return sum
 
 
-func add_to_energy_row(energy_arr):
+# Actually adds energy to energy_dispenser and then restocks energy_row
+func add_to_energy_row(energy_arr) -> void:
 	for energy_type in range(0, 4):
 		var count = energy_arr[energy_type]
 		for _i in range (0, count):
@@ -120,7 +140,8 @@ func add_to_energy_row(energy_arr):
 	node_energy_row.update_energy_counters(energy_row)
 
 
-func init_energy_dispenser_row():
+# Initializes energy_dispenser and energy_row
+func init_energy_dispenser_row() -> void:
 	energy_dispenser = []
 	energy_row = [0, 0, 0, 0]
 	for _i in range(MAX_DISPENSER):
@@ -131,6 +152,8 @@ func init_energy_dispenser_row():
 	restock_energy_row()
 
 
+# Removes energy from energy_dispenser and returns energy
+# Return value in range [0, 3]. Check above constants for energy type codes
 func rand_from_dispenser():
 	var dispenser_size = energy_dispenser.size()
 	if dispenser_size == 0:
@@ -138,7 +161,6 @@ func rand_from_dispenser():
 		return
 	var rand_energy = energy_dispenser[randi() % dispenser_size]
 	energy_dispenser.erase(rand_energy)
-	node_energy_row.update_energy_counters(energy_row)
 	return rand_energy
 
 
@@ -148,26 +170,6 @@ func restock_energy_row():
 		var rand_energy = rand_from_dispenser()
 		energy_row[rand_energy] += 1
 		node_energy_row.update_energy_counters(energy_row)
-
-
-func reset_action_status(player : Player):
-	player.used_action = false
-	player.using_action = false
-
-
-func get_next_player():
-	var player_nr = (int(active_player.name) + 1) % (players_count + 1)
-	if player_nr == 0:
-		player_nr += 1
-	return "Player" + str(player_nr)
-
-
-func end_turn():
-	active_player.visible = false
-	reset_action_status(active_player)
-	var next_player = get_next_player()
-	active_player = game.get_node('Players/' + next_player)
-	active_player.visible = true
 
 
 # arr HAS TO BE revealed_cards or tier_decks
@@ -188,6 +190,8 @@ func give_card(card : Card, player : Player, type : int):
 	var card_parent = card.get_parent()
 	card_parent.remove_child(card)
 	match current_state:
+		"archive":
+			remove_card(card, revealed_cards)
 		"build":
 			remove_card(card, revealed_cards)
 			player_built()
@@ -209,3 +213,26 @@ func research(tier : int):
 		var rand_card = Card.new(deck[str(rand_card_id)])
 		research_tab.add_card(rand_card)
 	research_tab.visible = true
+
+
+# Gives count random energy from energy_dispenser to active_player
+func give_rand_energy(count : int):
+	while count > 0:
+		if active_player.has_energy_space():
+			var energy_type = rand_from_dispenser()
+			active_player.stats['energy'][energy_type] += 1
+		else:
+			return
+		count -= 1
+	active_player.update_energy_counters()
+
+
+# For DEBUG only. Used to get tree list of all nodes in node
+#func get_all_nodes(node) -> void:
+#	for N in node.get_children():
+#		if N.get_child_count() > 0:
+#			print("["+N.get_name()+"]")
+#			get_all_nodes(N)
+#		else:
+#			# Do something
+#			print("- "+N.get_name())

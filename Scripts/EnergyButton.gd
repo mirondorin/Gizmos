@@ -11,7 +11,7 @@ func give_energy(player : Player, energy_type : int):
 	# Need to add 'OR' condition in case gizmos was used to take energy
 	if GameManager.active_player.used_action == false:
 		if GameManager.energy_row[energy_type] > 0:
-			if player.get_energy_count() < player.stats['max_energy']:
+			if player.has_energy_space():
 				player.stats['energy'][energy_type] += 1
 				player.update_energy_counters()
 				GameManager.energy_row[energy_type] -= 1

@@ -18,3 +18,14 @@ The cost of a card is considered to be paid if array looks like [0, 0, 0, 0]
 setBuildCost(tier, cost)
 reduceArchiveBuild(cost) - reduces building cost of gizmos from archive by cost
 reduceTierBuild([tier, cost]) - reduces building cost of buildings of tier, by cost
+
+---- FUNCTIONS THAT CHECK IF PLAYER HAS MET CERTAIN CONDITION ----
+# Checks if player archived this turn
+has_archived()
+# Checks if player picked energy of certain type this turn
+has_picked(arr) arr[i] in range [0,3] = type of energy. Max size of arr = 2
+# Check if player built building of certain type this turn 
+has_built(arr) arr[i] in range [0,3] = type of building. Max size of arr = 2
+# Checks if player has energy of type to convert
+has_energy(arr) arr[i] in range [0,3] = type of energy. Max size of arr = 2. I have no idea how to implement the 2 effect converters
+-------------------------------

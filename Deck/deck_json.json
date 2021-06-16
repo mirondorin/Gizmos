@@ -1520,8 +1520,8 @@
             0,
             0
         ],
-        "action": "archive",
-        "effect": "pick(?)",
+        "action": "has_archived()",
+        "effect": "give_rand_energy(1)",
         "type_id": 3, 
         "vp": 0
     }
