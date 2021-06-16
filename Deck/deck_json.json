@@ -1510,5 +1510,19 @@
         "effect": "upgrade(4, 0, 0)",
         "type_id": 1,
         "vp": 4
+    },
+    "108": {
+        "id": 0,
+        "tier": 0,
+        "cost": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "action": "archive",
+        "effect": "pick(?)",
+        "type_id": 3, 
+        "vp": 0
     }
 }

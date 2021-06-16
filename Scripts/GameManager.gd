@@ -6,6 +6,7 @@ onready var game = get_node('/root/Game/')
 
 var _deck_object = Deck.new()
 var deck = _deck_object.deck
+var start_card
 var tier_decks = [[], [], []]
 var revealed_cards = [[], [], []]
 var energy_dispenser
@@ -27,6 +28,7 @@ const BLACK = 3
 const MAX_DISPENSER = 13
 const MAX_ENERGY_ROW = 6
 
+const ARCHIVE_CARD = 3
 # Functions
 
 # Called when the node enters the scene tree for the first time.
@@ -40,15 +42,17 @@ func _ready():
 
 
 # TODO: Remove some cards from tier3 at the beginning of game
+# Last card is start card
 func set_deck():
 	if typeof(deck) == TYPE_DICTIONARY:
 		var it = 0
-		var deck_size = deck.size()
+		var deck_size = deck.size() - 1
 		while it < deck_size:
 			var card_json = deck[str(it)]
 			var card_tier = card_json['tier']
 			tier_decks[card_tier - 1].append(card_json['id'])
 			it += 1
+		start_card = deck[str(it)]
 
 
 # Fills all tier decks with cards from tier_decks
@@ -85,6 +89,8 @@ func instance_players():
 		new_player.name = "Player" + str(_i + 1)
 		new_player.visible = false
 		game.get_node('Players').add_child(new_player)
+		var start_card_instance = Card.new(start_card)
+		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 
