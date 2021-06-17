@@ -37,6 +37,7 @@ run/main_scene="res://Scenes/Game.tscn"
 
 [autoload]
 
+Utils="*res://Scripts/Utils.gd"
 GameManager="*res://Scripts/GameManager.gd"
 
 [display]

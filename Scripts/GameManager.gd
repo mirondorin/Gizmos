@@ -85,17 +85,29 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
+		give_test_card(0, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 
 
+# Has to be id from JSON
+func give_test_card(id : int, player : Player) -> void:
+	var card = Card.new(deck[str(id)])
+	card.is_usable = true
+	card.is_active = true
+	player.card_to_container(card, ARCHIVE_CARD)
+
+
 # Sets used_action to true if action finalized using action button
-func finished_action() -> void:
+# Returns true if action was just used. False otherwise
+func finished_action() -> bool:
 	if active_player.using_action == true:
 		current_state = "nothing"
 		active_player.using_action = false
 		active_player.used_action = true
 		active_player.get_node("EndBtn").visible = true
+		return true
+	return false
 
 
 # Used in end_turn for setting up next active player
@@ -108,15 +120,15 @@ func get_next_player() -> String:
 
 # Used in end_turn for reseting values of used_action and using_action 
 # for active_player
-func reset_action_status(player : Player) -> void:
-	player.used_action = false
-	player.using_action = false
+func reset_action_status() -> void:
+	active_player.used_action = false
+	active_player.using_action = false
 
 
 # Ends turn for active_player and gets next active_player
 func end_turn() -> void:
 	active_player.visible = false
-	reset_action_status(active_player)
+	reset_action_status()
 	var next_player = get_next_player()
 	active_player = game.get_node('Players/' + next_player)
 	active_player.visible = true
@@ -225,6 +237,22 @@ func give_rand_energy(count : int):
 			return
 		count -= 1
 	active_player.update_energy_counters()
+
+
+# params HAS TO BE array
+# params[0] has value in free_action_code from Utils script
+# params[1] is the amount of free actions player will get
+func add_free_action(params):
+#	print("params[0] ", params[0])
+#	print("params[1] ", params[1])
+	var action = Utils.free_action_code[params[0]]
+	active_player.free_action[action] += params[1]
+	print(active_player.free_action)
+
+
+# Remove one free_action of type action from active player
+func dec_free_action(action: String):
+	active_player.free_action[action] -= 1
 
 
 # For DEBUG only. Used to get tree list of all nodes in node

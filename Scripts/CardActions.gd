@@ -6,6 +6,7 @@ func _on_ArchiveBtn_pressed():
 	if archive_succ:
 		self.visible = false
 		GameManager.active_player.hide_research_tab()
+		GameManager.active_player.get_node("ResearchTab").clear_cards()
 
 
 func _on_BuildBtn_pressed():
@@ -13,6 +14,7 @@ func _on_BuildBtn_pressed():
 	if build_succ:
 		self.visible = false
 		GameManager.active_player.hide_research_tab()
+		GameManager.active_player.get_node("ResearchTab").clear_cards()
 
 
 func _on_HideBtn_pressed():

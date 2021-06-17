@@ -8,8 +8,8 @@
             0,
             0
         ],
-        "action": "archive",
-        "effect": "pick(X)",
+        "action": "has_archived()",
+        "effect": "add_free_action([1, 1])",
         "type_id": 3,
         "vp": 1
     },
@@ -22,7 +22,7 @@
             0,
             0
         ],
-        "action": "archive",
+        "action": "has_archived()",
         "effect": "pick(X)",
         "type_id": 3,
         "vp": 1
@@ -36,7 +36,7 @@
             1,
             0
         ],
-        "action": "archive",
+        "action": "has_archived()",
         "effect": "pick(X)",
         "type_id": 3,
         "vp": 1
@@ -50,7 +50,7 @@
             0,
             1
         ],
-        "action": "archive",
+        "action": "has_archived()",
         "effect": "pick(X)",
         "type_id": 3,
         "vp": 1
@@ -65,7 +65,7 @@
             0
         ],
         "action": "pick(U)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 1
     },
@@ -79,7 +79,7 @@
             0
         ],
         "action": "pick(R)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 1
     },
@@ -93,7 +93,7 @@
             0
         ],
         "action": "pick(B)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 1
     },
@@ -107,7 +107,7 @@
             1
         ],
         "action": "pick(Y)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 1
     },
@@ -121,7 +121,7 @@
             0
         ],
         "action": "pick(Y)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 1
     },
@@ -135,7 +135,7 @@
             0
         ],
         "action": "pick(B)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 1
     },
@@ -149,7 +149,7 @@
             0
         ],
         "action": "pick(R)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 1
     },
@@ -163,7 +163,7 @@
             1
         ],
         "action": "pick(U)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 1
     },
@@ -513,7 +513,7 @@
             0
         ],
         "action": "pick(U/B)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 2
     },
@@ -527,7 +527,7 @@
             0
         ],
         "action": "pick(R/U)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 2
     },
@@ -541,7 +541,7 @@
             0
         ],
         "action": "pick(Y/B)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 2
     },
@@ -555,7 +555,7 @@
             2
         ],
         "action": "pick(Y/R)",
-        "effect": "pick(?)",
+        "effect": "give_rand_energy(1)",
         "type_id": 4,
         "vp": 2
     },
@@ -1128,7 +1128,7 @@
             0,
             0
         ],
-        "action": "archive",
+        "action": "has_archived()",
         "effect": "getVP(1)",
         "type_id": 3,
         "vp": 4
@@ -1156,7 +1156,7 @@
             0,
             4
         ],
-        "action": "archive",
+        "action": "has_archived()",
         "effect": "getVP(1)",
         "type_id": 3,
         "vp": 4
@@ -1170,8 +1170,8 @@
             0,
             0
         ],
-        "action": "archive",
-        "effect": "pick(?, ?, ?)",
+        "action": "has_archived()",
+        "effect": "give_rand_energy(3)",
         "type_id": 3,
         "vp": 4
     },
@@ -1184,8 +1184,8 @@
             4,
             0
         ],
-        "action": "archive",
-        "effect": "pick(?, ?, ?)",
+        "action": "has_archived()",
+        "effect": "give_rand_energy(3)",
         "type_id": 3,
         "vp": 4
     },

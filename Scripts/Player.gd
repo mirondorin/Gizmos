@@ -13,11 +13,17 @@ var stats = {
 var flags = {
 	"archived": false
 }
+var free_action = {
+	"archive": 0,
+	"pick" : 0,
+	"build": 0,
+	"research": 0
+}
 var used_action = false
 var using_action = false
 
 
-# Returns energy total of player
+# Returns total energy of player
 func get_energy_count() -> int:
 	var sum = 0
 	for count in stats['energy']:
@@ -33,6 +39,7 @@ func has_energy_space():
 		return true
 	return false
 
+
 func update_energy_counters():
 	$PlayerEnergy.update_energy_counters(stats['energy'])
 
@@ -41,6 +48,7 @@ func _on_EndBtn_button_up():
 	$EndBtn.visible = false
 	reset_active_gizmos()
 	reset_flags()
+	reset_free_action()
 	GameManager.end_turn()
 
 
@@ -57,11 +65,6 @@ func hide_research_tab():
 	$ResearchTab.visible = false
 
 
-# Sets a flag's value
-func set_flag(condition : String, value):
-	flags[condition] = value
-
-
 func has_archived():
 	return flags['archived']
 
@@ -74,5 +77,26 @@ func reset_active_gizmos():
 			card.is_usable = true
 
 
+# Sets a flag's value
+func set_flag(condition : String, value):
+	flags[condition] = value
+
+
+# Resets all flag values to default
 func reset_flags():
 	flags['archived'] = false
+
+
+func reset_free_action():
+	for action in free_action:
+		free_action[action] = 0
+
+
+# Returns true if player can do action
+func can_do(action : String) -> bool:
+	if used_action == false and GameManager.current_state == action \
+		or free_action[action] > 0:
+			return true
+	else:
+		print(self.name + " can't do " + action)
+	return false

@@ -13,7 +13,9 @@ var action_container
 
 # Constants
 
-const ARCHIVE = 7
+const ARCHIVE_ZONE = 7
+
+enum {ARCHIVE}
 
 # Functions
 
@@ -57,8 +59,17 @@ func init_card_actions_container():
 	
 
 func get_card_info():
-#	print(card_info)
-	print("Usable, active ", is_usable, is_active)
+	print(card_info)
+#	print("Usable, active ", is_usable, is_active)
+#	var split = card_info['effect'].split('(')
+#	var effect_func = split[0]
+#	var params = split[1].split(')')[0]
+#
+#	for param in params:
+#		if param.is_valid_integer():
+#			param = int(param)
+#			print(param)
+#	print(effect_func)
 
 
 func get_deck_id():
@@ -67,25 +78,22 @@ func get_deck_id():
 
 # Returns true if archive was succesful, false otherwise
 func archive(player : Player) -> bool:
-	if GameManager.active_player.used_action == false:
+	if GameManager.active_player.can_do('archive'):
 		if player.stats['archive'].size() < player.stats['max_archive']:
-			GameManager.give_card(self, player, ARCHIVE)
+			GameManager.give_card(self, player, ARCHIVE_ZONE)
 			player.stats['archive'].append(get_deck_id())
 			action_container.visible = false
 			player.set_flag('archived', true)
 			return true
 		else:
 			print(player.name + " has no more archive space")
-			return false
-	else:
-		print("Player already used action")
-		return false
+	return false
 
 
 # Need exception for cards with cost [7, 7, 7, 7]
 # Returns true if build was succesful, false otherwise
 func build(player : Player) -> bool:
-	if GameManager.active_player.used_action == false:
+	if GameManager.active_player.can_do('build'):
 		for energy_type in range (0, 4):
 			var cost = card_info['cost'][energy_type]
 			if cost:
@@ -98,10 +106,7 @@ func build(player : Player) -> bool:
 					return true
 				else:
 					print(player.name + " does not have enough energy")
-		return false
-	else:
-		print("Player already used action")
-		return false
+	return false
 
 
 func use_effect():
@@ -114,8 +119,12 @@ func use_effect():
 			
 			if param.is_valid_integer():
 				param = int(param)
-	#		print(effect_func)
-	#		print(param)
+				print("Cast param to int")
+			else:
+				print("It's a vector")
+				param = str2var(param)
+#			print(effect_func)
+#			print(param)
 			GameManager.call(effect_func, param)
 			is_usable = false
 		else:
