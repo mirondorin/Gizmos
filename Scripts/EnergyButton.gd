@@ -11,6 +11,7 @@ func give_energy(player : Player, energy_type : int):
 	if GameManager.energy_row[energy_type] > 0:
 		if player.has_energy_space():
 			player.stats['energy'][energy_type] += 1
+			player.flags['picked'][energy_type] = 1
 			player.update_energy_counters()
 			GameManager.energy_row[energy_type] -= 1
 			decrement_counter()

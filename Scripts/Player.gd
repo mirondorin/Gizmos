@@ -11,7 +11,9 @@ var stats = {
 	"gizmos": []
 }
 var flags = {
-	"archived": false
+	"archived": false,
+	"picked": [0, 0, 0, 0],
+	"built": [0, 0, 0, 0, 0] # Last element is if built from archive
 }
 var free_action = {
 	"archive": 0,
@@ -65,8 +67,18 @@ func hide_research_tab():
 	$ResearchTab.visible = false
 
 
+# Returns true if player archived gizmo this turn
 func has_archived():
 	return flags['archived']
+
+
+# energy_type HAS TO BE an arr. Values of arr in range [0,3].
+# Check color codes for energy in Utilty script
+func has_picked(energy_type):
+	for el in energy_type:
+		if flags['picked'][el]:
+			return true
+	return false
 
 
 # Makes all active gizmos usable again after player ends his turn
@@ -77,16 +89,18 @@ func reset_active_gizmos():
 			card.is_usable = true
 
 
-# Sets a flag's value
-func set_flag(condition : String, value):
-	flags[condition] = value
-
-
 # Resets all flag values to default
 func reset_flags():
 	flags['archived'] = false
+	for el in range(0, flags['picked'].size()):
+		flags['picked'][el] = 0
+	for el in range(0, flags['built'].size()):
+		flags['built'][el] = 0
+	print(flags['picked'])
+	print(flags['built'])
 
 
+# Resets all values from free_action to 0
 func reset_free_action():
 	for action in free_action:
 		free_action[action] = 0

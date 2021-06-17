@@ -19,16 +19,16 @@ var current_state
 
 # Constants
 
-# Energy type codes
-const RED = 0
-const YELLOW = 1
-const BLUE = 2
-const BLACK = 3
-
 const MAX_DISPENSER = 13
 const MAX_ENERGY_ROW = 6
 
 const ARCHIVE_CARD = 3
+
+# Enums
+
+# Energy type codes
+enum {RED, YELLOW, BLUE, BLACK}
+
 # Functions
 
 # Called when the node enters the scene tree for the first time.
@@ -85,7 +85,7 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
-		give_test_card(0, new_player)
+		give_test_card(39, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 

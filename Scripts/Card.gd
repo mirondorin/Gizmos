@@ -15,8 +15,6 @@ var action_container
 
 const ARCHIVE_ZONE = 7
 
-enum {ARCHIVE}
-
 # Functions
 
 func _init(var card_json):
@@ -64,12 +62,6 @@ func get_card_info():
 #	var split = card_info['effect'].split('(')
 #	var effect_func = split[0]
 #	var params = split[1].split(')')[0]
-#
-#	for param in params:
-#		if param.is_valid_integer():
-#			param = int(param)
-#			print(param)
-#	print(effect_func)
 
 
 func get_deck_id():
@@ -78,12 +70,12 @@ func get_deck_id():
 
 # Returns true if archive was succesful, false otherwise
 func archive(player : Player) -> bool:
-	if GameManager.active_player.can_do('archive'):
+	if player.can_do('archive'):
 		if player.stats['archive'].size() < player.stats['max_archive']:
 			GameManager.give_card(self, player, ARCHIVE_ZONE)
 			player.stats['archive'].append(get_deck_id())
 			action_container.visible = false
-			player.set_flag('archived', true)
+			player.flags['archived'] = true
 			return true
 		else:
 			print(player.name + " has no more archive space")
@@ -93,7 +85,7 @@ func archive(player : Player) -> bool:
 # Need exception for cards with cost [7, 7, 7, 7]
 # Returns true if build was succesful, false otherwise
 func build(player : Player) -> bool:
-	if GameManager.active_player.can_do('build'):
+	if player.can_do('build'):
 		for energy_type in range (0, 4):
 			var cost = card_info['cost'][energy_type]
 			if cost:
@@ -109,25 +101,35 @@ func build(player : Player) -> bool:
 	return false
 
 
+# TODO move the condition met steps into separate function maybe?
 func use_effect():
 	if is_usable:
-		var condition_check = card_info['action'].split('(')[0]
-		if GameManager.active_player.call(condition_check):
-			var split = card_info['effect'].split('(')
-			var effect_func = split[0]
-			var param = split[1].split(')')[0]
+		var condition_split = card_info['action'].split('(')
+		var condition_func = condition_split[0]
+		var condition_params = condition_split[1].split(')')[0]
+		condition_params = str2var(condition_params)
+		var condition_met
+		if condition_params:
+			condition_met = GameManager.active_player.call(condition_func, condition_params)
+		else:
+			condition_met = GameManager.active_player.call(condition_func)
 			
-			if param.is_valid_integer():
-				param = int(param)
-				print("Cast param to int")
+		if condition_met:
+			var effect_split = card_info['effect'].split('(')
+			var effect_func = effect_split[0]
+			var effect_params = effect_split[1].split(')')[0]
+			
+			if effect_params.is_valid_integer():
+				effect_params = int(effect_params)
+				print("Cast effect_params to int")
 			else:
-				print("It's a vector")
-				param = str2var(param)
+				print("Cast effect_params vector")
+				effect_params = str2var(effect_params)
 #			print(effect_func)
-#			print(param)
-			GameManager.call(effect_func, param)
+#			print(effect_params)
+			GameManager.call(effect_func, effect_params)
 			is_usable = false
 		else:
 			print("Condition for effect was not met")
 	else:
-		print("Gizmos was already used")
+		print("Gizmo was already used")
