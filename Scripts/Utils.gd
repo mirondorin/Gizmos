@@ -1,8 +1,13 @@
 extends Node
 
+# Constants
+
+const ARCHIVE_BUILT = 4
+
 # Enums
 
 enum {FREE_ARCHIVE, FREE_PICK, FREE_BUILD, FREE_RESEARCH}
+enum {ACTIVE_GIZMO, ARCHIVED_GIZMO, RESEARCH_GIZMO, REVEALED_GIZMO}
 
 # Variables
 

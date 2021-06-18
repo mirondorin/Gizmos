@@ -85,7 +85,7 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
-		give_test_card(39, new_player)
+		give_test_card(52, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 
@@ -193,11 +193,6 @@ func remove_card(card : Card, arr):
 #	print("After removing card ", arr)
 
 
-# Add some flags to know color of built gizmos in that turn
-func player_built():
-	pass
-	
-
 func give_card(card : Card, player : Player, type : int):
 	var card_parent = card.get_parent()
 	card_parent.remove_child(card)
@@ -206,7 +201,6 @@ func give_card(card : Card, player : Player, type : int):
 			remove_card(card, revealed_cards)
 		"build":
 			remove_card(card, revealed_cards)
-			player_built()
 		"research":
 			remove_card(card, tier_decks)
 
@@ -247,12 +241,19 @@ func add_free_action(params):
 #	print("params[1] ", params[1])
 	var action = Utils.free_action_code[params[0]]
 	active_player.free_action[action] += params[1]
+	current_state = action
 	print(active_player.free_action)
 
 
 # Remove one free_action of type action from active player
 func dec_free_action(action: String):
 	active_player.free_action[action] -= 1
+
+
+# Gives count vp_tokens to active_player
+func give_vp_tokens(count : int):
+	active_player.stats['vp_tokens'] += count
+	print("From give_vp_tokens ", active_player.stats)
 
 
 # For DEBUG only. Used to get tree list of all nodes in node

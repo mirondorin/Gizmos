@@ -7,6 +7,7 @@ func _on_Control_pressed():
 		give_energy(GameManager.active_player, type)
 
 
+# TODO decrement free_pick
 func give_energy(player : Player, energy_type : int):
 	if GameManager.energy_row[energy_type] > 0:
 		if player.has_energy_space():
@@ -17,6 +18,7 @@ func give_energy(player : Player, energy_type : int):
 			decrement_counter()
 			GameManager.restock_energy_row()
 			if GameManager.finished_action() == false:
+				print("Removed free pick action")
 				GameManager.dec_free_action('pick')
 			print(player.name + "'s energy ", player.stats['energy'])
 		else:

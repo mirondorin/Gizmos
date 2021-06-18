@@ -20,3 +20,4 @@ func clear_cards():
 
 func add_card(card : Card):
 	$ResearchContainer/Bg/ScrollContainer/GridContainer.add_child(card)
+	card.status = Utils.RESEARCH_GIZMO

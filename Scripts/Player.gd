@@ -8,7 +8,8 @@ var stats = {
 	"max_research": 3,
 	"energy": [0, 0, 0, 0],
 	"archive": [],
-	"gizmos": []
+	"gizmos": [],
+	"vp_tokens": 0
 }
 var flags = {
 	"archived": false,
@@ -80,6 +81,14 @@ func has_picked(energy_type):
 			return true
 	return false
 
+
+# build_type HAS TO BE an arr. Values of arr in range [0,4]. 4 - built from archive
+func has_built(build_type):
+	for el in build_type:
+		if flags['built'][el]:
+			return true
+	return false
+	
 
 # Makes all active gizmos usable again after player ends his turn
 func reset_active_gizmos():
