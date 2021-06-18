@@ -37,3 +37,9 @@ func build():
 
 func research():
 	GameManager.current_state = "research"
+
+
+func update_visual():
+	if has_node("UpgradeContainer"):
+		var container = get_node("UpgradeContainer")
+		container.update_labels(GameManager.active_player.get_capacities())

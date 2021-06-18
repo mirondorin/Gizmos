@@ -6,7 +6,6 @@ class_name Card
 
 var card_info = {} # id, tier, cost, action, effect, type_id, vp
 var status # Will use for active, archived, in research tab, or revealed gizmo
-var is_active
 var is_usable
 var face
 var back
@@ -24,15 +23,15 @@ func _init(var card_json):
 #	back = load("res://Assets/CardBack"+str(card_info['tier'])+".png")
 	set_normal_texture(face)
 	init_card_actions_container()
-	is_active = false
 	is_usable = false
 
 
 func _pressed():
 	var action = GameManager.current_state
 	get_card_info()
-	if is_active:
-		use_effect()
+	if status == Utils.ACTIVE_GIZMO:
+		if !is_passive():
+			use_effect()
 	else:
 		match action:
 			"archive":
@@ -44,7 +43,7 @@ func _pressed():
 
 
 func set_active():
-	is_active = true
+	status = Utils.ACTIVE_GIZMO
 	is_usable = true
 
 
@@ -59,14 +58,23 @@ func init_card_actions_container():
 
 func get_card_info():
 	print(card_info)
-#	print("Usable, active ", is_usable, is_active)
-#	var split = card_info['effect'].split('(')
-#	var effect_func = split[0]
-#	var params = split[1].split(')')[0]
 
 
-func get_deck_id():
+func get_deck_id() -> int:
 	return card_info['id'] + 36 * (card_info['tier'] - 1)
+
+
+# Used to call effect function ONLY once when built
+func is_passive() -> bool:
+	return card_info['type_id'] == 1
+
+
+func string_to_func(func_string : String):
+	var func_split = func_string.split('(')
+	var func_name = func_split[0]
+	var func_params = func_split[1].split(')')[0]
+	func_params = str2var(func_params)
+	return [func_name, func_params]
 
 
 # Returns true if archive was succesful, false otherwise
@@ -107,6 +115,13 @@ func build(player : Player) -> bool:
 					
 					GameManager.give_card(self, player, card_info['type_id'])
 					GameManager.add_to_energy_row(card_info['cost'])
+					
+					if is_passive():
+						var effect_split = string_to_func(card_info['effect'])
+						if effect_split[1]:
+							GameManager.call(effect_split[0], effect_split[1])
+						else:
+							GameManager.call(effect_split[0])
 					return true
 				else:
 					print(player.name + " does not have enough energy")
@@ -116,15 +131,12 @@ func build(player : Player) -> bool:
 # TODO move the condition met steps into separate function maybe?
 func use_effect():
 	if is_usable:
-		var condition_split = card_info['action'].split('(')
-		var condition_func = condition_split[0]
-		var condition_params = condition_split[1].split(')')[0]
-		condition_params = str2var(condition_params)
+		var condition_split = string_to_func(card_info['action'])
 		var condition_met
-		if condition_params:
-			condition_met = GameManager.active_player.call(condition_func, condition_params)
+		if condition_split[1]:
+			condition_met = GameManager.active_player.call(condition_split[0], condition_split[1])
 		else:
-			condition_met = GameManager.active_player.call(condition_func)
+			condition_met = GameManager.active_player.call(condition_split[0])
 			
 		if condition_met:
 			var effect_split = card_info['effect'].split('(')

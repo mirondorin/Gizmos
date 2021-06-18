@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/ResearchCap.png" type="Texture" id=2]
+[ext_resource path="res://Assets/EnergyCap.png" type="Texture" id=3]
+[ext_resource path="res://Assets/ArchiveCap.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/UpgradeContainer.gd" type="Script" id=5]
+
+[node name="UpgradeContainer" type="GridContainer"]
+margin_right = 308.0
+margin_bottom = 100.0
+rect_scale = Vector2( 0.6, 0.6 )
+columns = 3
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect1" type="TextureRect" parent="."]
+margin_right = 100.0
+margin_bottom = 100.0
+size_flags_horizontal = 2
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="TextureRect1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.5
+margin_top = -21.0
+margin_right = 8.5
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 1 )
+text = "5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 100.0
+texture = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="TextureRect2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.5
+margin_top = -18.6216
+margin_right = 8.5
+margin_bottom = 23.3784
+custom_fonts/font = ExtResource( 1 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+margin_left = 208.0
+margin_right = 308.0
+margin_bottom = 100.0
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="TextureRect3"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 1.60828
+margin_top = 21.4058
+margin_right = 18.6083
+margin_bottom = 63.4058
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+__meta__ = {
+"_edit_use_anchors_": false
+}

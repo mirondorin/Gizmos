@@ -47,6 +47,10 @@ func update_energy_counters():
 	$PlayerEnergy.update_energy_counters(stats['energy'])
 
 
+func get_capacities():
+	return [stats['max_energy'], stats['max_archive'], stats['max_research']]
+
+
 func _on_EndBtn_button_up():
 	$EndBtn.visible = false
 	reset_active_gizmos()

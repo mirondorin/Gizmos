@@ -85,7 +85,7 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
-		give_test_card(52, new_player)
+#		give_test_card(30, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 
@@ -94,7 +94,7 @@ func instance_players() -> void:
 func give_test_card(id : int, player : Player) -> void:
 	var card = Card.new(deck[str(id)])
 	card.is_usable = true
-	card.is_active = true
+	card.status = Utils.ACTIVE_GIZMO
 	player.card_to_container(card, ARCHIVE_CARD)
 
 
@@ -251,9 +251,17 @@ func dec_free_action(action: String):
 
 
 # Gives count vp_tokens to active_player
-func give_vp_tokens(count : int):
+func give_vp_tokens(count : int) -> void:
 	active_player.stats['vp_tokens'] += count
 	print("From give_vp_tokens ", active_player.stats)
+
+
+# params HAS TO be an array
+func upgrade_capacities(params) -> void:
+	active_player.stats['max_energy'] += params[0]
+	active_player.stats['max_archive'] += params[1]
+	active_player.stats['max_research'] += params[2]
+	active_player.get_node("PlayerBoard").update_all()
 
 
 # For DEBUG only. Used to get tree list of all nodes in node
