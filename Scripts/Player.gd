@@ -22,6 +22,10 @@ var free_action = {
 	"build": 0,
 	"research": 0
 }
+var disabled_actions = {
+	"archive": false,
+	"research": false
+}
 var used_action = false
 var using_action = false
 

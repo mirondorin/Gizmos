@@ -85,18 +85,24 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
-#		give_test_card(30, new_player)
+#		give_test_card(95, Utils.ARCHIVED_GIZMO, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
+#	debug_state(active_player)
 
 
 # Has to be id from JSON
-func give_test_card(id : int, player : Player) -> void:
+func give_test_card(id : int, status: int, player : Player) -> void:
 	var card = Card.new(deck[str(id)])
 	card.is_usable = true
-	card.status = Utils.ACTIVE_GIZMO
+	card.status = status
 	player.card_to_container(card, ARCHIVE_CARD)
 
+
+func debug_state(player: Player) -> void:
+	for el in range(0, 4):
+		player.stats['energy'][el] = 6
+	
 
 # Sets used_action to true if action finalized using action button
 # Returns true if action was just used. False otherwise
@@ -234,12 +240,12 @@ func give_rand_energy(count : int):
 
 
 # params HAS TO BE array
-# params[0] has value in free_action_code from Utils script
+# params[0] has value in action_code from Utils script
 # params[1] is the amount of free actions player will get
 func add_free_action(params):
 #	print("params[0] ", params[0])
 #	print("params[1] ", params[1])
-	var action = Utils.free_action_code[params[0]]
+	var action = Utils.action_code[params[0]]
 	active_player.free_action[action] += params[1]
 	current_state = action
 	print(active_player.free_action)
@@ -248,6 +254,13 @@ func add_free_action(params):
 # Remove one free_action of type action from active player
 func dec_free_action(action: String):
 	active_player.free_action[action] -= 1
+
+
+# Disable action PERMANENTLY for player
+func disable_action(code):
+	var action = Utils.action_code[code]
+	active_player.disabled_actions[action] = true
+	print(active_player.disabled_actions)
 
 
 # Gives count vp_tokens to active_player

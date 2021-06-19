@@ -1325,7 +1325,7 @@
             0
         ],
         "action": "is_passive()",
-        "effect": "disableResearch()",
+        "effect": "disable_action(3)",
         "type_id": 1,
         "vp": 8
     },
@@ -1339,7 +1339,7 @@
             4
         ],
         "action": "is_passive()",
-        "effect": "disableResearch()",
+        "effect": "disable_action(3)",
         "type_id": 1,
         "vp": 8
     },
@@ -1353,7 +1353,7 @@
             0
         ],
         "action": "is_passive()",
-        "effect": "disableArchive()",
+        "effect": "disable_action(0)",
         "type_id": 1,
         "vp": 7
     },
@@ -1367,7 +1367,7 @@
             0
         ],
         "action": "is_passive()",
-        "effect": "disableArchive()",
+        "effect": "disable_action(0)",
         "type_id": 1,
         "vp": 7
     },

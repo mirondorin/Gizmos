@@ -80,10 +80,10 @@ func string_to_func(func_string : String):
 # Returns true if archive was succesful, false otherwise
 func archive(player : Player) -> bool:
 	# Add or condition card is in_research tab
-	if (self.status != Utils.ARCHIVED_GIZMO and 
-		(self.status == Utils.RESEARCH_GIZMO or player.can_do('archive'))):
+	if (!player.disabled_actions['archive'] and status != Utils.ARCHIVED_GIZMO and 
+		(status == Utils.RESEARCH_GIZMO or player.can_do('archive'))):
 			if player.stats['archive'].size() < player.stats['max_archive']:
-				self.status = Utils.ARCHIVED_GIZMO
+				status = Utils.ARCHIVED_GIZMO
 				GameManager.give_card(self, player, ARCHIVE_ZONE)
 				GameManager.current_state = "nothing"
 				player.stats['archive'].append(get_deck_id())
@@ -98,15 +98,15 @@ func archive(player : Player) -> bool:
 # Need exception for cards with cost [7, 7, 7, 7]
 # Returns true if build was succesful, false otherwise
 func build(player : Player) -> bool:
-	if self.status == Utils.RESEARCH_GIZMO or player.can_do('build'):
+	if status == Utils.RESEARCH_GIZMO or player.can_do('build'):
 		for energy_type in range (0, 4):
 			var cost = card_info['cost'][energy_type]
 			if cost:
 				if player.stats['energy'][energy_type] >= cost:
-					if self.status == Utils.ARCHIVED_GIZMO:
+					if status == Utils.ARCHIVED_GIZMO:
 						player.flags['built'][Utils.ARCHIVE_BUILT] = 1
 						player.stats['archive'].erase(get_deck_id())
-					self.status = Utils.ACTIVE_GIZMO
+					status = Utils.ACTIVE_GIZMO
 					action_container.visible = false
 					
 					player.stats['energy'][energy_type] -= cost
@@ -118,7 +118,7 @@ func build(player : Player) -> bool:
 					
 					if is_passive():
 						var effect_split = string_to_func(card_info['effect'])
-						if effect_split[1]:
+						if effect_split[1] != null:
 							GameManager.call(effect_split[0], effect_split[1])
 						else:
 							GameManager.call(effect_split[0])
