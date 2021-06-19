@@ -3,6 +3,7 @@ extends Node
 # Constants
 
 const ARCHIVE_BUILT = 4
+const WILD_ENERGY = 4
 
 # Enums
 

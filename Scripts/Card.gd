@@ -39,7 +39,8 @@ func _pressed():
 			"build":
 				build(GameManager.active_player)
 			"research":
-				action_container.visible = true
+				if status == Utils.RESEARCH_GIZMO:
+					action_container.visible = true
 
 
 func set_active():
@@ -102,19 +103,28 @@ func build(player : Player) -> bool:
 		for energy_type in range (0, 4):
 			var cost = card_info['cost'][energy_type]
 			if cost:
-				if player.stats['energy'][energy_type] >= cost:
+				if (player.stats['energy'][energy_type] 
+				+ player.stats['excess_energy'][energy_type] >= cost):
 					if status == Utils.ARCHIVED_GIZMO:
 						player.flags['built'][Utils.ARCHIVE_BUILT] = 1
 						player.stats['archive'].erase(get_deck_id())
 					status = Utils.ACTIVE_GIZMO
+					is_usable = true
 					action_container.visible = false
 					
+					while player.stats['excess_energy'][energy_type] > 0 and cost > 0:
+						player.stats['excess_energy'][energy_type] -= 1
+						cost -= 1
 					player.stats['energy'][energy_type] -= cost
+					var paid = [0, 0, 0, 0]
+					paid[energy_type] += cost
+					
 					player.stats['gizmos'].append(get_deck_id())
 					player.flags['built'][energy_type] = 1
+					print(player.stats['excess_energy'])
 					
 					GameManager.give_card(self, player, card_info['type_id'])
-					GameManager.add_to_energy_row(card_info['cost'])
+					GameManager.add_to_energy_row(paid)
 					
 					if is_passive():
 						var effect_split = string_to_func(card_info['effect'])
@@ -151,6 +161,8 @@ func use_effect():
 				effect_params = str2var(effect_params)
 #			print(effect_func)
 #			print(effect_params)
+			if card_info['type_id'] == 2:
+				GameManager.active_player.get_node("ConvertTab").set_gizmo_preview(face)
 			GameManager.call(effect_func, effect_params)
 			is_usable = false
 		else:

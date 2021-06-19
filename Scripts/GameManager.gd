@@ -70,6 +70,7 @@ func fill_tier_deck(tier : int, count : int) -> void:
 		revealed_cards[tier].push_back(rand_card_id)
 		rand_card_id = rand_card_id + 36 * tier
 		var rand_card = Card.new(deck[str(rand_card_id)])
+		rand_card.status = Utils.REVEALED_GIZMO
 		game.get_node('Container/GridTier' + str(tier + 1)).add_child(rand_card)
 		size += 1
 
@@ -85,7 +86,7 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
-#		give_test_card(95, Utils.ARCHIVED_GIZMO, new_player)
+		give_test_card(21, Utils.ACTIVE_GIZMO, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 #	debug_state(active_player)
@@ -101,8 +102,9 @@ func give_test_card(id : int, status: int, player : Player) -> void:
 
 func debug_state(player: Player) -> void:
 	for el in range(0, 4):
-		player.stats['energy'][el] = 6
-	
+		player.stats['energy'][el] = 1
+		player.stats['excess_energy'][el] = 1
+
 
 # Sets used_action to true if action finalized using action button
 # Returns true if action was just used. False otherwise
@@ -223,7 +225,10 @@ func research(tier : int):
 		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
 		rand_card_id = rand_card_id + 36 * tier
 		var rand_card = Card.new(deck[str(rand_card_id)])
+		rand_card.status = Utils.RESEARCH_GIZMO
 		research_tab.add_card(rand_card)
+	if active_player.using_action == true:
+		active_player.used_action = true
 	research_tab.visible = true
 
 
@@ -252,12 +257,12 @@ func add_free_action(params):
 
 
 # Remove one free_action of type action from active player
-func dec_free_action(action: String):
+func dec_free_action(action: String) -> void:
 	active_player.free_action[action] -= 1
 
 
 # Disable action PERMANENTLY for player
-func disable_action(code):
+func disable_action(code : int) -> void:
 	var action = Utils.action_code[code]
 	active_player.disabled_actions[action] = true
 	print(active_player.disabled_actions)
@@ -275,6 +280,31 @@ func upgrade_capacities(params) -> void:
 	active_player.stats['max_archive'] += params[1]
 	active_player.stats['max_research'] += params[2]
 	active_player.get_node("PlayerBoard").update_all()
+
+
+# params HAS TO be an array
+func convert_tab(params) -> void:
+	active_player.get_node("ConvertTab").set_converter(params)
+
+
+# Checks if player has initial type of energy and
+# Gives player excess_energy of type result if he does
+func convert_energy(initial : int, result : int, amount : int) -> bool:
+	if active_player.stats['excess_energy'][initial] > 0:
+		active_player.stats['excess_energy'][initial] -= 1
+		active_player.stats['excess_energy'][result] += amount
+		active_player.update_energy_counters()
+		print("Excess energy ", active_player.stats['excess_energy'])
+		return true
+	elif active_player.stats['energy'][initial] > 0:
+		active_player.stats['energy'][initial] -= 1
+		active_player.stats['excess_energy'][result] += amount
+		active_player.update_energy_counters()
+		print("Excess energy ", active_player.stats['excess_energy'])
+		return true
+	else:
+		print(active_player.name + " does not have required energy type")
+	return false
 
 
 # For DEBUG only. Used to get tree list of all nodes in node

@@ -7,6 +7,7 @@ var stats = {
 	"max_archive": 1,
 	"max_research": 3,
 	"energy": [0, 0, 0, 0],
+	"excess_energy": [0, 0, 0, 0],
 	"archive": [],
 	"gizmos": [],
 	"vp_tokens": 0
@@ -60,6 +61,7 @@ func _on_EndBtn_button_up():
 	reset_active_gizmos()
 	reset_flags()
 	reset_free_action()
+	reset_excess_energy()
 	GameManager.end_turn()
 
 
@@ -86,6 +88,17 @@ func has_archived():
 func has_picked(energy_type):
 	for el in energy_type:
 		if flags['picked'][el]:
+			return true
+	return false
+
+
+# Checks if player has any of the energy types in energy_arr
+# Returns true if he does, false otherwise
+func has_energy_type(energy_arr) -> bool:
+	for energy_type in energy_arr:
+		if energy_type == Utils.WILD_ENERGY:
+			return get_energy_count() > 0
+		elif stats['energy'][energy_type] or stats['excess_energy'][energy_type]:
 			return true
 	return false
 
@@ -121,6 +134,12 @@ func reset_flags():
 func reset_free_action():
 	for action in free_action:
 		free_action[action] = 0
+
+
+# Resets all excess energy to 0
+func reset_excess_energy():
+	for el in range(0, stats['excess_energy'].size()):
+		stats['excess_energy'][el] = 0
 
 
 # Returns true if player can do action

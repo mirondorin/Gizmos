@@ -288,8 +288,8 @@
             0,
             0
         ],
-        "action": "convert(B)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([3])",
+        "effect": "convert_tab([[3], [4], [1]])",
         "type_id": 2,
         "vp": 1
     },
@@ -302,8 +302,8 @@
             0,
             0
         ],
-        "action": "convert(U)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([2])",
+        "effect": "convert_tab([[2], [4], [1]])",
         "type_id": 2,
         "vp": 1
     },
@@ -316,8 +316,8 @@
             1,
             0
         ],
-        "action": "convert(R)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([0])",
+        "effect": "convert_tab([[0], [4], [1]])",
         "type_id": 2,
         "vp": 1
     },
@@ -330,8 +330,8 @@
             0,
             1
         ],
-        "action": "convert(Y)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([1])",
+        "effect": "convert_tab([[1], [4], [1]])",
         "type_id": 2,
         "vp": 1
     },
@@ -344,8 +344,8 @@
             0,
             0
         ],
-        "action": "convert(U)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([2])",
+        "effect": "convert_tab([[2], [4], [1]])",
         "type_id": 2,
         "vp": 1
     },
@@ -358,8 +358,8 @@
             0,
             0
         ],
-        "action": "convert(B)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([3])",
+        "effect": "convert_tab([[3], [4], [1]])",
         "type_id": 2,
         "vp": 1
     },
@@ -372,8 +372,8 @@
             1,
             0
         ],
-        "action": "convert(Y)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([1])",
+        "effect": "convert_tab([[1], [4], [1]])",
         "type_id": 2,
         "vp": 1
     },
@@ -386,8 +386,8 @@
             0,
             1
         ],
-        "action": "convert(R)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([0])",
+        "effect": "convert_tab([[0], [4], [1]])",
         "type_id": 2,
         "vp": 1
     },
@@ -792,8 +792,8 @@
             0,
             0
         ],
-        "action": "convert(Y, Y)",
-        "effect": "getEnergy(X, X)",
+        "action": "has_energy_type([1, 1])",
+        "effect": "convert_tab([[1, 1], [4, 4], [1, 1]])",
         "type_id": 2,
         "vp": 2
     },
@@ -806,8 +806,8 @@
             0,
             0
         ],
-        "action": "convert(R, R)",
-        "effect": "getEnergy(X, X)",
+        "action": "has_energy_type([0, 0])",
+        "effect": "convert_tab([[0, 0], [4, 4], [1, 1]])",
         "type_id": 2,
         "vp": 2
     },
@@ -820,8 +820,8 @@
             2,
             0
         ],
-        "action": "convert(B, B)",
-        "effect": "getEnergy(X, X)",
+        "action": "has_energy_type([3, 3])",
+        "effect": "convert_tab([[3, 3], [4, 4], [1, 1]])",
         "type_id": 2,
         "vp": 2
     },
@@ -834,8 +834,8 @@
             0,
             2
         ],
-        "action": "convert(U, U)",
-        "effect": "getEnergy(X, X)",
+        "action": "has_energy_type([2, 2])",
+        "effect": "convert_tab([[2, 2], [4, 4], [1, 1]]))",
         "type_id": 2,
         "vp": 2
     },
@@ -848,8 +848,8 @@
             0,
             0
         ],
-        "action": "convert(B)",
-        "effect": "getEnergy(B, B)",
+        "action": "has_energy_type([3])",
+        "effect": "convert_tab([[3], [3], [2]])",
         "type_id": 2,
         "vp": 3
     },
@@ -862,8 +862,8 @@
             0,
             0
         ],
-        "action": "convert(U)",
-        "effect": "getEnergy(U, U)",
+        "action": "has_energy_type([2])",
+        "effect": "convert_tab([[2], [2], [2]])",
         "type_id": 2,
         "vp": 3
     },
@@ -876,8 +876,8 @@
             3,
             0
         ],
-        "action": "convert(R)",
-        "effect": "getEnergy(R, R)",
+        "action": "has_energy_type([0])",
+        "effect": "convert_tab([[0], [0], [2]])",
         "type_id": 2,
         "vp": 3
     },
@@ -890,8 +890,8 @@
             0,
             3
         ],
-        "action": "convert(Y)",
-        "effect": "getEnergy(Y, Y)",
+        "action": "has_energy_type([1])",
+        "effect": "convert_tab([[1], [1], [2]])",
         "type_id": 2,
         "vp": 3
     },
@@ -904,8 +904,8 @@
             0,
             0
         ],
-        "action": "convert(U)",
-        "effect": "getEnergy(U, U)",
+        "action": "has_energy_type([2])",
+        "effect": "convert_tab([[2], [2], [2]])",
         "type_id": 2,
         "vp": 3
     },
@@ -918,8 +918,8 @@
             0,
             0
         ],
-        "action": "convert(B)",
-        "effect": "getEnergy(B, B)",
+        "action": "has_energy_type([3])",
+        "effect": "convert_tab([[3], [3], [2]])",
         "type_id": 2,
         "vp": 3
     },
@@ -932,8 +932,8 @@
             3,
             0
         ],
-        "action": "convert(Y)",
-        "effect": "getEnergy(Y, Y)",
+        "action": "has_energy_type([1])",
+        "effect": "convert_tab([[1], [1], [2]])",
         "type_id": 2,
         "vp": 3
     },
@@ -946,8 +946,8 @@
             0,
             3
         ],
-        "action": "convert(R)",
-        "effect": "getEnergy(R, R)",
+        "action": "has_energy_type([0])",
+        "effect": "convert_tab([[0], [0], [2]])",
         "type_id": 2,
         "vp": 3
     },
@@ -1240,8 +1240,8 @@
             0,
             0
         ],
-        "action": "convert(X)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([4])",
+        "effect": "convert_tab([[4], [4], [1]])",
         "type_id": 2,
         "vp": 4
     },
@@ -1254,8 +1254,8 @@
             0,
             0
         ],
-        "action": "convert(X)",
-        "effect": "getEnergy(X)",
+        "action": "has_energy_type([4])",
+        "effect": "convert_tab([[4], [4], [1]])",
         "type_id": 2,
         "vp": 4
     },
@@ -1380,8 +1380,8 @@
             0,
             5
         ],
-        "action": "convert(U, Y)",
-        "effect": "getEnergy([U, U], [Y, Y])",
+        "action": "has_energy_type([2, 1])",
+        "effect": "convert_tab([[2, 1], [2, 1], [2, 2]])",
         "type_id": 2,
         "vp": 5
     },
@@ -1450,8 +1450,8 @@
             5,
             0
         ],
-        "action": "convert(B, R)",
-        "effect": "getEnergy([B, B], [R, R])",
+        "action": "has_energy_type([3, 0])",
+        "effect": "convert_tab([[3, 0], [3, 0], [2, 2]])",
         "type_id": 2,
         "vp": 5
     },
