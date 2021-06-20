@@ -1269,7 +1269,7 @@
             0
         ],
         "action": "is_passive()",
-        "effect": "reduceArchiveBuild(1)",
+        "effect": "reduce_archive_build(1)",
         "type_id": 1,
         "vp": 5
     },
@@ -1283,7 +1283,7 @@
             0
         ],
         "action": "is_passive()",
-        "effect": "reduceArchiveBuild(1)",
+        "effect": "reduce_archive_build(1)",
         "type_id": 1,
         "vp": 5
     },
@@ -1297,7 +1297,7 @@
             0
         ],
         "action": "is_passive()",
-        "effect": "reduceResearchBuild(1)",
+        "effect": "reduce_research_build(1)",
         "type_id": 1,
         "vp": 6
     },
@@ -1311,7 +1311,7 @@
             0
         ],
         "action": "is_passive()",
-        "effect": "reduceResearchBuild(1)",
+        "effect": "reduce_research_build(1)",
         "type_id": 1,
         "vp": 6
     },
@@ -1465,7 +1465,7 @@
             0
         ],
         "action": "is_passive()",
-        "effect": "reduceTierBuild([2, 1])",
+        "effect": "reduce_tier_build([1, 1])",
         "type_id": 1,
         "vp": 5
     },
@@ -1479,7 +1479,7 @@
             0
         ],
         "action": "is_passive()",
-        "effect": "reduceTierBuild([2, 1])",
+        "effect": "reduce_tier_build([1, 1])",
         "type_id": 1,
         "vp": 5
     },

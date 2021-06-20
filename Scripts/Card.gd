@@ -80,7 +80,6 @@ func string_to_func(func_string : String):
 
 # Returns true if archive was succesful, false otherwise
 func archive(player : Player) -> bool:
-	# Add or condition card is in_research tab
 	if (!player.disabled_actions['archive'] and status != Utils.ARCHIVED_GIZMO and 
 		(status == Utils.RESEARCH_GIZMO or player.can_do('archive'))):
 			if player.stats['archive'].size() < player.stats['max_archive']:
@@ -103,6 +102,8 @@ func build(player : Player) -> bool:
 		for energy_type in range (0, 4):
 			var cost = card_info['cost'][energy_type]
 			if cost:
+				cost = player.apply_discounts(self, cost)
+				
 				if (player.stats['energy'][energy_type] 
 				+ player.stats['excess_energy'][energy_type] >= cost):
 					if status == Utils.ARCHIVED_GIZMO:

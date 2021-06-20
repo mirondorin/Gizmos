@@ -18,6 +18,11 @@ var flags = {
 	"built": [0, 0, 0, 0, 0], # Last element is if built from archive
 	"built_tier": [0, 0, 0]
 }
+var build_discount = {
+	"archive" : 0,
+	"research" : 0,
+	"tier" : [0, 0, 0]
+}
 var free_action = {
 	"archive": 0,
 	"pick" : 0,
@@ -163,3 +168,17 @@ func can_do(action : String) -> bool:
 	else:
 		print(self.name + " can't do " + action)
 	return false
+
+
+# Receives card and returns reduced cost of card depending 
+# on player's build_discount and/or card's type
+func apply_discounts(card, cost : int):
+	var card_tier = card.card_info['tier']
+	cost -= build_discount['tier'][card_tier - 1]
+	if card.status == Utils.ARCHIVED_GIZMO:
+		cost -= build_discount['archive']
+	elif card.status == Utils.RESEARCH_GIZMO:
+		cost -= build_discount['research']
+	if cost > 0:
+		return cost
+	return 0

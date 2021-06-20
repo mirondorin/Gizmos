@@ -81,10 +81,10 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
-		give_test_card(81, Utils.ACTIVE_GIZMO, new_player)
+		give_test_card(104, Utils.ARCHIVED_GIZMO, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
-#	debug_state(active_player)
+	debug_state(active_player)
 
 
 # Has to be id from JSON
@@ -97,8 +97,8 @@ func give_test_card(id : int, status: int, player : Player) -> void:
 
 func debug_state(player: Player) -> void:
 	for el in range(0, 4):
-		player.stats['energy'][el] = 1
-		player.stats['excess_energy'][el] = 1
+		player.stats['energy'][el] = 6
+#		player.stats['excess_energy'][el] = 1
 
 
 # Sets used_action to true if action finalized using action button
@@ -277,7 +277,8 @@ func upgrade_capacities(params) -> void:
 	active_player.get_node("PlayerBoard").update_all()
 
 
-# params HAS TO be an array
+# params HAS TO BE format of [[converting], [result], [amount]]
+# Sets convert tab with the appropiate actions
 func convert_tab(params) -> void:
 	active_player.get_node("ConvertTab").set_converter(params)
 
@@ -300,6 +301,23 @@ func convert_energy(initial : int, result : int, amount : int) -> bool:
 	else:
 		print(active_player.name + " does not have required energy type")
 	return false
+
+
+# Permanently reduces cost of building gizmos from the archive zone by amount
+func reduce_archive_build(amount : int) -> void:
+	active_player.build_discount['archive'] += amount
+
+
+# Permanently reduces cost of building gizmos from the research zone by amount
+func reduce_research_build(amount : int) -> void:
+	active_player.build_discount['research'] += amount
+
+
+# Permanently reduces cost of building specific tier gizmos by amount
+# params[0] - tier, params[1] - amount
+# 0 index based so if params[0] = 1, tier is actually 2
+func reduce_tier_build(params) -> void:
+	active_player.build_discount['tier'][params[0]] += params[1]
 
 
 # For DEBUG only. Used to get tree list of all nodes in node
