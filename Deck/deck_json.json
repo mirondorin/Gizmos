@@ -1114,7 +1114,7 @@
             0,
             0
         ],
-        "action": "buildTier(2)",
+        "action": "has_built_tier([1])",
         "effect": "add_free_action([1, 2])",
         "type_id": 5,
         "vp": 6
@@ -1142,7 +1142,7 @@
             0,
             6
         ],
-        "action": "buildTier(2)",
+        "action": "has_built_tier([1])",
         "effect": "add_free_action([1, 2])",
         "type_id": 5,
         "vp": 6

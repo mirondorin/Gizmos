@@ -121,7 +121,7 @@ func build(player : Player) -> bool:
 					
 					player.stats['gizmos'].append(get_deck_id())
 					player.flags['built'][energy_type] = 1
-					print(player.stats['excess_energy'])
+					player.flags['built_tier'][card_info['tier'] - 1] = 1
 					
 					GameManager.give_card(self, player, card_info['type_id'])
 					GameManager.add_to_energy_row(paid)

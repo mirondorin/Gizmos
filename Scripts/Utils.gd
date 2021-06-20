@@ -9,7 +9,8 @@ const WILD_ENERGY = 4
 
 enum {ARCHIVE, PICK, BUILD, RESEARCH}
 enum {ACTIVE_GIZMO, ARCHIVED_GIZMO, RESEARCH_GIZMO, REVEALED_GIZMO}
-
+# Energy/gizmo color type codes
+enum {RED, YELLOW, BLUE, BLACK}
 # Variables
 
 # Used when giving free actions/disabling actions from passive gizmos

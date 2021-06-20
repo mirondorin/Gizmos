@@ -24,11 +24,6 @@ const MAX_ENERGY_ROW = 6
 
 const ARCHIVE_CARD = 3
 
-# Enums
-
-# Energy type codes
-enum {RED, YELLOW, BLUE, BLACK}
-
 # Functions
 
 # Called when the node enters the scene tree for the first time.
@@ -86,7 +81,7 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
-		give_test_card(21, Utils.ACTIVE_GIZMO, new_player)
+		give_test_card(81, Utils.ACTIVE_GIZMO, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 #	debug_state(active_player)
@@ -165,10 +160,10 @@ func init_energy_dispenser_row() -> void:
 	energy_dispenser = []
 	energy_row = [0, 0, 0, 0]
 	for _i in range(MAX_DISPENSER):
-		energy_dispenser.append(RED)
-		energy_dispenser.append(YELLOW)
-		energy_dispenser.append(BLUE)
-		energy_dispenser.append(BLACK)
+		energy_dispenser.append(Utils.RED)
+		energy_dispenser.append(Utils.YELLOW)
+		energy_dispenser.append(Utils.BLUE)
+		energy_dispenser.append(Utils.BLACK)
 	restock_energy_row()
 
 

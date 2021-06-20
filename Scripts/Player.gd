@@ -15,7 +15,8 @@ var stats = {
 var flags = {
 	"archived": false,
 	"picked": [0, 0, 0, 0],
-	"built": [0, 0, 0, 0, 0] # Last element is if built from archive
+	"built": [0, 0, 0, 0, 0], # Last element is if built from archive
+	"built_tier": [0, 0, 0]
 }
 var free_action = {
 	"archive": 0,
@@ -49,7 +50,7 @@ func has_energy_space():
 
 
 func update_energy_counters():
-	$PlayerEnergy.update_energy_counters(stats['energy'])
+	$PlayerEnergy.update_energy_counters(stats['energy'], stats['excess_energy'])
 
 
 func get_capacities():
@@ -103,13 +104,23 @@ func has_energy_type(energy_arr) -> bool:
 	return false
 
 
-# build_type HAS TO BE an arr. Values of arr in range [0,4]. 4 - built from archive
+# build_type HAS TO BE an arr. Values of arr in range [0,4] resemble the code 
+# for building color. Refer to Utils script to check color codes
 func has_built(build_type):
 	for el in build_type:
 		if flags['built'][el]:
 			return true
 	return false
 	
+
+# build_tier HAS TO BE an arr. Values of arr in range [0,2] resemble the tier of
+# the building. 0 index based so tier 0 is actually tier 1
+func has_built_tier(build_tier):
+	for el in build_tier:
+		if flags['built_tier'][el]:
+			return true
+	return false
+
 
 # Makes all active gizmos usable again after player ends his turn
 func reset_active_gizmos():
@@ -126,8 +137,10 @@ func reset_flags():
 		flags['picked'][el] = 0
 	for el in range(0, flags['built'].size()):
 		flags['built'][el] = 0
-	print(flags['picked'])
-	print(flags['built'])
+	for el in range(0, flags['built_tier'].size()):
+		flags['built_tier'][el] = 0
+#	print(flags['picked'])
+#	print(flags['built'])
 
 
 # Resets all values from free_action to 0
