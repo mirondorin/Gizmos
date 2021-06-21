@@ -81,11 +81,10 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
-		give_test_card(104, Utils.ARCHIVED_GIZMO, new_player)
+#		give_test_card(73, Utils.ACTIVE_GIZMO, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 #	debug_state(active_player)
-	add_free_action([3, 1])
 
 
 # Has to be id from JSON
@@ -254,6 +253,14 @@ func add_free_action(params):
 func dec_free_action(action: String) -> void:
 	active_player.free_action[action] -= 1
 
+
+# params HAS TO BE array
+# params[0] tier of building (0 index based tier 1 is tier 0)
+# params[1] amount of free tier builds
+func add_free_tier_build(params):
+	current_state = "build"
+	active_player.free_action['build_tier'][params[0]] += params[1]
+	
 
 # Disable action PERMANENTLY for player
 func disable_action(code : int) -> void:

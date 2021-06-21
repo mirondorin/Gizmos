@@ -1031,7 +1031,7 @@
             0
         ],
         "action": "has_built([2, 3])",
-        "effect": "setBuildCost(1, 0)",
+        "effect": "add_free_tier_build([0, 1])",
         "type_id": 5,
         "vp": 6
     },
@@ -1045,7 +1045,7 @@
             0
         ],
         "action": "has_built([1, 0])",
-        "effect": "setBuildCost(1, 0)",
+        "effect": "add_free_tier_build([0, 1])",
         "type_id": 5,
         "vp": 6
     },

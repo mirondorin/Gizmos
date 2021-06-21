@@ -27,7 +27,8 @@ var free_action = {
 	"archive": 0,
 	"pick" : 0,
 	"build": 0,
-	"research": 0
+	"research": 0,
+	"build_tier": [0, 0, 0]
 }
 var disabled_actions = {
 	"archive": false,
@@ -151,7 +152,11 @@ func reset_flags():
 # Resets all values from free_action to 0
 func reset_free_action():
 	for action in free_action:
-		free_action[action] = 0
+		if typeof(free_action[action]) == TYPE_INT:
+			free_action[action] = 0
+		else:
+			# Should actually create 0 array of size free_action[action]
+			free_action[action] = [0, 0, 0]
 
 
 # Resets all excess energy to 0
@@ -171,6 +176,12 @@ func can_do(action : String) -> bool:
 		print(self.name + " can't do " + action)
 	return false
 
+
+# Returns true if player has free_tier build
+# 0 index based. Tier 1 is actually tier 0 in free_action
+func can_tier_build(tier : int):
+	return free_action['build_tier'][tier] > 0
+	
 
 # Receives card and returns reduced cost of card depending 
 # on player's build_discount and/or card's type
