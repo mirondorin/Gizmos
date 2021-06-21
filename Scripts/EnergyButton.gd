@@ -20,10 +20,13 @@ func give_energy(player : Player, energy_type : int):
 			if GameManager.finished_action() == false:
 				print("Removed free pick action")
 				GameManager.dec_free_action('pick')
+			player.check_condition_gizmos()
 			print(player.name + "'s energy ", player.stats['energy'])
 		else:
+			GameManager.set_warning("You do not have enough energy capacity")
 			print(player.name + " does not have enough energy capacity")
 	else:
+		GameManager.set_warning("No more energy of this type")
 		print("No more energy of this type")
 
 

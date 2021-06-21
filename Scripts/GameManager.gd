@@ -16,6 +16,7 @@ var player_scene = preload("res://Scenes/Player.tscn")
 var players_count = 2
 var active_player: Player # indicates whose turn it is
 var current_state
+var end_game = false
 
 # Constants
 
@@ -81,6 +82,7 @@ func instance_players() -> void:
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
+		new_player.stats['gizmos'].append(start_card_instance.get_deck_id())
 #		give_test_card(73, Utils.ACTIVE_GIZMO, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
@@ -105,6 +107,7 @@ func debug_state(player: Player) -> void:
 # Returns true if action was just used. False otherwise
 func finished_action() -> bool:
 	if active_player.using_action == true:
+		GameManager.game.get_node("ActionStatus").text = ""
 		current_state = "nothing"
 		active_player.using_action = false
 		active_player.used_action = true
@@ -246,12 +249,20 @@ func add_free_action(params):
 	var action = Utils.action_code[params[0]]
 	active_player.free_action[action] += params[1]
 	current_state = action
+	game.get_node("ActionStatus").text = active_player.name + " has free " + action \
+		+ " " + str(params[1])
 	print(active_player.free_action)
 
 
 # Remove one free_action of type action from active player
 func dec_free_action(action: String) -> void:
 	active_player.free_action[action] -= 1
+	var counter = active_player.free_action[action]
+	if counter:
+			game.get_node("ActionStatus").text = active_player.name + " has free " + action \
+		+ " " + str(counter)
+	else:
+		game.get_node("ActionStatus").text = ""
 
 
 # params HAS TO BE array
@@ -324,6 +335,23 @@ func reduce_research_build(amount : int) -> void:
 # 0 index based so if params[0] = 1, tier is actually 2
 func reduce_tier_build(params) -> void:
 	active_player.build_discount['tier'][params[0]] += params[1]
+
+
+# Sets warning message for active_player
+func set_warning(msg : String):
+	active_player.get_node("Warning").text = msg
+	yield(get_tree().create_timer(0.5), "timeout")
+	active_player.get_node("Warning").text = ""
+
+
+# Checks if a player built their 4th tier3 gizmo or their 16th gizmo
+# Returns true if that's the case. False otherwise
+func is_end_game() -> bool:
+	if (active_player.stats['gizmos'].size() >= Utils.END_TOTAL_GIZMOS
+	or active_player.get_tier_gizmos(3) >= Utils.END_TOP_TIER_GIZMOS):
+		end_game = true
+		print("Triggered end game")
+	return end_game
 
 
 # For DEBUG only. Used to get tree list of all nodes in node

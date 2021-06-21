@@ -4,7 +4,10 @@ export(String) var action
 
 
 func _on_TextureRect_pressed():
-	print("Current state is: " + action)
+#	print("Current state is: " + action)
+	if GameManager.active_player.used_action:
+		return
+	GameManager.game.get_node("ActionStatus").text = GameManager.active_player.name + " is doing " + action
 	match action:
 		"archive":
 			archive()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/TierDecksContainer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/EnergyRow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=4]
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -98,3 +99,17 @@ margin_left = -385.674
 margin_top = 41.8041
 margin_right = -77.674
 margin_bottom = 115.804
+
+[node name="ActionStatus" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -275.0
+margin_top = 184.347
+margin_right = 275.0
+margin_bottom = 226.347
+custom_fonts/font = ExtResource( 4 )
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

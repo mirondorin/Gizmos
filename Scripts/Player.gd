@@ -206,3 +206,24 @@ func apply_discounts(card, cost : int):
 	if cost > 0:
 		return cost
 	return 0
+
+
+# Returns number of active gizmos of certain tier
+func get_tier_gizmos(tier : int) -> int:
+	var count = 0
+	for type in range(1, 7):
+		var cards = get_node("ScrollContainer" + str(type) + "/VBoxContainer")
+		for card in cards.get_children():
+			if card.card_info['tier'] == tier:
+				count += 1
+	return count
+
+
+# Returns score of player (includes vp_tokens)
+func get_score() -> int:
+	var total = stats['vp_tokens']
+	for type in range(1, 7):
+		var cards = get_node("ScrollContainer" + str(type) + "/VBoxContainer")
+		for card in cards.get_children():
+			total += card.card_info['vp']
+	return total

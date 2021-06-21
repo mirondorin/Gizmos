@@ -133,6 +133,7 @@ func archive(player : Player) -> bool:
 				player.check_condition_gizmos()
 				return true
 			else:
+				GameManager.set_warning("You do not have enough archive space")
 				print(player.name + " has no more archive space")
 	return false
 
@@ -172,6 +173,8 @@ func build(player : Player) -> bool:
 							GameManager.call(effect_split[0])
 					
 					player.check_condition_gizmos()
+					GameManager.game.get_node("ActionStatus").text = ""
+					GameManager.is_end_game()
 					return true
 					
 				elif (player.stats['energy'][energy_type] 
@@ -210,8 +213,10 @@ func build(player : Player) -> bool:
 							GameManager.call(effect_split[0])
 							
 					player.check_condition_gizmos()
+					GameManager.is_end_game()
 					return true
 				else:
+					GameManager.set_warning("You do not have enough energy")
 					print(player.name + " does not have enough energy")
 	return false
 
@@ -248,6 +253,8 @@ func use_effect():
 			set_is_usable(false)
 			condition_met_sign.visible = false
 		else:
+			GameManager.set_warning("Condition for gizmo was not met")
 			print("Condition for effect was not met")
 	else:
+		GameManager.set_warning("Gizmo was already used this turn")
 		print("Gizmo was already used")
