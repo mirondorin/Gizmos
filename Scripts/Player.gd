@@ -162,9 +162,11 @@ func reset_excess_energy():
 
 # Returns true if player can do action
 func can_do(action : String) -> bool:
-	if used_action == false and GameManager.current_state == action \
-		or free_action[action] > 0:
-			return true
+	if free_action[action] > 0:
+		return true
+	elif (using_action == true and used_action == false 
+	and GameManager.current_state == action):
+		return true
 	else:
 		print(self.name + " can't do " + action)
 	return false

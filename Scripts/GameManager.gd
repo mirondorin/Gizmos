@@ -84,7 +84,8 @@ func instance_players() -> void:
 		give_test_card(104, Utils.ARCHIVED_GIZMO, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
-	debug_state(active_player)
+#	debug_state(active_player)
+	add_free_action([3, 1])
 
 
 # Has to be id from JSON
@@ -209,8 +210,6 @@ func give_card(card : Card, player : Player, type : int):
 
 	player.card_to_container(card, type)
 	player.update_energy_counters()
-	if player.using_action == true:
-			finished_action()
 	fill_all()
 
 

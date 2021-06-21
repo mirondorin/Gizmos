@@ -32,15 +32,15 @@ func _pressed():
 	if status == Utils.ACTIVE_GIZMO:
 		if !is_passive():
 			use_effect()
+	elif status == Utils.RESEARCH_GIZMO:
+		action_container.visible = true
 	else:
 		match action:
 			"archive":
 				archive(GameManager.active_player)
 			"build":
 				build(GameManager.active_player)
-			"research":
-				if status == Utils.RESEARCH_GIZMO:
-					action_container.visible = true
+
 
 
 func set_active():
@@ -83,12 +83,18 @@ func archive(player : Player) -> bool:
 	if (!player.disabled_actions['archive'] and status != Utils.ARCHIVED_GIZMO and 
 		(status == Utils.RESEARCH_GIZMO or player.can_do('archive'))):
 			if player.stats['archive'].size() < player.stats['max_archive']:
-				status = Utils.ARCHIVED_GIZMO
 				GameManager.give_card(self, player, ARCHIVE_ZONE)
 				GameManager.current_state = "nothing"
+				
 				player.stats['archive'].append(get_deck_id())
 				action_container.visible = false
 				player.flags['archived'] = true
+				
+				if status != Utils.RESEARCH_GIZMO and GameManager.finished_action() == false:
+					print("Removed free archive action")
+					GameManager.dec_free_action('archive')
+					
+				status = Utils.ARCHIVED_GIZMO
 				return true
 			else:
 				print(player.name + " has no more archive space")
@@ -109,10 +115,7 @@ func build(player : Player) -> bool:
 					if status == Utils.ARCHIVED_GIZMO:
 						player.flags['built'][Utils.ARCHIVE_BUILT] = 1
 						player.stats['archive'].erase(get_deck_id())
-					status = Utils.ACTIVE_GIZMO
-					is_usable = true
-					action_container.visible = false
-					
+						
 					while player.stats['excess_energy'][energy_type] > 0 and cost > 0:
 						player.stats['excess_energy'][energy_type] -= 1
 						cost -= 1
@@ -126,6 +129,15 @@ func build(player : Player) -> bool:
 					
 					GameManager.give_card(self, player, card_info['type_id'])
 					GameManager.add_to_energy_row(paid)
+					
+					if (status != Utils.RESEARCH_GIZMO 
+					and GameManager.finished_action() == false):
+						print("Removed free build action")
+						GameManager.dec_free_action('build')
+					
+					status = Utils.ACTIVE_GIZMO
+					is_usable = true
+					action_container.visible = false
 					
 					if is_passive():
 						var effect_split = string_to_func(card_info['effect'])
