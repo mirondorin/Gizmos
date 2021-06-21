@@ -10,7 +10,9 @@ var is_usable
 var face
 var back
 var action_container
-
+var is_used_container
+var condition_met
+var condition_met_sign
 # Constants
 
 const ARCHIVE_ZONE = 7
@@ -23,6 +25,8 @@ func _init(var card_json):
 #	back = load("res://Assets/CardBack"+str(card_info['tier'])+".png")
 	set_normal_texture(face)
 	init_card_actions_container()
+	init_used_indicator()
+	init_condition_indicator()
 	is_usable = false
 
 
@@ -48,13 +52,44 @@ func set_active():
 	is_usable = true
 
 
+# Set's card as unusable and makes it grayed out
+func set_is_usable(can_use : bool):
+	is_usable = can_use
+	is_used_container.visible = !can_use
+
+
 func init_card_actions_container():
 	var actions_scene = load("res://Scenes/CardActions.tscn")
 	action_container = actions_scene.instance()
 	action_container.visible = false
-	self.add_child(action_container)
 	action_container.rect_size.x = self.rect_size.x
 	action_container.rect_size.y = self.rect_size.y
+	self.add_child(action_container)
+	
+
+func init_used_indicator():
+	is_used_container = ColorRect.new()
+	is_used_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	is_used_container.rect_size.x = face.get_size()[0]
+	is_used_container.rect_size.y = face.get_size()[1]
+	is_used_container.color = Color("82000000") # Gray background
+	is_used_container.visible = false
+	self.add_child(is_used_container)
+
+
+func init_condition_indicator():
+	var texture = load("res://Assets/Ok.png")
+	condition_met_sign = TextureRect.new()
+	condition_met_sign.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	condition_met_sign.texture = texture
+	condition_met_sign.visible = false
+	self.add_child(condition_met_sign)
+	condition_met_sign.anchor_left = 1
+	condition_met_sign.anchor_right = 1
+	condition_met_sign.anchor_top = 1
+	condition_met_sign.anchor_bottom = 1
+	condition_met_sign.margin_left = -62 # texture's width
+	condition_met_sign.margin_top = -62 # texture's width
 	
 
 func get_card_info():
@@ -95,6 +130,7 @@ func archive(player : Player) -> bool:
 					GameManager.dec_free_action('archive')
 					
 				status = Utils.ARCHIVED_GIZMO
+				player.check_condition_gizmos()
 				return true
 			else:
 				print(player.name + " has no more archive space")
@@ -134,6 +170,8 @@ func build(player : Player) -> bool:
 							GameManager.call(effect_split[0], effect_split[1])
 						else:
 							GameManager.call(effect_split[0])
+					
+					player.check_condition_gizmos()
 					return true
 					
 				elif (player.stats['energy'][energy_type] 
@@ -170,23 +208,28 @@ func build(player : Player) -> bool:
 							GameManager.call(effect_split[0], effect_split[1])
 						else:
 							GameManager.call(effect_split[0])
+							
+					player.check_condition_gizmos()
 					return true
 				else:
 					print(player.name + " does not have enough energy")
 	return false
 
 
-# TODO move the condition met steps into separate function maybe?
+# If active_player meets condition sets condition_met to true, false otherwise
+func is_condition_met(player : Player) -> bool:
+	var condition_split = string_to_func(card_info['action'])
+	if condition_split[1]:
+		condition_met = player.call(condition_split[0], condition_split[1])
+	else:
+		condition_met = player.call(condition_split[0])
+	return condition_met
+
+
+# If card is usable and player meets card's conditions then use effect
 func use_effect():
 	if is_usable:
-		var condition_split = string_to_func(card_info['action'])
-		var condition_met
-		if condition_split[1]:
-			condition_met = GameManager.active_player.call(condition_split[0], condition_split[1])
-		else:
-			condition_met = GameManager.active_player.call(condition_split[0])
-			
-		if condition_met:
+		if is_condition_met(GameManager.active_player):
 			var effect_split = card_info['effect'].split('(')
 			var effect_func = effect_split[0]
 			var effect_params = effect_split[1].split(')')[0]
@@ -199,10 +242,11 @@ func use_effect():
 				effect_params = str2var(effect_params)
 #			print(effect_func)
 #			print(effect_params)
-			if card_info['type_id'] == 2:
+			if card_info['type_id'] == 2: # if is converter card
 				GameManager.active_player.get_node("ConvertTab").set_gizmo_preview(face)
 			GameManager.call(effect_func, effect_params)
-			is_usable = false
+			set_is_usable(false)
+			condition_met_sign.visible = false
 		else:
 			print("Condition for effect was not met")
 	else:

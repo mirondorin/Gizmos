@@ -1,0 +1,11 @@
+[gd_scene format=2]
+
+[node name="UsableContainer" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.36353
+margin_right = -1596.36
+margin_bottom = -952.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

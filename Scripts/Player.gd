@@ -130,10 +130,21 @@ func has_built_tier(build_tier):
 
 # Makes all active gizmos usable again after player ends his turn
 func reset_active_gizmos():
-	for _i in range(2, 7):
-		var cards = get_node("ScrollContainer" + str(_i) + "/VBoxContainer")
+	for type in range(2, 7):
+		var cards = get_node("ScrollContainer" + str(type) + "/VBoxContainer")
 		for card in cards.get_children():
-			card.is_usable = true
+			card.set_is_usable(true)
+			card.condition_met_sign.visible = false
+
+
+# Iterates through all active gizmos player has and if gizmo is usable
+# show the checkmark on the bottom right 
+func check_condition_gizmos():
+	for type in range(2, 7):
+		var cards = get_node("ScrollContainer" + str(type) + "/VBoxContainer")
+		for card in cards.get_children():
+			if card.is_usable and card.is_condition_met(self):
+				card.condition_met_sign.visible = true
 
 
 # Resets all flag values to default
