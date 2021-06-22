@@ -145,6 +145,8 @@ func check_condition_gizmos():
 		for card in cards.get_children():
 			if card.is_usable and card.is_condition_met(self):
 				card.condition_met_sign.visible = true
+			else:
+				card.condition_met_sign.visible = false
 
 
 # Resets all flag values to default

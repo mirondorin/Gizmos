@@ -37,6 +37,7 @@ func _ready():
 	game.get_node("TurnIndicator").init_turn_indicator(game.get_node("Players"))
 	node_energy_row = game.get_node("EnergyRow")
 	init_energy_dispenser_row()
+#	end_game()
 
 
 # TODO: Remove some cards from tier3 at the beginning of game
@@ -138,9 +139,11 @@ func end_turn() -> void:
 	active_player.visible = false
 	reset_action_status()
 	game.get_node("ActionStatus").text = ""
+	active_player.update_energy_counters()
 	var next_player = get_next_player()
 	active_player = game.get_node('Players/' + next_player)
 	active_player.visible = true
+	active_player.check_condition_gizmos() # Used for converters
 	game.get_node("TurnIndicator").update_turn_indicator()
 
 
@@ -216,6 +219,7 @@ func give_card(card : Card, player : Player, type : int):
 
 	player.card_to_container(card, type)
 	player.update_energy_counters()
+	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_score())
 	fill_all()
 	update_tier_decks_counter()
 
@@ -289,6 +293,8 @@ func disable_action(code : int) -> void:
 # Gives count vp_tokens to active_player
 func give_vp_tokens(count : int) -> void:
 	active_player.stats['vp_tokens'] += count
+	game.get_node("TurnIndicator").update_player_points(active_player.get_instance_id(), \
+	active_player.get_score())
 	print("From give_vp_tokens ", active_player.stats)
 
 
@@ -367,6 +373,11 @@ func update_tier_decks_counter() -> void:
 	for tier in range(0, 3):
 		var el = decks.get_node("TierDeck" + str(tier + 1)) 
 		el.get_node("Label").text = str(tier_decks[tier].size())
+
+
+func end_game() -> void:
+	var score_board = load("res://Scenes/EndScoreBoard.tscn").instance()
+	game.add_child(score_board)
 
 
 # For DEBUG only. Used to get tree list of all nodes in node
