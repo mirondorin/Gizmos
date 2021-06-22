@@ -32,7 +32,9 @@ func _ready():
 	randomize()
 	set_deck()
 	fill_all()
+	update_tier_decks_counter()
 	instance_players()
+	game.get_node("TurnIndicator").init_turn_indicator(game.get_node("Players"))
 	node_energy_row = game.get_node("EnergyRow")
 	init_energy_dispenser_row()
 
@@ -135,9 +137,11 @@ func reset_action_status() -> void:
 func end_turn() -> void:
 	active_player.visible = false
 	reset_action_status()
+	game.get_node("ActionStatus").text = ""
 	var next_player = get_next_player()
 	active_player = game.get_node('Players/' + next_player)
 	active_player.visible = true
+	game.get_node("TurnIndicator").update_turn_indicator()
 
 
 # Returns total energy in energy_row
@@ -207,12 +211,13 @@ func give_card(card : Card, player : Player, type : int):
 			remove_card(card, revealed_cards)
 		"build":
 			remove_card(card, revealed_cards)
-		"research":
+		_: # Otherwise it was a research action of build/archive
 			remove_card(card, tier_decks)
 
 	player.card_to_container(card, type)
 	player.update_energy_counters()
 	fill_all()
+	update_tier_decks_counter()
 
 
 func research(tier : int):
@@ -235,6 +240,7 @@ func give_rand_energy(count : int):
 			var energy_type = rand_from_dispenser()
 			active_player.stats['energy'][energy_type] += 1
 		else:
+			active_player.update_energy_counters()
 			return
 		count -= 1
 	active_player.update_energy_counters()
@@ -352,6 +358,15 @@ func is_end_game() -> bool:
 		end_game = true
 		print("Triggered end game")
 	return end_game
+
+
+# Updates the counter for each tier deck
+func update_tier_decks_counter() -> void:
+	var decks = game.get_node("Container/TierDeckContainer")
+	
+	for tier in range(0, 3):
+		var el = decks.get_node("TierDeck" + str(tier + 1)) 
+		el.get_node("Label").text = str(tier_decks[tier].size())
 
 
 # For DEBUG only. Used to get tree list of all nodes in node

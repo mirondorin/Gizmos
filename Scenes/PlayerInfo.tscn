@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/OpenSansTurn.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Star.png" type="Texture" id=3]
+[ext_resource path="res://Assets/TurnIndicator.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/PlayerInfo.gd" type="Script" id=5]
+
+[node name="PlayerInfo" type="HBoxContainer"]
+margin_right = 274.0
+margin_bottom = 71.0
+alignment = 2
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arrow" type="TextureRect" parent="."]
+visible = false
+margin_right = 65.0
+margin_bottom = 71.0
+texture = ExtResource( 4 )
+
+[node name="PlayerName" type="Button" parent="."]
+margin_left = 69.0
+margin_right = 193.0
+margin_bottom = 71.0
+rect_min_size = Vector2( 124, 65 )
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PointsContainer" type="CenterContainer" parent="."]
+margin_left = 197.0
+margin_right = 274.0
+margin_bottom = 71.0
+
+[node name="Button" type="Button" parent="PointsContainer"]
+margin_right = 77.0
+margin_bottom = 71.0
+mouse_filter = 2
+icon = ExtResource( 3 )
+
+[node name="Points" type="Label" parent="PointsContainer"]
+margin_left = 38.0
+margin_top = 21.0
+margin_right = 38.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

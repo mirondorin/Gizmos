@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/TurnIndicator.gd" type="Script" id=1]
+
+[node name="TurnIndicator" type="VBoxContainer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -290.952
+margin_top = 15.8919
+margin_right = -16.9517
+margin_bottom = 86.8919
+alignment = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

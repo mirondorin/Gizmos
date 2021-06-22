@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/TierDecksContainer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/EnergyRow.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Scenes/TurnIndicator.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -113,3 +114,5 @@ uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TurnIndicator" parent="." instance=ExtResource( 5 )]
