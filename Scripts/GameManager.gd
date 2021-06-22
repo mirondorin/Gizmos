@@ -14,6 +14,7 @@ var energy_row
 var node_energy_row
 var player_scene = preload("res://Scenes/Player.tscn")
 var players_count = 2
+var player_order = []
 var active_player: Player # indicates whose turn it is
 var current_state
 var end_game = false
@@ -81,6 +82,7 @@ func instance_players() -> void:
 		var new_player = player_scene.instance()
 		new_player.name = "Player" + str(_i + 1)
 		new_player.visible = false
+		player_order.append(new_player.get_instance_id())
 		game.get_node('Players').add_child(new_player)
 		var start_card_instance = Card.new(start_card)
 		start_card_instance.set_active()
@@ -98,6 +100,25 @@ func give_test_card(id : int, status: int, player : Player) -> void:
 	card.is_usable = true
 	card.status = status
 	player.card_to_container(card, ARCHIVE_CARD)
+
+
+func give_test_stats(player : Player, score, gizmos, energy):
+	player.stats['vp_tokens'] = score
+	for _i in range(0, gizmos):
+		player.stats['gizmos'].append(0)
+	player.stats['energy'][0] += energy
+
+
+# Returns array of ScoreEntry nodes sorted so first player is first element
+func get_final_scores():
+	var score_entries = []
+	var score_scene = load("res://Scenes/ScoreEntry.tscn")
+	for player in game.get_node('Players').get_children():
+		var score_instance = score_scene.instance()
+		score_instance.set_info(player)
+		score_entries.append(score_instance)
+	score_entries.sort_custom(ScoreEntry, "custom_comparison")
+	return score_entries
 
 
 func debug_state(player: Player) -> void:
@@ -140,6 +161,10 @@ func end_turn() -> void:
 	reset_action_status()
 	game.get_node("ActionStatus").text = ""
 	active_player.update_energy_counters()
+	if GameManager.is_end_game():
+		print("Game end flag triggered")
+		if active_player.get_instance_id() == player_order[-1]:
+			end_screen()
 	var next_player = get_next_player()
 	active_player = game.get_node('Players/' + next_player)
 	active_player.visible = true
@@ -375,8 +400,12 @@ func update_tier_decks_counter() -> void:
 		el.get_node("Label").text = str(tier_decks[tier].size())
 
 
-func end_game() -> void:
+# Game has ended. Show final scoreboard
+func end_screen() -> void:
 	var score_board = load("res://Scenes/EndScoreBoard.tscn").instance()
+	var score_nodes = get_final_scores()
+	for score in score_nodes:
+		score_board.get_node("Table").add_child(score)
 	game.add_child(score_board)
 
 

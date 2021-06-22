@@ -174,7 +174,6 @@ func build(player : Player) -> bool:
 					
 					player.check_condition_gizmos()
 					GameManager.game.get_node("ActionStatus").text = ""
-					GameManager.is_end_game()
 					return true
 					
 				elif (player.stats['energy'][energy_type] 
@@ -213,7 +212,6 @@ func build(player : Player) -> bool:
 							GameManager.call(effect_split[0])
 							
 					player.check_condition_gizmos()
-					GameManager.is_end_game()
 					return true
 				else:
 					GameManager.set_warning("You do not have enough energy")

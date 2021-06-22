@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/ScoreEntry.gd" type="Script" id=2]
+
+[node name="ScoreEntry" type="MarginContainer"]
+margin_top = 52.0
+margin_right = 1880.0
+margin_bottom = 94.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BgColor" type="ColorRect" parent="."]
+margin_right = 1880.0
+margin_bottom = 42.0
+color = Color( 0, 0, 0, 0.415686 )
+
+[node name="PlayerStats" type="HBoxContainer" parent="."]
+margin_right = 1880.0
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="PlayerStats"]
+margin_right = 467.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+align = 1
+uppercase = true
+
+[node name="VP" type="Label" parent="PlayerStats"]
+margin_left = 471.0
+margin_right = 938.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+align = 1
+uppercase = true
+
+[node name="Gizmos" type="Label" parent="PlayerStats"]
+margin_left = 942.0
+margin_right = 1409.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+align = 1
+uppercase = true
+
+[node name="Energy" type="Label" parent="PlayerStats"]
+margin_left = 1413.0
+margin_right = 1880.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+align = 1
+uppercase = true
