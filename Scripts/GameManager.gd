@@ -27,16 +27,20 @@ const ARCHIVE_CARD = 3
 
 # Functions
 
-# TODO: Remove some cards from tier3 at the beginning of game
 # Last card from deck is start_card
 func set_deck() -> void:
+	# TODO: Remove not_implemented once cards are implemented
+	var not_implemented = [16, 17, 27, 28, 29, 30]
 	if typeof(deck) == TYPE_DICTIONARY:
 		var it = 0
 		var deck_size = deck.size() - 1
 		while it < deck_size:
 			var card_json = deck[str(it)]
 			var card_tier = card_json['tier']
-			tier_decks[card_tier - 1].append(card_json['id'])
+			if card_json['id'] in not_implemented and card_json['tier'] == 3:
+				print("Skip adding this card")
+			else:
+				tier_decks[card_tier - 1].append(card_json['id'])
 			it += 1
 		start_card = deck[str(it)]
 
@@ -59,6 +63,16 @@ func fill_tier_deck(tier : int, count : int) -> void:
 		rand_card.status = Utils.REVEALED_GIZMO
 		game.get_node('Container/GridTier' + str(tier + 1)).add_child(rand_card)
 		size += 1
+
+
+# Removes cards from tier deck. Tier is 0 index based
+func remove_tier_cards(tier : int, count: int) -> void:
+	# Already removed 6 unimplemented cards. TODO remove if later
+	if tier == 2:
+		count = 14
+	for el in range (0, count):
+		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
+		tier_decks[tier].erase(rand_card_id)
 
 
 # Create players_count instances of Player class and adds them to Game scene
