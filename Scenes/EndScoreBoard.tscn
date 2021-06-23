@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/QuitBtn.tscn" type="PackedScene" id=2]
 
 [node name="ScoreBoard" type="Control"]
 anchor_right = 1.0
@@ -16,6 +17,16 @@ color = Color( 0.133333, 0.141176, 0.141176, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="QuitBtn" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -160.246
+margin_right = 100.0
+margin_bottom = -112.246
 
 [node name="Table" type="VBoxContainer" parent="."]
 anchor_left = 0.5

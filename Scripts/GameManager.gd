@@ -1,6 +1,6 @@
 extends Node
 
-onready var game = get_node('/root/Game/')
+var game
 
 # Variables
 
@@ -13,7 +13,6 @@ var energy_dispenser
 var energy_row
 var node_energy_row
 var player_scene = preload("res://Scenes/Player.tscn")
-var players_count = 2
 var player_order = []
 var active_player: Player # indicates whose turn it is
 var current_state
@@ -27,19 +26,6 @@ const MAX_ENERGY_ROW = 6
 const ARCHIVE_CARD = 3
 
 # Functions
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	randomize()
-	set_deck()
-	fill_all()
-	update_tier_decks_counter()
-	instance_players()
-	game.get_node("TurnIndicator").init_turn_indicator(game.get_node("Players"))
-	node_energy_row = game.get_node("EnergyRow")
-	init_energy_dispenser_row()
-#	end_game()
-
 
 # TODO: Remove some cards from tier3 at the beginning of game
 # Last card from deck is start_card
@@ -77,7 +63,7 @@ func fill_tier_deck(tier : int, count : int) -> void:
 
 # Create players_count instances of Player class and adds them to Game scene
 # Sets up Player1 as first active player
-func instance_players() -> void:
+func instance_players(players_count : int) -> void:
 	for _i in range(players_count):
 		var new_player = player_scene.instance()
 		new_player.name = "Player" + str(_i + 1)
@@ -142,7 +128,7 @@ func finished_action() -> bool:
 
 # Used in end_turn for setting up next active player
 func get_next_player() -> String:
-	var player_nr = (int(active_player.name) + 1) % (players_count + 1)
+	var player_nr = (int(active_player.name) + 1) % (game.players_count + 1)
 	if player_nr == 0:
 		player_nr += 1
 	return "Player" + str(player_nr)

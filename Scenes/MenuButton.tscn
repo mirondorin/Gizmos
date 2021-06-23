@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=1]
+
+[node name="MenuBtn" type="Button"]
+margin_left = 760.0
+margin_top = 418.0
+margin_right = 960.0
+margin_bottom = 466.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 1 )
+text = "Label"
+__meta__ = {
+"_edit_use_anchors_": false
+}

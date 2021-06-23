@@ -39,7 +39,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Gizmos"
-run/main_scene="res://Scenes/Game.tscn"
+run/main_scene="res://Scenes/MainMenu.tscn"
 
 [autoload]
 
