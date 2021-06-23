@@ -173,8 +173,12 @@ margin_left = -275.0
 margin_top = 226.0
 margin_right = 275.0
 margin_bottom = 268.0
+rect_min_size = Vector2( 700, 0 )
 custom_fonts/font = ExtResource( 3 )
 align = 1
 uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="button_up" from="EndBtn" to="." method="_on_EndBtn_button_up"]
 [connection signal="pressed" from="ResearchBtn" to="." method="_on_ResearchBtn_pressed"]

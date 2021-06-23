@@ -70,7 +70,7 @@ func remove_tier_cards(tier : int, count: int) -> void:
 	# Already removed 6 unimplemented cards. TODO remove if later
 	if tier == 2:
 		count = 14
-	for el in range (0, count):
+	for _el in range (0, count):
 		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
 		tier_decks[tier].erase(rand_card_id)
 
@@ -159,8 +159,10 @@ func reset_action_status() -> void:
 func end_turn() -> void:
 	active_player.visible = false
 	reset_action_status()
-	game.get_node("ActionStatus").text = ""
 	active_player.update_energy_counters()
+	active_player.get_node("ResearchTab").clear_cards()
+	active_player.get_node("ResearchBtn").visible = false
+	game.get_node("ActionStatus").text = "You must pick an action"
 	if GameManager.is_end_game():
 		print("Game end flag triggered")
 		if active_player.get_instance_id() == player_order[-1]:

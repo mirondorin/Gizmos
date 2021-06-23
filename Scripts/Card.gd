@@ -135,6 +135,8 @@ func archive(player : Player) -> bool:
 			else:
 				GameManager.set_warning("You do not have enough archive space")
 				print(player.name + " has no more archive space")
+	else:
+		GameManager.set_warning("You can't archive")
 	return false
 
 
@@ -216,6 +218,8 @@ func build(player : Player) -> bool:
 				else:
 					GameManager.set_warning("You do not have enough energy")
 					print(player.name + " does not have enough energy")
+	else:
+		GameManager.set_warning("You can't build")
 	return false
 
 

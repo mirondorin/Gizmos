@@ -50,6 +50,8 @@ GameManager="*res://Scripts/GameManager.gd"
 
 window/size/width=1920
 window/size/height=1080
+window/size/resizable=false
+window/size/borderless=true
 
 [rendering]
 

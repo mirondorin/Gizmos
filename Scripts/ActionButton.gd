@@ -6,6 +6,7 @@ export(String) var action
 func _on_TextureRect_pressed():
 #	print("Current state is: " + action)
 	if GameManager.active_player.used_action:
+		GameManager.set_warning("You already used your action")
 		return
 	GameManager.game.get_node("ActionStatus").text = GameManager.active_player.name + " is doing " + action
 	match action:
