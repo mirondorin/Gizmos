@@ -330,7 +330,7 @@ func upgrade_capacities(params) -> void:
 	active_player.stats['max_energy'] += params[0]
 	active_player.stats['max_archive'] += params[1]
 	active_player.stats['max_research'] += params[2]
-	active_player.get_node("PlayerBoard").update_all()
+	active_player.get_node("PlayerBoard").update_capacities()
 
 
 # params HAS TO BE format of [[converting], [result], [amount]]

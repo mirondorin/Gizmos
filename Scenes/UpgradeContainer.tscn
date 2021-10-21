@@ -6,11 +6,10 @@
 [ext_resource path="res://Assets/ArchiveCap.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/UpgradeContainer.gd" type="Script" id=5]
 
-[node name="UpgradeContainer" type="GridContainer"]
+[node name="UpgradeContainer" type="HBoxContainer"]
 margin_right = 308.0
 margin_bottom = 100.0
 rect_scale = Vector2( 0.6, 0.6 )
-columns = 3
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false

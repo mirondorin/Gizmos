@@ -101,6 +101,7 @@ func get_deck_id() -> int:
 
 
 # Used to call effect function ONLY once when built
+# TODO: remove magic number. Add enum for card types
 func is_passive() -> bool:
 	return card_info['type_id'] == 1
 
