@@ -2,23 +2,21 @@
 
 [ext_resource path="res://Scenes/ActionContainer.tscn" type="PackedScene" id=2]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0823529, 0.803922, 0.858824, 1 )
 
-[sub_resource type="Animation" id=1]
-resource_name = "Highlight"
+[sub_resource type="Animation" id=2]
 length = 1.7
 loop = true
 
-[sub_resource type="Animation" id=2]
-resource_name = "Idle"
+[sub_resource type="Animation" id=3]
 
 [node name="TextureRect" type="Button"]
 margin_right = 250.0
 margin_bottom = 84.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/focus = SubResource( 3 )
+custom_styles/focus = SubResource( 1 )
 disabled = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -36,5 +34,5 @@ margin_bottom = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../ColorRect")
-anims/Highlight = SubResource( 1 )
-anims/Idle = SubResource( 2 )
+anims/Highlight = SubResource( 2 )
+anims/Idle = SubResource( 3 )
