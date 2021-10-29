@@ -171,6 +171,7 @@ func end_turn() -> void:
 	active_player = game.get_node('Players/' + next_player)
 	active_player.visible = true
 	active_player.check_condition_gizmos() # Used for converters
+	active_player.get_node("PlayerBoard").all_highlight()
 	game.get_node("TurnIndicator").update_turn_indicator()
 
 
@@ -409,6 +410,13 @@ func end_screen() -> void:
 	for score in score_nodes:
 		score_board.get_node("Table").add_child(score)
 	game.add_child(score_board)
+
+
+func set_status(action):
+	game.get_node("ActionStatus").text = active_player.name + " is doing " + action
+	current_state = action
+	active_player.using_action = true
+	active_player.get_node("PlayerBoard").update_highlight()
 
 
 # For DEBUG only. Used to get tree list of all nodes in node

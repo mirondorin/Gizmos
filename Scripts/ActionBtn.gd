@@ -4,7 +4,7 @@ export(String) var action
 
 
 func _ready():
-	highlight()
+	set_animation("Highlight")
 
 
 func _on_TextureRect_pressed():
@@ -13,11 +13,12 @@ func _on_TextureRect_pressed():
 		GameManager.set_warning("You already used your action")
 		return
 
-	#TODO move these 3 lines into a set_status function
-	GameManager.game.get_node("ActionStatus").text = GameManager.active_player.name + " is doing " + action
-	GameManager.current_state = action
-	GameManager.active_player.using_action = true
+	GameManager.set_status(action)
 
 
-func highlight():
-	$AnimationPlayer.current_animation = "Highlight"
+# Used for highlight/idle animations
+func set_animation(animation):
+	if $AnimationPlayer.get_current_animation():
+		$AnimationPlayer.get_animation($AnimationPlayer.get_current_animation()).loop = false
+	$AnimationPlayer.get_animation(animation).loop = true
+	$AnimationPlayer.play(animation)
