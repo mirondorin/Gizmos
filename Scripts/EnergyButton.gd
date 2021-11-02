@@ -7,7 +7,6 @@ func _on_Control_pressed():
 		give_energy(GameManager.active_player, type)
 
 
-# TODO decrement free_pick
 func give_energy(player : Player, energy_type : int):
 	if GameManager.energy_row[energy_type] > 0:
 		if player.has_energy_space():
@@ -44,3 +43,22 @@ func increment_counter():
 
 func update_counter(value):
 	$Counter.text = str(value)
+
+
+# Used for highlight/idle animations
+func set_animation(animation):
+	if $AnimationPlayer.get_current_animation():
+		$AnimationPlayer.get_animation($AnimationPlayer.get_current_animation()).loop = false
+	$AnimationPlayer.get_animation(animation).loop = true
+	$AnimationPlayer.play(animation)
+
+
+func _on_EnergyButton_mouse_entered():
+	if GameManager.current_state == "pick":
+		get_parent().get_parent().all_idle()
+		$AnimationPlayer.stop()
+		self.modulate = Color(1.2, 1.2, 1.2)
+
+
+func _on_EnergyButton_mouse_exited():
+	self.modulate = Color(1, 1, 1)

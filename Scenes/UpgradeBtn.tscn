@@ -1,25 +1,22 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/UpgradeContainer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/ActionContainer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UpgradeBtn.gd" type="Script" id=3]
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.0823529, 0.803922, 0.858824, 1 )
-
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 length = 1.7
 loop = true
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 
 [node name="UpgradeBtn" type="Button"]
 margin_right = 250.0
 margin_bottom = 84.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/focus = SubResource( 4 )
 disabled = true
+enabled_focus_mode = 0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -43,7 +40,7 @@ size_flags_vertical = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../ColorRect")
-anims/Highlight = SubResource( 5 )
-anims/Idle = SubResource( 3 )
+anims/Highlight = SubResource( 1 )
+anims/Idle = SubResource( 2 )
 
 [editable path="UpgradeContainer"]

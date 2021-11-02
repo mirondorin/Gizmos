@@ -136,6 +136,7 @@ func finished_action() -> bool:
 		active_player.using_action = false
 		active_player.used_action = true
 		active_player.get_node("EndBtn").visible = true
+		active_player.get_node("PlayerBoard").toggle_buttons()
 		return true
 	return false
 
@@ -162,6 +163,7 @@ func end_turn() -> void:
 	active_player.update_energy_counters()
 	active_player.get_node("ResearchTab").clear_cards()
 	active_player.get_node("ResearchBtn").visible = false
+	active_player.get_node("PlayerBoard").toggle_buttons()
 	game.get_node("ActionStatus").text = "You must pick an action"
 	if GameManager.is_end_game():
 		print("Game end flag triggered")
@@ -417,6 +419,10 @@ func set_status(action):
 	current_state = action
 	active_player.using_action = true
 	active_player.get_node("PlayerBoard").update_highlight()
+	
+	#TODO make new class for highlights to make it more manageable
+	if current_state == "pick":
+		game.get_node("EnergyRow").all_highlight()
 
 
 # For DEBUG only. Used to get tree list of all nodes in node

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/TierDecksContainer.tscn" type="PackedScene" id=2]
@@ -6,6 +6,12 @@
 [ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/TurnIndicator.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/temp-background.jpg.png" type="Texture" id=6]
+
+[sub_resource type="Environment" id=1]
+glow_enabled = true
+glow_intensity = 1.0
+glow_strength = 0.9
+glow_blend_mode = 1
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -125,3 +131,6 @@ __meta__ = {
 }
 
 [node name="TurnIndicator" parent="." instance=ExtResource( 5 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
