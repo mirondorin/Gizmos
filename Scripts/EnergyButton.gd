@@ -51,9 +51,9 @@ func get_anim_player():
 
 func _on_EnergyButton_mouse_entered():
 	if GameManager.current_state == "pick":
-		get_parent().get_parent().all_idle()
+		GameManager.hint_manager.set_all_animation(get_parent().get_parent().get_anim_player_arr(), "Idle")
 		$AnimationPlayer.stop()
-		self.modulate = Color(1.2, 1.2, 1.2)
+		self.modulate = Color(1.4, 1.4, 1.4)
 
 
 func _on_EnergyButton_mouse_exited():
