@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/TierDeck.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/CardBack3.png" type="Texture" id=2]
-[ext_resource path="res://Assets/CardBack1.png" type="Texture" id=3]
+[ext_resource path="res://TierDecksContainer.gd" type="Script" id=3]
 [ext_resource path="res://Assets/CardBack2.png" type="Texture" id=4]
 
 [node name="TierDeckContainer" type="GridContainer"]
@@ -10,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1743.0
 margin_bottom = -537.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -37,4 +38,3 @@ anchor_bottom = 0.0
 margin_top = 365.0
 margin_right = 177.0
 margin_bottom = 543.0
-texture_normal = ExtResource( 3 )

@@ -18,6 +18,7 @@ var active_player: Player # indicates whose turn it is
 var current_state
 var end_game = false
 
+var hint_manager = HintManager.new()
 # Constants
 
 const MAX_DISPENSER = 13
@@ -284,13 +285,12 @@ func give_rand_energy(count : int):
 # params[0] has value in action_code from Utils script
 # params[1] is the amount of free actions player will get
 func add_free_action(params):
-#	print("params[0] ", params[0])
-#	print("params[1] ", params[1])
 	var action = Utils.action_code[params[0]]
 	active_player.free_action[action] += params[1]
 	current_state = action
-	game.get_node("ActionStatus").text = active_player.name + " has free " + action \
-		+ " " + str(params[1])
+	var format_string = "%s has %d free %s"
+	var status = format_string % [active_player.name, params[1], action]
+	game.get_node("ActionStatus").text = status
 	print(active_player.free_action)
 
 
@@ -298,11 +298,14 @@ func add_free_action(params):
 func dec_free_action(action: String) -> void:
 	active_player.free_action[action] -= 1
 	var counter = active_player.free_action[action]
+	var format_string = "%s has %d free %s"
+	var status = format_string % [active_player.name, counter, action]
+	
 	if counter:
-			game.get_node("ActionStatus").text = active_player.name + " has free " + action \
-		+ " " + str(counter)
+		game.get_node("ActionStatus").text = status
 	else:
 		game.get_node("ActionStatus").text = ""
+		current_state = ""
 
 
 # params HAS TO BE array
@@ -420,9 +423,7 @@ func set_status(action):
 	active_player.using_action = true
 	active_player.get_node("PlayerBoard").update_highlight()
 	
-	#TODO make new class for highlights to make it more manageable
-	if current_state == "pick":
-		game.get_node("EnergyRow").all_highlight()
+	hint_manager.action_highlight(action)
 
 
 # For DEBUG only. Used to get tree list of all nodes in node

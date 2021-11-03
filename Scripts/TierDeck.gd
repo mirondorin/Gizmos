@@ -10,3 +10,7 @@ func _on_TierDeck_pressed():
 			print("Removed free research action")
 			GameManager.dec_free_action('research')
 		GameManager.research(tier)
+
+
+func get_anim_player():
+	return $AnimationPlayer

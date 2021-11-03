@@ -10,11 +10,8 @@ func update_energy_counters(energy_arr):
 		step += 1
 
 
-func all_highlight():
+func get_anim_player_arr():
+	var anim_player_arr = []
 	for energy_btn in $EnergyContainer.get_children():
-		energy_btn.set_animation("Highlight")
-
-
-func all_idle():
-	for energy_btn in $EnergyContainer.get_children():
-		energy_btn.set_animation("Idle")
+		anim_player_arr.append(energy_btn.get_anim_player())
+	return anim_player_arr
