@@ -19,7 +19,7 @@ const ARCHIVE_ZONE = 7
 
 # Functions
 
-func _init(var card_json):
+func init(var card_json):
 	card_info = card_json
 	face = load("res://Assets/Set"+str(card_info['tier'])+"/card"+str(card_info['id'])+".png")
 #	back = load("res://Assets/CardBack"+str(card_info['tier'])+".png")
@@ -46,13 +46,12 @@ func _pressed():
 				build(GameManager.active_player)
 
 
-
 func set_active():
 	status = Utils.ACTIVE_GIZMO
 	is_usable = true
 
 
-# Set's card as unusable and makes it grayed out
+# Sets card as unusable and makes it grayed out
 func set_is_usable(can_use : bool):
 	is_usable = can_use
 	is_used_container.visible = !can_use

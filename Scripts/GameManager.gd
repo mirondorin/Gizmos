@@ -55,12 +55,14 @@ func fill_all() -> void:
 # Fills revealed_cards[tier] with count cards
 func fill_tier_deck(tier : int, count : int) -> void:
 	var size = revealed_cards[tier].size()
+	var card = load("res://Scenes/Card.tscn")
 	while size < count:
 		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
 		tier_decks[tier].erase(rand_card_id)
 		revealed_cards[tier].push_back(rand_card_id)
 		rand_card_id = rand_card_id + 36 * tier
-		var rand_card = Card.new(deck[str(rand_card_id)])
+		var rand_card = card.instance()
+		rand_card.init(deck[str(rand_card_id)])
 		rand_card.status = Utils.REVEALED_GIZMO
 		game.get_node('Container/GridTier' + str(tier + 1)).add_child(rand_card)
 		size += 1
@@ -79,13 +81,15 @@ func remove_tier_cards(tier : int, count: int) -> void:
 # Create players_count instances of Player class and adds them to Game scene
 # Sets up Player1 as first active player
 func instance_players(players_count : int) -> void:
+	var card = load("res://Scenes/Card.tscn")
 	for _i in range(players_count):
 		var new_player = player_scene.instance()
 		new_player.name = "Player" + str(_i + 1)
 		new_player.visible = false
 		player_order.append(new_player.get_instance_id())
 		game.get_node('Players').add_child(new_player)
-		var start_card_instance = Card.new(start_card)
+		var start_card_instance = card.instance()
+		start_card_instance.init(start_card)
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
 		new_player.stats['gizmos'].append(start_card_instance.get_deck_id())
@@ -97,7 +101,8 @@ func instance_players(players_count : int) -> void:
 
 # Has to be id from JSON
 func give_test_card(id : int, status: int, player : Player) -> void:
-	var card = Card.new(deck[str(id)])
+	var card = load("res://Scenes/Card.tscn").instance()
+	card.init(deck[str(id)])
 	card.is_usable = true
 	card.status = status
 	player.card_to_container(card, ARCHIVE_CARD)
@@ -256,11 +261,13 @@ func give_card(card : Card, player : Player, type : int):
 
 
 func research(tier : int):
+	var card = load("res://Scenes/Card.tscn")
 	var research_tab = active_player.get_node("ResearchTab")
 	for _i in range(0, active_player.stats['max_research']):
 		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
 		rand_card_id = rand_card_id + 36 * tier
-		var rand_card = Card.new(deck[str(rand_card_id)])
+		var rand_card = card.instance()
+		rand_card.init(deck[str(rand_card_id)])
 		rand_card.status = Utils.RESEARCH_GIZMO
 		research_tab.add_card(rand_card)
 	if active_player.using_action == true:
