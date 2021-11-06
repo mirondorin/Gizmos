@@ -229,3 +229,10 @@ func get_score() -> int:
 		for card in cards.get_children():
 			total += card.card_info['vp']
 	return total
+
+
+func get_btn_anim_player_arr():
+	var anim_player_arr = []
+	for btn in $PlayerBoard.get_action_btn_arr():
+		anim_player_arr.append(btn.get_anim_player())
+	return anim_player_arr

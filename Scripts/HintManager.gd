@@ -15,6 +15,7 @@ func set_animation(anim_player, animation):
 func set_all_animation(anim_player_arr, animation):
 	for anim_player in anim_player_arr:
 		set_animation(anim_player, animation)
+	prev_anim_players = anim_player_arr
 
 
 # Gives highlight hint for interactable elements based on action
@@ -29,12 +30,12 @@ func get_action_anim_players(action):
 	var anim_player_arr = []
 	match action:
 		"archive":
-#			print("get container")
-			anim_player_arr = []
+			var revealed_cards = GameManager.get_revealed_cards()
+			anim_player_arr = GameManager.get_cards_anim_player_arr(revealed_cards)
 		"pick":
 			anim_player_arr = game.get_node("EnergyRow").get_anim_player_arr()
 		"build":
-#			print("get container")
+			var revealed_cards = GameManager.get_revealed_cards()
 			anim_player_arr = []
 		"research":
 			anim_player_arr = game.get_node("Container").get_node("TierDeckContainer").get_anim_player_arr()

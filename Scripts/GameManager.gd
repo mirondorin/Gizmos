@@ -96,6 +96,7 @@ func instance_players(players_count : int) -> void:
 #		give_test_card(73, Utils.ACTIVE_GIZMO, new_player)
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
+	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
 #	debug_state(active_player)
 
 
@@ -179,7 +180,7 @@ func end_turn() -> void:
 	active_player = game.get_node('Players/' + next_player)
 	active_player.visible = true
 	active_player.check_condition_gizmos() # Used for converters
-	active_player.get_node("PlayerBoard").all_highlight()
+	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
 	game.get_node("TurnIndicator").update_turn_indicator()
 
 
@@ -428,17 +429,21 @@ func set_status(action):
 	game.get_node("ActionStatus").text = active_player.name + " is doing " + action
 	current_state = action
 	active_player.using_action = true
-	active_player.get_node("PlayerBoard").update_highlight()
-	
 	hint_manager.action_highlight(action)
 
 
-# For DEBUG only. Used to get tree list of all nodes in node
-#func get_all_nodes(node) -> void:
-#	for N in node.get_children():
-#		if N.get_child_count() > 0:
-#			print("["+N.get_name()+"]")
-#			get_all_nodes(N)
-#		else:
-#			# Do something
-#			print("- "+N.get_name())
+func get_revealed_cards():
+	var card_arr = []
+	var container_arr = game.get_node("Container").get_children()
+	for container in container_arr:
+		if container.is_in_group("revealed_cards"):
+			for card in container.get_children():
+				card_arr.append(card)
+	return card_arr
+
+
+func get_cards_anim_player_arr(card_arr):
+	var anim_player_arr = []
+	for card in card_arr:
+		anim_player_arr.append(card.get_anim_player())
+	return anim_player_arr

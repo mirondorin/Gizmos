@@ -131,6 +131,7 @@ func archive(player : Player) -> bool:
 					
 				status = Utils.ARCHIVED_GIZMO
 				player.check_condition_gizmos()
+				GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 				return true
 			else:
 				GameManager.set_warning("You do not have enough archive space")
@@ -260,3 +261,7 @@ func use_effect():
 	else:
 		GameManager.set_warning("Gizmo was already used this turn")
 		print("Gizmo was already used")
+
+
+func get_anim_player():
+	return $AnimationPlayer

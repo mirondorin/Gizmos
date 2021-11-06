@@ -68,7 +68,9 @@ tracks/0/keys = {
 "values": [ Color( 0.12549, 0.129412, 0.141176, 1 ) ]
 }
 
-[node name="ActionBtn" type="Button"]
+[node name="ActionBtn" type="Button" groups=[
+"action_btn",
+]]
 margin_right = 250.0
 margin_bottom = 84.0
 size_flags_horizontal = 3

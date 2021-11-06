@@ -44,7 +44,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GridTier1" type="GridContainer" parent="Container"]
+[node name="GridTier1" type="GridContainer" parent="Container" groups=[
+"revealed_cards",
+]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -59,7 +61,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GridTier2" type="GridContainer" parent="Container"]
+[node name="GridTier2" type="GridContainer" parent="Container" groups=[
+"revealed_cards",
+]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -74,7 +78,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GridTier3" type="GridContainer" parent="Container"]
+[node name="GridTier3" type="GridContainer" parent="Container" groups=[
+"revealed_cards",
+]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
