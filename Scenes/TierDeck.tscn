@@ -62,4 +62,6 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Highlight = SubResource( 1 )
 anims/Idle = SubResource( 2 )
+[connection signal="mouse_entered" from="." to="." method="_on_TierDeck_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_TierDeck_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_on_TierDeck_pressed"]

@@ -447,3 +447,29 @@ func get_cards_anim_player_arr(card_arr):
 	for card in card_arr:
 		anim_player_arr.append(card.get_anim_player())
 	return anim_player_arr
+
+
+# Returns array of archived cards from player
+func get_archived_cards(player: Player):
+	var card_arr = []
+	var card_container = player.get_node("ScrollContainer7/VBoxContainer").get_children()
+	for card in card_container:
+		card_arr.append(card)
+	return card_arr
+
+
+func can_buy_card(player: Player, card: Card):
+	var cost = player.apply_discounts(card, card.get_cost())
+	var energy_type = card.get_energy_type()
+	if player.get_energy_type_count(energy_type) >= cost or \
+		player.can_tier_build(card.card_info['tier'] - 1):	
+		return true
+	return false
+
+
+func get_affordable_cards(player: Player, card_arr):
+	var affordable_cards = []
+	for card in card_arr:
+		if can_buy_card(player, card):
+			affordable_cards.append(card)
+	return affordable_cards

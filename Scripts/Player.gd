@@ -47,6 +47,11 @@ func get_energy_count() -> int:
 	return sum
 
 
+# Returns total of energy_type player has (including excess energy)
+func get_energy_type_count(energy_type) -> int:
+	return stats['energy'][energy_type] + stats['excess_energy'][energy_type]
+
+
 # Returns true if player has space for energy
 # else return false
 func has_energy_space():
@@ -196,6 +201,7 @@ func can_tier_build(tier : int):
 	return free_action['build_tier'][tier] > 0
 	
 
+# TODO remove cost from paramter. Call function of card.get_cost() instead
 # Receives card and returns reduced cost of card depending 
 # on player's build_discount and/or card's type
 func apply_discounts(card, cost : int):

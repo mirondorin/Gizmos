@@ -35,8 +35,11 @@ func get_action_anim_players(action):
 		"pick":
 			anim_player_arr = game.get_node("EnergyRow").get_anim_player_arr()
 		"build":
+			var player = GameManager.active_player
 			var revealed_cards = GameManager.get_revealed_cards()
-			anim_player_arr = []
+			var archived_cards = GameManager.get_archived_cards(player)
+			var affordable_cards = GameManager.get_affordable_cards(player, revealed_cards + archived_cards)
+			anim_player_arr = GameManager.get_cards_anim_player_arr(affordable_cards)
 		"research":
 			anim_player_arr = game.get_node("Container").get_node("TierDeckContainer").get_anim_player_arr()
 	return anim_player_arr
