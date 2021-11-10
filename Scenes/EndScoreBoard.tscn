@@ -43,11 +43,11 @@ __meta__ = {
 
 [node name="Header" type="HBoxContainer" parent="Table"]
 margin_right = 1880.0
-margin_bottom = 48.0
+margin_bottom = 43.0
 
 [node name="Name" type="Button" parent="Table/Header"]
 margin_right = 467.0
-margin_bottom = 48.0
+margin_bottom = 43.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 1 )
@@ -56,7 +56,7 @@ text = "PLAYER"
 [node name="VP" type="Button" parent="Table/Header"]
 margin_left = 471.0
 margin_right = 938.0
-margin_bottom = 48.0
+margin_bottom = 43.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 1 )
@@ -65,7 +65,7 @@ text = "VICTORY POINTS"
 [node name="Gizmos" type="Button" parent="Table/Header"]
 margin_left = 942.0
 margin_right = 1409.0
-margin_bottom = 48.0
+margin_bottom = 43.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 1 )
@@ -74,7 +74,7 @@ text = "ACTIVE GIZMOS"
 [node name="Energy" type="Button" parent="Table/Header"]
 margin_left = 1413.0
 margin_right = 1880.0
-margin_bottom = 48.0
+margin_bottom = 43.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 1 )

@@ -12,10 +12,17 @@ var back
 var action_container
 var is_used_container
 var condition_met
-var condition_met_sign
+
 # Constants
 
-const ARCHIVE_ZONE = 7
+enum {
+	UPGRADE = 1,
+	CONVERT = 2,
+	ARCHIVE = 3,
+	PICK = 4,
+	BUILD = 5,
+	RESEARCH = 6
+}
 
 # Functions
 
@@ -26,7 +33,6 @@ func init(var card_json):
 	set_normal_texture(face)
 	init_card_actions_container()
 	init_used_indicator()
-	init_condition_indicator()
 	is_usable = false
 
 
@@ -50,10 +56,13 @@ func set_active():
 	is_usable = true
 
 
-# Sets card as unusable and makes it grayed out
 func set_is_usable(can_use : bool):
 	is_usable = can_use
 	is_used_container.visible = !can_use
+
+
+func set_condition_sign(visible: bool):
+	$Checkmark.visible = visible
 
 
 func init_card_actions_container():
@@ -74,21 +83,6 @@ func init_used_indicator():
 	is_used_container.visible = false
 	self.add_child(is_used_container)
 
-
-func init_condition_indicator():
-	var texture = load("res://Assets/Ok.png")
-	condition_met_sign = TextureRect.new()
-	condition_met_sign.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	condition_met_sign.texture = texture
-	condition_met_sign.visible = false
-	self.add_child(condition_met_sign)
-	condition_met_sign.anchor_left = 1
-	condition_met_sign.anchor_right = 1
-	condition_met_sign.anchor_top = 1
-	condition_met_sign.anchor_bottom = 1
-	condition_met_sign.margin_left = -62 # texture's width
-	condition_met_sign.margin_top = -62 # texture's width
-	
 
 func get_card_info():
 	print(card_info)
@@ -111,9 +105,8 @@ func get_cost():
 
 
 # Used to call effect function ONLY once when built
-# TODO: remove magic number. Add enum for card types
 func is_passive() -> bool:
-	return card_info['type_id'] == 1
+	return card_info['type_id'] == UPGRADE
 
 
 func string_to_func(func_string : String):
@@ -130,7 +123,7 @@ func archive(player : Player) -> bool:
 		(status == Utils.RESEARCH_GIZMO or player.can_do('archive'))):
 			if player.stats['archive'].size() < player.stats['max_archive']:
 				GameManager.give_card(self, player)
-				GameManager.current_state = "nothing"
+				GameManager.current_state = ""
 				
 				player.stats['archive'].append(get_deck_id())
 				action_container.visible = false
@@ -142,11 +135,11 @@ func archive(player : Player) -> bool:
 					
 				status = Utils.ARCHIVED_GIZMO
 				player.get_node("PlayerBoard").check_condition_gizmos()
+				player.card_to_container(self, true)
 				GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 				return true
 			else:
 				GameManager.set_warning("You do not have enough archive space")
-				print(player.name + " has no more archive space")
 	else:
 		GameManager.set_warning("You can't archive")
 	return false
@@ -177,6 +170,7 @@ func build(player : Player) -> bool:
 				GameManager.call(effect_split[0])
 		
 		player.get_node("PlayerBoard").check_condition_gizmos()
+		player.card_to_container(self)
 		GameManager.game.get_node("ActionStatus").text = ""
 		GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 		return true
@@ -219,6 +213,7 @@ func build(player : Player) -> bool:
 					GameManager.call(effect_split[0])
 					
 			player.get_node("PlayerBoard").check_condition_gizmos()
+			player.card_to_container(self)
 			GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 			return true
 		else:
@@ -265,11 +260,11 @@ func use_effect():
 				effect_params = str2var(effect_params)
 #			print(effect_func)
 #			print(effect_params)
-			if card_info['type_id'] == 2: # if is converter card
+			if card_info['type_id'] == CONVERT:
 				GameManager.active_player.get_node("ConvertTab").set_gizmo_preview(face)
 			GameManager.call(effect_func, effect_params)
 			set_is_usable(false)
-			condition_met_sign.visible = false
+			set_condition_sign(false)
 		else:
 			GameManager.set_warning("Condition for gizmo was not met")
 			print("Condition for effect was not met")

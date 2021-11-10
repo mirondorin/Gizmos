@@ -139,7 +139,7 @@ func debug_state(player: Player) -> void:
 func finished_action() -> bool:
 	if active_player.using_action == true:
 		GameManager.game.get_node("ActionStatus").text = ""
-		current_state = "nothing"
+		current_state = ""
 		active_player.using_action = false
 		active_player.used_action = true
 		active_player.get_node("EndBtn").visible = true
@@ -245,18 +245,13 @@ func remove_card(card : Card, arr):
 
 func give_card(card: Card, player: Player):
 	var card_parent = card.get_parent()
-	var archived = false
 	card_parent.remove_child(card)
 	match current_state:
-		"archive":
+		"": # Research action
+			remove_card(card, tier_decks) 
+		_: # Otherwise it was a build/archive action
 			remove_card(card, revealed_cards)
-			archived = true
-		"build":
-			remove_card(card, revealed_cards)
-		_: # Otherwise it was a research action of build/archive
-			remove_card(card, tier_decks)
 
-	player.card_to_container(card, archived)
 	player.update_energy_counters()
 	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_node("PlayerBoard").get_score())
 	fill_all()

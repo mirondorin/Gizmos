@@ -169,8 +169,7 @@ func reset_excess_energy():
 func can_do(action : String) -> bool:
 	if free_action[action] > 0:
 		return true
-	elif (using_action == true and used_action == false 
-	and GameManager.current_state == action):
+	elif used_action == false and GameManager.current_state == action:
 		return true
 	else:
 		print(self.name + " can't do " + action)

@@ -77,9 +77,9 @@ func check_condition_gizmos():
 			var card_arr = card_container.get_children()
 			for card in card_arr:
 				if card.is_usable and card.is_condition_met(self.get_parent()):
-					card.condition_met_sign.visible = true
+					card.set_condition_sign(true)
 				else:
-					card.condition_met_sign.visible = false
+					card.set_condition_sign(false)
 
 
 # Makes all active gizmos usable again after player ends his turn
@@ -90,4 +90,4 @@ func reset_active_gizmos():
 			var card_arr = card_container.get_children()
 			for card in card_arr:
 				card.set_is_usable(true)
-				card.condition_met_sign.visible = false
+				card.set_condition_sign(false)
