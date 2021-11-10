@@ -12,7 +12,7 @@ var energy
 # Sets player info for final scores
 func set_info(player : Player):
 	player_name = player.name
-	points = player.get_score()
+	points = player.get_node("PlayerBoard").get_score()
 	active_gizmos = player.stats['gizmos'].size()
 	energy = player.get_energy_count()
 	set_labels()

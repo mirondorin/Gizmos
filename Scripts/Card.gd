@@ -129,7 +129,7 @@ func archive(player : Player) -> bool:
 	if (!player.disabled_actions['archive'] and status != Utils.ARCHIVED_GIZMO and 
 		(status == Utils.RESEARCH_GIZMO or player.can_do('archive'))):
 			if player.stats['archive'].size() < player.stats['max_archive']:
-				GameManager.give_card(self, player, ARCHIVE_ZONE)
+				GameManager.give_card(self, player)
 				GameManager.current_state = "nothing"
 				
 				player.stats['archive'].append(get_deck_id())
@@ -141,7 +141,7 @@ func archive(player : Player) -> bool:
 					GameManager.dec_free_action('archive')
 					
 				status = Utils.ARCHIVED_GIZMO
-				player.check_condition_gizmos()
+				player.get_node("PlayerBoard").check_condition_gizmos()
 				GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 				return true
 			else:
@@ -163,7 +163,7 @@ func build(player : Player) -> bool:
 		set_built_flags(player)
 		player.free_action['build_tier'][card_info['tier'] - 1] -= 1
 		
-		GameManager.give_card(self, player, card_info['type_id'])
+		GameManager.give_card(self, player)
 
 		status = Utils.ACTIVE_GIZMO
 		is_usable = true
@@ -176,7 +176,7 @@ func build(player : Player) -> bool:
 			else:
 				GameManager.call(effect_split[0])
 		
-		player.check_condition_gizmos()
+		player.get_node("PlayerBoard").check_condition_gizmos()
 		GameManager.game.get_node("ActionStatus").text = ""
 		GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 		return true
@@ -199,7 +199,7 @@ func build(player : Player) -> bool:
 			player.stats['gizmos'].append(get_deck_id())
 			set_built_flags(player)
 			
-			GameManager.give_card(self, player, card_info['type_id'])
+			GameManager.give_card(self, player)
 			GameManager.add_to_energy_row(paid)
 			
 			if (status != Utils.RESEARCH_GIZMO 
@@ -218,7 +218,7 @@ func build(player : Player) -> bool:
 				else:
 					GameManager.call(effect_split[0])
 					
-			player.check_condition_gizmos()
+			player.get_node("PlayerBoard").check_condition_gizmos()
 			GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 			return true
 		else:

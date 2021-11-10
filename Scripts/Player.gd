@@ -70,15 +70,18 @@ func get_capacities():
 
 func _on_EndBtn_button_up():
 	$EndBtn.visible = false
-	reset_active_gizmos()
+	$PlayerBoard.reset_active_gizmos()
 	reset_flags()
 	reset_free_action()
 	reset_excess_energy()
 	GameManager.end_turn()
 
 
-func card_to_container(card, id : int):
-	get_node("ScrollContainer" + str(id) + "/VBoxContainer").add_child(card)
+func card_to_container(card, archived:bool = false):
+	if archived:
+		$PlayerBoard.get_archive_container().add_child(card)
+	else:
+		$PlayerBoard.get_card_container(card).add_child(card)
 
 
 func _on_ResearchBtn_pressed():
@@ -131,27 +134,6 @@ func has_built_tier(build_tier):
 		if flags['built_tier'][el]:
 			return true
 	return false
-
-
-# Makes all active gizmos usable again after player ends his turn
-func reset_active_gizmos():
-	for type in range(2, 7):
-		var cards = get_node("ScrollContainer" + str(type) + "/VBoxContainer")
-		for card in cards.get_children():
-			card.set_is_usable(true)
-			card.condition_met_sign.visible = false
-
-
-# Iterates through all active gizmos player has and if gizmo is usable
-# show the checkmark on the bottom right 
-func check_condition_gizmos():
-	for type in range(2, 7):
-		var cards = get_node("ScrollContainer" + str(type) + "/VBoxContainer")
-		for card in cards.get_children():
-			if card.is_usable and card.is_condition_met(self):
-				card.condition_met_sign.visible = true
-			else:
-				card.condition_met_sign.visible = false
 
 
 # Resets all flag values to default
@@ -214,27 +196,6 @@ func apply_discounts(card, cost : int):
 	if cost > 0:
 		return cost
 	return 0
-
-
-# Returns number of active gizmos of certain tier
-func get_tier_gizmos(tier : int) -> int:
-	var count = 0
-	for type in range(1, 7):
-		var cards = get_node("ScrollContainer" + str(type) + "/VBoxContainer")
-		for card in cards.get_children():
-			if card.card_info['tier'] == tier:
-				count += 1
-	return count
-
-
-# Returns score of player (includes vp_tokens)
-func get_score() -> int:
-	var total = stats['vp_tokens']
-	for type in range(1, 7):
-		var cards = get_node("ScrollContainer" + str(type) + "/VBoxContainer")
-		for card in cards.get_children():
-			total += card.card_info['vp']
-	return total
 
 
 func get_btn_anim_player_arr():

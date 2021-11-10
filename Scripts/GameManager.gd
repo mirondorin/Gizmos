@@ -91,7 +91,7 @@ func instance_players(players_count : int) -> void:
 		var start_card_instance = card.instance()
 		start_card_instance.init(start_card)
 		start_card_instance.set_active()
-		new_player.card_to_container(start_card_instance, ARCHIVE_CARD)
+		new_player.card_to_container(start_card_instance)
 		new_player.stats['gizmos'].append(start_card_instance.get_deck_id())
 #		give_test_card(73, Utils.ACTIVE_GIZMO, new_player)
 	active_player = game.get_node('Players/Player1')
@@ -106,7 +106,7 @@ func give_test_card(id : int, status: int, player : Player) -> void:
 	card.init(deck[str(id)])
 	card.is_usable = true
 	card.status = status
-	player.card_to_container(card, ARCHIVE_CARD)
+	player.card_to_container(card, true)
 
 
 func give_test_stats(player : Player, score, gizmos, energy):
@@ -179,7 +179,7 @@ func end_turn() -> void:
 	var next_player = get_next_player()
 	active_player = game.get_node('Players/' + next_player)
 	active_player.visible = true
-	active_player.check_condition_gizmos() # Used for converters
+	active_player.get_node("PlayerBoard").check_condition_gizmos() # Used for converters
 	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
 	game.get_node("TurnIndicator").update_turn_indicator()
 
@@ -243,20 +243,22 @@ func remove_card(card : Card, arr):
 #	print("After removing card ", arr)
 
 
-func give_card(card : Card, player : Player, type : int):
+func give_card(card: Card, player: Player):
 	var card_parent = card.get_parent()
+	var archived = false
 	card_parent.remove_child(card)
 	match current_state:
 		"archive":
 			remove_card(card, revealed_cards)
+			archived = true
 		"build":
 			remove_card(card, revealed_cards)
 		_: # Otherwise it was a research action of build/archive
 			remove_card(card, tier_decks)
 
-	player.card_to_container(card, type)
+	player.card_to_container(card, archived)
 	player.update_energy_counters()
-	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_score())
+	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_node("PlayerBoard").get_score())
 	fill_all()
 	update_tier_decks_counter()
 
@@ -335,7 +337,7 @@ func disable_action(code : int) -> void:
 func give_vp_tokens(count : int) -> void:
 	active_player.stats['vp_tokens'] += count
 	game.get_node("TurnIndicator").update_player_points(active_player.get_instance_id(), \
-	active_player.get_score())
+		active_player.get_node("PlayerBoard").get_score())
 	print("From give_vp_tokens ", active_player.stats)
 
 
@@ -401,7 +403,7 @@ func set_warning(msg : String):
 # Returns true if that's the case. False otherwise
 func is_end_game() -> bool:
 	if (active_player.stats['gizmos'].size() >= Utils.END_TOTAL_GIZMOS
-	or active_player.get_tier_gizmos(3) >= Utils.END_TOP_TIER_GIZMOS):
+	or active_player.get_node("PlayerBoard").get_tier_gizmos(3) >= Utils.END_TOP_TIER_GIZMOS):
 		end_game = true
 		print("Triggered end game")
 	return end_game
@@ -452,7 +454,7 @@ func get_cards_anim_player_arr(card_arr):
 # Returns array of archived cards from player
 func get_archived_cards(player: Player):
 	var card_arr = []
-	var card_container = player.get_node("ScrollContainer7/VBoxContainer").get_children()
+	var card_container = player.get_node("PlayerBoard").get_archive_container().get_children()
 	for card in card_container:
 		card_arr.append(card)
 	return card_arr

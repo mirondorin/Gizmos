@@ -27,7 +27,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UpgradeBtn" parent="." instance=ExtResource( 6 )]
+[node name="UpgradeBtn" parent="." groups=[
+"active_gizmo_btn",
+] instance=ExtResource( 6 )]
 margin_right = 239.0
 margin_bottom = 106.0
 hint_tooltip = "Upgrades to increase capacity of energy, archive and research"
@@ -37,10 +39,13 @@ margin_bottom = 106.0
 texture = ExtResource( 3 )
 
 [node name="ActionText" parent="UpgradeBtn/ActionContainer" index="1"]
-margin_top = 32.0
-margin_bottom = 74.0
+margin_top = 34.0
+margin_bottom = 71.0
 
-[node name="ConvertBtn" parent="." instance=ExtResource( 1 )]
+[node name="ConvertBtn" parent="." groups=[
+"active_gizmo_btn",
+"effect_gizmo_btn",
+] instance=ExtResource( 1 )]
 margin_left = 243.0
 margin_right = 482.0
 margin_bottom = 106.0
@@ -54,12 +59,15 @@ margin_bottom = 106.0
 texture = ExtResource( 7 )
 
 [node name="ActionText" parent="ConvertBtn/ActionContainer" index="1"]
-margin_top = 32.0
-margin_right = 224.0
-margin_bottom = 74.0
+margin_top = 34.0
+margin_right = 211.0
+margin_bottom = 71.0
 text = "Convert"
 
-[node name="ArchiveBtn" parent="." instance=ExtResource( 8 )]
+[node name="ArchiveBtn" parent="." groups=[
+"active_gizmo_btn",
+"effect_gizmo_btn",
+] instance=ExtResource( 8 )]
 margin_left = 486.0
 margin_right = 725.0
 margin_bottom = 106.0
@@ -74,12 +82,15 @@ margin_bottom = 106.0
 texture = ExtResource( 2 )
 
 [node name="ActionText" parent="ArchiveBtn/ActionContainer" index="1"]
-margin_top = 32.0
-margin_right = 218.0
-margin_bottom = 74.0
+margin_top = 34.0
+margin_right = 206.0
+margin_bottom = 71.0
 text = "Archive"
 
-[node name="PickBtn" parent="." instance=ExtResource( 8 )]
+[node name="PickBtn" parent="." groups=[
+"active_gizmo_btn",
+"effect_gizmo_btn",
+] instance=ExtResource( 8 )]
 margin_left = 729.0
 margin_right = 968.0
 margin_bottom = 106.0
@@ -92,12 +103,15 @@ action = "pick"
 margin_bottom = 106.0
 
 [node name="ActionText" parent="PickBtn/ActionContainer" index="1"]
-margin_top = 32.0
-margin_right = 166.0
-margin_bottom = 74.0
+margin_top = 34.0
+margin_right = 160.0
+margin_bottom = 71.0
 text = "Pick"
 
-[node name="BuildBtn" parent="." instance=ExtResource( 8 )]
+[node name="BuildBtn" parent="." groups=[
+"active_gizmo_btn",
+"effect_gizmo_btn",
+] instance=ExtResource( 8 )]
 margin_left = 972.0
 margin_right = 1211.0
 margin_bottom = 106.0
@@ -113,12 +127,15 @@ margin_bottom = 106.0
 texture = ExtResource( 4 )
 
 [node name="ActionText" parent="BuildBtn/ActionContainer" index="1"]
-margin_top = 32.0
-margin_right = 181.0
-margin_bottom = 74.0
+margin_top = 34.0
+margin_right = 173.0
+margin_bottom = 71.0
 text = "Build"
 
-[node name="ResearchBtn" parent="." instance=ExtResource( 8 )]
+[node name="ResearchBtn" parent="." groups=[
+"active_gizmo_btn",
+"effect_gizmo_btn",
+] instance=ExtResource( 8 )]
 margin_left = 1215.0
 margin_right = 1454.0
 margin_bottom = 106.0
@@ -134,9 +151,9 @@ margin_bottom = 106.0
 texture = ExtResource( 5 )
 
 [node name="ActionText" parent="ResearchBtn/ActionContainer" index="1"]
-margin_top = 32.0
-margin_right = 242.0
-margin_bottom = 74.0
+margin_top = 34.0
+margin_right = 227.0
+margin_bottom = 71.0
 text = "Research"
 
 [node name="Archive" parent="." instance=ExtResource( 1 )]
@@ -150,9 +167,9 @@ margin_bottom = 106.0
 texture = ExtResource( 10 )
 
 [node name="ActionText" parent="Archive/ActionContainer" index="1"]
-margin_top = 32.0
-margin_right = 237.0
-margin_bottom = 74.0
+margin_top = 34.0
+margin_right = 223.0
+margin_bottom = 71.0
 text = "Archived"
 
 [editable path="UpgradeBtn"]

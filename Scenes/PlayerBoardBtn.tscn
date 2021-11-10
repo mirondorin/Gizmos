@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://Scenes/CardScrollContainer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/ActionContainer.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Animation" id=1]
@@ -32,3 +33,5 @@ margin_bottom = 0.0
 root_node = NodePath("../ColorRect")
 anims/Highlight = SubResource( 1 )
 anims/Idle = SubResource( 2 )
+
+[node name="ScrollContainer" parent="." instance=ExtResource( 1 )]

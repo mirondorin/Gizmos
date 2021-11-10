@@ -40,14 +40,14 @@ alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
 margin_left = 760.0
-margin_top = 176.0
+margin_top = 181.0
 margin_right = 960.0
-margin_bottom = 376.0
+margin_bottom = 381.0
 size_flags_horizontal = 4
 texture = ExtResource( 2 )
 
 [node name="PlayBtn" parent="MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 380.0
+margin_top = 385.0
 margin_bottom = 428.0
 
 [node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer"]
@@ -64,5 +64,5 @@ selected = 0
 
 [node name="QuitBtn" parent="MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
 margin_top = 456.0
-margin_bottom = 504.0
+margin_bottom = 499.0
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/OptionButton" to="MarginContainer/VBoxContainer/PlayBtn" method="_on_OptionButton_item_selected"]

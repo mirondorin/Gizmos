@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/CapacityFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/ResearchCap.png" type="Texture" id=2]
 [ext_resource path="res://Assets/EnergyCap.png" type="Texture" id=3]
 [ext_resource path="res://Assets/ArchiveCap.png" type="Texture" id=4]
@@ -27,9 +27,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -17.0
-margin_top = -21.0
+margin_top = -18.6667
 margin_right = 17.0
-margin_bottom = 21.0
+margin_bottom = 23.3333
 rect_min_size = Vector2( 34, 0 )
 custom_fonts/font = ExtResource( 1 )
 text = "5"
@@ -49,10 +49,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -16.8995
-margin_top = -18.6216
-margin_right = 17.1005
-margin_bottom = 23.3784
+margin_left = -18.0
+margin_top = -16.6667
+margin_right = 16.0
+margin_bottom = 25.3333
 rect_min_size = Vector2( 34, 0 )
 custom_fonts/font = ExtResource( 1 )
 text = "1"
@@ -70,10 +70,10 @@ texture = ExtResource( 2 )
 [node name="Label" type="Label" parent="TextureRect3"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -6.26622
-margin_top = 21.4058
-margin_right = 27.7338
-margin_bottom = 63.4058
+margin_left = -6.0
+margin_top = 21.6667
+margin_right = 28.0
+margin_bottom = 63.6667
 rect_min_size = Vector2( 33.985, 0 )
 custom_fonts/font = ExtResource( 1 )
 text = "3"

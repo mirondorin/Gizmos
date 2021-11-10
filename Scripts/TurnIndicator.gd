@@ -9,7 +9,7 @@ func init_turn_indicator(players_node) -> void:
 	for player in players_node.get_children():
 		var player_info = player_info_scene.instance()
 		player_info.set_player_name(player.name)
-		player_info.set_points(player.get_score())
+		player_info.set_points(player.get_node("PlayerBoard").get_score())
 		player_info.player_id = player.get_instance_id()
 		self.add_child(player_info)
 		player_info.set_turn_indicator(GameManager.active_player.get_instance_id())
