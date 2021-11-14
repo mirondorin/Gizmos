@@ -19,3 +19,7 @@ func set_turn_indicator(id : int) -> void:
 		$Arrow.visible = true
 	else:
 		$Arrow.visible = false
+
+
+func _on_PlayerName_button_up():
+	GameManager.view_player_board(player_id)

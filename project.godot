@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "BoardViewer",
+"language": "GDScript",
+"path": "res://Scripts/BoardViewer.gd"
+}, {
 "base": "TextureButton",
 "class": "Card",
 "language": "GDScript",
@@ -35,6 +40,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/ScoreEntry.gd"
 } ]
 _global_script_class_icons={
+"BoardViewer": "",
 "Card": "",
 "Deck": "",
 "HintManager": "",

@@ -6,6 +6,7 @@ class_name Card
 
 var card_info = {} # id, tier, cost, action, effect, type_id, vp
 var status # Will use for active, archived, in research tab, or revealed gizmo
+var owner_id
 var is_usable
 var face
 var back
@@ -30,6 +31,7 @@ func init(var card_json):
 	card_info = card_json
 	face = load("res://Assets/Set"+str(card_info['tier'])+"/card"+str(card_info['id'])+".png")
 #	back = load("res://Assets/CardBack"+str(card_info['tier'])+".png")
+	owner_id = null
 	set_normal_texture(face)
 	init_card_actions_container()
 	init_used_indicator()
@@ -40,15 +42,23 @@ func _pressed():
 	var action = GameManager.current_state
 	get_card_info()
 	if status == Utils.ACTIVE_GIZMO and !is_passive():
-		use_effect()
+		if is_owner(GameManager.active_player.get_instance_id()):
+			use_effect()
+		else:
+			print(owner_id)
+			print("This is another player's card")
 	elif status == Utils.RESEARCH_GIZMO:
 		action_container.visible = true
-	else:
+	elif owner_id == null:
 		match action:
 			"archive":
 				archive(GameManager.active_player)
 			"build":
 				build(GameManager.active_player)
+
+
+func is_owner(player_id: int):
+	return player_id == owner_id
 
 
 func set_active():
@@ -136,6 +146,7 @@ func archive(player : Player) -> bool:
 				status = Utils.ARCHIVED_GIZMO
 				player.get_node("PlayerBoard").check_condition_gizmos()
 				player.card_to_container(self, true)
+				owner_id = player.get_instance_id()
 				GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 				return true
 			else:
@@ -171,6 +182,7 @@ func build(player : Player) -> bool:
 		
 		player.get_node("PlayerBoard").check_condition_gizmos()
 		player.card_to_container(self)
+		owner_id = player.get_instance_id()
 		GameManager.game.get_node("ActionStatus").text = ""
 		GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 		return true
@@ -214,6 +226,7 @@ func build(player : Player) -> bool:
 					
 			player.get_node("PlayerBoard").check_condition_gizmos()
 			player.card_to_container(self)
+			owner_id = player.get_instance_id()
 			GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
 			return true
 		else:

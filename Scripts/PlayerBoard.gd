@@ -91,3 +91,7 @@ func reset_active_gizmos():
 			for card in card_arr:
 				card.set_is_usable(true)
 				card.set_condition_sign(false)
+
+
+func toggle_visibility():
+	self.visible = !self.visible

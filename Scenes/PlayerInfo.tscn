@@ -53,3 +53,4 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="button_up" from="PlayerName" to="." method="_on_PlayerName_button_up"]

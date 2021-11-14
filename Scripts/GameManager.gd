@@ -6,8 +6,8 @@ var game
 
 var _deck_object = Deck.new()
 var deck = _deck_object.deck
-var start_card
 var tier_decks = [[], [], []]
+var start_card
 var revealed_cards = [[], [], []]
 var energy_dispenser
 var energy_row
@@ -86,6 +86,7 @@ func instance_players(players_count : int) -> void:
 		var new_player = player_scene.instance()
 		new_player.name = "Player" + str(_i + 1)
 		new_player.visible = false
+		new_player.board_viewer.init(new_player)
 		player_order.append(new_player.get_instance_id())
 		game.get_node('Players').add_child(new_player)
 		var start_card_instance = card.instance()
@@ -93,11 +94,10 @@ func instance_players(players_count : int) -> void:
 		start_card_instance.set_active()
 		new_player.card_to_container(start_card_instance)
 		new_player.stats['gizmos'].append(start_card_instance.get_deck_id())
-#		give_test_card(73, Utils.ACTIVE_GIZMO, new_player)
+		start_card_instance.owner_id = new_player.get_instance_id()
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
-#	debug_state(active_player)
 
 
 # Has to be id from JSON
@@ -179,6 +179,8 @@ func end_turn() -> void:
 	var next_player = get_next_player()
 	active_player = game.get_node('Players/' + next_player)
 	active_player.visible = true
+	active_player.get_node("PlayerBoard").visible = true
+	active_player.get_node("PlayerEnergy").visible = true
 	active_player.get_node("PlayerBoard").check_condition_gizmos() # Used for converters
 	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
 	game.get_node("TurnIndicator").update_turn_indicator()
@@ -470,3 +472,21 @@ func get_affordable_cards(player: Player, card_arr):
 		if can_buy_card(player, card):
 			affordable_cards.append(card)
 	return affordable_cards
+
+
+func view_player_board(player_id: int):
+	for player in game.get_node("Players").get_children():
+		if player.get_instance_id() == player_id:
+			active_player.board_viewer.change_view(player)
+
+
+func get_player_board(player_id: int):
+	for player in game.get_node("Players").get_children():
+		if player.get_instance_id() == player_id:
+			return player.get_board()
+
+
+func get_player_energy_row(player_id: int):
+	for player in game.get_node("Players").get_children():
+		if player.get_instance_id() == player_id:
+			return player.get_energy_row()
