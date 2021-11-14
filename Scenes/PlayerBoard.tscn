@@ -33,6 +33,7 @@ __meta__ = {
 margin_right = 239.0
 margin_bottom = 106.0
 hint_tooltip = "Upgrades to increase capacity of energy, archive and research"
+size_flags_horizontal = 7
 
 [node name="ActionTexture" parent="UpgradeBtn/ActionContainer" index="0"]
 margin_bottom = 106.0
