@@ -21,5 +21,10 @@ func set_turn_indicator(id : int) -> void:
 		$Arrow.visible = false
 
 
+func get_player_name_btn():
+	return $PlayerName
+
+
 func _on_PlayerName_button_up():
 	GameManager.view_player_board(player_id)
+	get_parent().update_selected_view($PlayerName)

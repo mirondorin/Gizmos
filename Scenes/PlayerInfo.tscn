@@ -1,10 +1,32 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Fonts/OpenSansTurn.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Assets/Star.png" type="Texture" id=3]
 [ext_resource path="res://Assets/TurnIndicator.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/PlayerInfo.gd" type="Script" id=5]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 0.403922, 0.196078, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.552941, 0.188235, 0.0588235, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.847059, 0.341176, 0.164706, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_size = 2
 
 [node name="PlayerInfo" type="HBoxContainer"]
 margin_right = 274.0
@@ -27,7 +49,11 @@ margin_right = 193.0
 margin_bottom = 71.0
 rect_min_size = Vector2( 124, 65 )
 size_flags_vertical = 3
+custom_styles/hover = SubResource( 3 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

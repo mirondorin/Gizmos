@@ -2,6 +2,7 @@ extends VBoxContainer
 
 
 var player_info_scene = load("res://Scenes/PlayerInfo.tscn")
+var selected_view
 
 
 # Iterates through "Players" node in game and sets up their name and points
@@ -13,6 +14,19 @@ func init_turn_indicator(players_node) -> void:
 		player_info.player_id = player.get_instance_id()
 		self.add_child(player_info)
 		player_info.set_turn_indicator(GameManager.active_player.get_instance_id())
+
+
+func init_selected_view():
+	for player_info in self.get_children():
+		selected_view = player_info.get_player_name_btn()
+		selected_view.disabled = true
+		break 
+
+
+func update_selected_view(player_name_btn):
+	selected_view.disabled = false
+	selected_view = player_name_btn
+	selected_view.disabled = true
 
 
 # Updates turn indicator (green arrow displayed next to player's name)
