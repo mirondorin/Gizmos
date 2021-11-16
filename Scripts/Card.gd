@@ -49,7 +49,7 @@ func _pressed():
 			print("This is another player's card")
 	elif status == Utils.RESEARCH_GIZMO:
 		action_container.visible = true
-	elif owner_id == null:
+	elif owner_id == null or is_owner(GameManager.active_player.get_instance_id()):
 		match action:
 			"archive":
 				archive(GameManager.active_player)
