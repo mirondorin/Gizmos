@@ -2,6 +2,8 @@ extends Node
 
 class_name Player
 
+var nickname
+
 var stats = {
 	"max_energy": 5,
 	"max_archive": 1,
@@ -212,3 +214,7 @@ func get_board():
 
 func get_energy_row():
 	return $PlayerEnergy
+
+
+func get_nickname():
+	return nickname

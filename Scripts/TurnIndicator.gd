@@ -40,3 +40,9 @@ func update_player_points(player_id : int, score : int) -> void:
 	for player_info in self.get_children():
 		if player_info.player_id == player_id:
 			player_info.set_points(score)
+
+
+func get_active_player_btn():
+	for player_info in self.get_children():
+		if player_info.player_id == GameManager.active_player.get_instance_id():
+			return player_info.get_player_name_btn()

@@ -85,6 +85,7 @@ func instance_players(players_count : int) -> void:
 	for _i in range(players_count):
 		var new_player = player_scene.instance()
 		new_player.name = "Player" + str(_i + 1)
+		new_player.nickname = "Player" + str(_i + 1)
 		new_player.visible = false
 		new_player.board_viewer.init(new_player)
 		player_order.append(new_player.get_instance_id())
@@ -183,7 +184,9 @@ func end_turn() -> void:
 	active_player.get_node("PlayerEnergy").visible = true
 	active_player.get_node("PlayerBoard").check_condition_gizmos() # Used for converters
 	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
-	game.get_node("TurnIndicator").update_turn_indicator()
+	var turn_indicator = game.get_node("TurnIndicator")
+	turn_indicator.update_turn_indicator()
+	turn_indicator.update_selected_view(turn_indicator.get_active_player_btn())
 
 
 # Returns total energy in energy_row
@@ -478,7 +481,8 @@ func view_player_board(player_id: int):
 	for player in game.get_node("Players").get_children():
 		if player.get_instance_id() == player_id:
 			active_player.board_viewer.change_view(player)
-
+			player.get_node("PlayerEnergy").update_label()
+			
 
 func get_player_board(player_id: int):
 	for player in game.get_node("Players").get_children():

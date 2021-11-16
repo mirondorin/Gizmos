@@ -10,3 +10,11 @@ func update_energy_counters(energy_arr, excess_energy):
 		if excess_energy[step]:
 			counter += "+" + str(excess_energy[step])
 		energy_btn.update_counter(counter)
+
+
+func update_label():
+	if get_parent() == GameManager.active_player:
+		$Label.text = "Your energy"
+	else:
+		var format_string = "%s's energy"
+		$Label.text = format_string % get_parent().get_nickname()
