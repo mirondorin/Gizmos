@@ -20,8 +20,3 @@ func change_view(new_player):
 	player_board.visible = true
 	player_energy_row = new_player.get_node("PlayerEnergy")
 	player_energy_row.visible = true
-#	var new_player_id = new_player.get_instance_id()
-#	var new_player_board = GameManager.get_player_board(new_player_id)
-#	var new_player_energy_row = GameManager.get_player_energy_row(new_player_id)
-#	new_player_board.visible = true
-#	new_player_energy_row.visible = true

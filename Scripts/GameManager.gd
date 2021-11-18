@@ -301,7 +301,8 @@ func add_free_action(params):
 	var format_string = "%s has %d free %s"
 	var status = format_string % [active_player.name, params[1], action]
 	game.get_node("ActionStatus").text = status
-	print(active_player.free_action)
+	hint_manager.action_highlight(action)
+#	print(active_player.free_action)
 
 
 # Remove one free_action of type action from active player

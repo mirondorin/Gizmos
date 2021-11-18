@@ -271,8 +271,6 @@ func use_effect():
 			else:
 				print("Cast effect_params to vector")
 				effect_params = str2var(effect_params)
-#			print(effect_func)
-#			print(effect_params)
 			if card_info['type_id'] == CONVERT:
 				GameManager.active_player.get_node("ConvertTab").set_gizmo_preview(face)
 			GameManager.call(effect_func, effect_params)
@@ -280,10 +278,8 @@ func use_effect():
 			set_condition_sign(false)
 		else:
 			GameManager.set_warning("Condition for gizmo was not met")
-			print("Condition for effect was not met")
 	else:
 		GameManager.set_warning("Gizmo was already used this turn")
-		print("Gizmo was already used")
 
 
 func get_anim_player():
