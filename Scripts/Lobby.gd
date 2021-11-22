@@ -17,3 +17,9 @@ func _on_JoinBtn_pressed():
 
 	var player_name = $Connect/VBoxContainer/Name.text
 	Server.connect_to_server(player_name)
+
+
+func refresh_lobby():
+	$Players/VBoxContainer/PlayerList.clear()
+	for p in GameManager.players.values():
+		$Players/VBoxContainer/PlayerList.add_item(p)

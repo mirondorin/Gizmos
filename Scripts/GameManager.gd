@@ -12,6 +12,7 @@ var revealed_cards = [[], [], []]
 var energy_dispenser
 var energy_row
 var node_energy_row
+var players
 var player_scene = preload("res://Scenes/Player.tscn")
 var player_order = []
 var active_player: Player # indicates whose turn it is

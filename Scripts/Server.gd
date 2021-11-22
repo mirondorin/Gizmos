@@ -23,3 +23,11 @@ func _on_connection_failed():
 func _on_connection_succeeded():
 	print("Successfully connected")
 
+
+func fetch_player_list():
+	rpc_id(1, "fetch_player_list")
+
+
+remote func return_player_list(s_players):
+	GameManager.players = s_players
+	get_tree().get_root().get_node("Lobby").refresh_lobby()

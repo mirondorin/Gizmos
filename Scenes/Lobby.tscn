@@ -19,3 +19,5 @@ visible = false
 [connection signal="pressed" from="Connect/VBoxContainer/JoinBtn" to="." method="_on_JoinBtn_pressed"]
 
 [editable path="Connect"]
+
+[editable path="Players"]
