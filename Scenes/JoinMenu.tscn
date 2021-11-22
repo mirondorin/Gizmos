@@ -1,0 +1,99 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/OpenSans14.tres" type="DynamicFont" id=2]
+
+[node name="Connect" type="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -125.0
+margin_right = 100.0
+margin_bottom = 125.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.0
+margin_top = -84.0
+margin_right = 75.0
+margin_bottom = 84.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 14.0
+text = "Enter a nickname"
+
+[node name="NameMargin" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 150.0
+margin_bottom = 18.0
+
+[node name="Name" type="LineEdit" parent="VBoxContainer"]
+margin_top = 22.0
+margin_right = 150.0
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 2 )
+text = "Nirm"
+caret_blink = true
+caret_blink_speed = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IPLabel" type="Label" parent="VBoxContainer"]
+margin_top = 56.0
+margin_right = 150.0
+margin_bottom = 70.0
+text = "IP address"
+
+[node name="IPMargin" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 74.0
+margin_right = 150.0
+margin_bottom = 74.0
+
+[node name="IPAddress" type="LineEdit" parent="VBoxContainer"]
+margin_top = 78.0
+margin_right = 150.0
+margin_bottom = 102.0
+text = "127.0.0.1"
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="JoinMargin" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 106.0
+margin_right = 150.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="JoinBtn" type="Button" parent="VBoxContainer"]
+margin_top = 125.0
+margin_right = 150.0
+margin_bottom = 168.0
+custom_fonts/font = ExtResource( 1 )
+text = "Join"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ErrorMargin" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 172.0
+margin_right = 150.0
+margin_bottom = 172.0
+
+[node name="ErrorLabel" type="Label" parent="VBoxContainer"]
+margin_top = 176.0
+margin_right = 150.0
+margin_bottom = 190.0
+custom_colors/font_color = Color( 0.819608, 0.290196, 0.290196, 1 )
+align = 1
