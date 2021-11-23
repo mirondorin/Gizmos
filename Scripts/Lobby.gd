@@ -1,25 +1,21 @@
 extends Control
 
 
+# Receive custom signal from GameManager
+func _on_player_joined():
+	refresh_lobby()
+
+
 func _on_JoinBtn_pressed():
-	if $Connect/VBoxContainer/Name.text == "":
-		$Connect/VBoxContainer/ErrorLabel.text = "Invalid name!"
+	if !$JoinMenu.valid_name() or !$JoinMenu.valid_ip():
 		return
 
-	var ip = $Connect/VBoxContainer/IPAddress.text
-	if not ip.is_valid_ip_address():
-		$Connect/VBoxContainer/ErrorLabel.text = "Invalid IP address!"
-		return
-	
-	$Connect.hide()
+	$JoinMenu.close()
 	$Players.show()
-	$Connect/VBoxContainer/ErrorLabel.text = ""
 
-	var player_name = $Connect/VBoxContainer/Name.text
+	var player_name = $JoinMenu.get_player_name()
 	Server.connect_to_server(player_name)
 
 
 func refresh_lobby():
-	$Players/VBoxContainer/PlayerList.clear()
-	for p in GameManager.players.values():
-		$Players/VBoxContainer/PlayerList.add_item(p)
+	$Players.set_player_list()

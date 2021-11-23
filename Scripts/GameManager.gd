@@ -1,33 +1,45 @@
 extends Node
 
-var game
 
 # Variables
+
+var game
 
 var _deck_object = Deck.new()
 var deck = _deck_object.deck
 var tier_decks = [[], [], []]
 var start_card
 var revealed_cards = [[], [], []]
+
 var energy_dispenser
 var energy_row
 var node_energy_row
+
 var players
+var ready_players = {}
 var player_scene = preload("res://Scenes/Player.tscn")
 var player_order = []
 var active_player: Player # indicates whose turn it is
+
 var current_state
 var end_game = false
 
 var hint_manager = HintManager.new()
+
 # Constants
 
 const MAX_DISPENSER = 13
 const MAX_ENERGY_ROW = 6
 
-const ARCHIVE_CARD = 3
+# Custom signals
+
+signal player_joined
 
 # Functions
+
+func _ready():
+	self.connect("player_joined", get_tree().get_root().get_node("Lobby"), "_on_player_joined")
+
 
 # Last card from deck is start_card
 func set_deck() -> void:
@@ -496,3 +508,8 @@ func get_player_energy_row(player_id: int):
 	for player in game.get_node("Players").get_children():
 		if player.get_instance_id() == player_id:
 			return player.get_energy_row()
+
+
+func set_players(s_players):
+	players = s_players
+	emit_signal("player_joined")

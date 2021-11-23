@@ -12,7 +12,7 @@ func connect_to_server(player_name):
 
 	network.connect("connection_failed", self, "_on_connection_failed")
 	network.connect("connection_succeeded", self, "_on_connection_succeeded")
-	yield(get_tree().create_timer(1.0), "timeout")
+	yield(get_tree().create_timer(0.2), "timeout")
 	rpc_id(1, "register_player", player_name)
 
 
@@ -28,6 +28,5 @@ func fetch_player_list():
 	rpc_id(1, "fetch_player_list")
 
 
-remote func return_player_list(s_players):
-	GameManager.players = s_players
-	get_tree().get_root().get_node("Lobby").refresh_lobby()
+remote func set_player_list(s_players):
+	GameManager.set_players(s_players)
