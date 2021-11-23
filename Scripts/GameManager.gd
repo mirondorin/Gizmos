@@ -16,7 +16,7 @@ var energy_row
 var node_energy_row
 
 var players
-var ready_players = {}
+var ready_players
 var player_scene = preload("res://Scenes/Player.tscn")
 var player_order = []
 var active_player: Player # indicates whose turn it is
@@ -93,19 +93,24 @@ func remove_tier_cards(tier : int, count: int) -> void:
 
 # Create players_count instances of Player class and adds them to Game scene
 # Sets up Player1 as first active player
-func instance_players(players_count : int) -> void:
+func instance_players() -> void:
 	var card = load("res://Scenes/Card.tscn")
-	for _i in range(players_count):
+	var count = 1
+	for id in players:
 		var new_player = player_scene.instance()
-		new_player.name = "Player" + str(_i + 1)
-		new_player.nickname = "Player" + str(_i + 1)
+		new_player.name = "Player" + str(count)
+		count += 1
+		new_player.nickname = players[id]
 		new_player.visible = false
 		new_player.board_viewer.init(new_player)
-		player_order.append(new_player.get_instance_id())
 		game.get_node('Players').add_child(new_player)
+		
+		player_order.append(new_player.get_instance_id())
+		
 		var start_card_instance = card.instance()
 		start_card_instance.init(start_card)
 		start_card_instance.set_active()
+		
 		new_player.card_to_container(start_card_instance)
 		new_player.stats['gizmos'].append(start_card_instance.get_deck_id())
 		start_card_instance.owner_id = new_player.get_instance_id()
@@ -513,3 +518,36 @@ func get_player_energy_row(player_id: int):
 func set_players(s_players):
 	players = s_players
 	emit_signal("player_joined")
+
+
+func set_ready_players(s_ready_players):
+	ready_players = s_ready_players
+	all_players_ready()
+
+
+func all_players_ready():
+	print(players.size())
+	print(ready_players.size())
+	if players.size() == ready_players.size():
+		print("starting game")
+		new_game()
+
+
+func new_game():
+	get_tree().get_root().get_node("Lobby").visible = false
+	
+	var new_game_scene = load("res://Scenes/Game.tscn")
+	var new_game = new_game_scene.instance()
+	get_tree().get_root().add_child(new_game)
+	game = new_game
+	
+	randomize()
+	set_deck()
+	fill_all()
+	remove_tier_cards(2, 20) # Randomly remove 20 cards from tier 3
+	update_tier_decks_counter()
+	instance_players()
+
+	node_energy_row = game.get_node("EnergyRow")
+	init_energy_dispenser_row()
+	game.set_turn_indicator()

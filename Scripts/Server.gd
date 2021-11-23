@@ -24,9 +24,13 @@ func _on_connection_succeeded():
 	print("Successfully connected")
 
 
-func fetch_player_list():
-	rpc_id(1, "fetch_player_list")
-
-
 remote func set_player_list(s_players):
 	GameManager.set_players(s_players)
+
+
+func set_player_status(player_status):
+	rpc_id(1, "set_player_status", player_status)
+
+
+remote func set_ready_players(s_ready_players):
+	GameManager.set_ready_players(s_ready_players)
