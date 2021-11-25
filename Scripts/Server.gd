@@ -46,3 +46,12 @@ func player_loaded():
 
 remote func add_revealed_card(s_card_json):
 	GameManager.add_revealed_card(s_card_json)
+
+
+func fetch_energy_row():
+	rpc_id(1, "fetch_energy_row")
+
+
+remote func return_energy_row(s_energy_row):
+	GameManager.update_energy_row(s_energy_row)
+	return s_energy_row

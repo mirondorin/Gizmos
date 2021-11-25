@@ -41,16 +41,6 @@ func _ready():
 	self.connect("player_joined", get_tree().get_root().get_node("Lobby"), "_on_player_joined")
 
 
-# Removes cards from tier deck. Tier is 0 index based
-func remove_tier_cards(tier : int, count: int) -> void:
-	# Already removed 6 unimplemented cards. TODO remove if later
-	if tier == 2:
-		count = 14
-	for _el in range (0, count):
-		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
-		tier_decks[tier].erase(rand_card_id)
-
-
 # Create players_count instances of Player class and adds them to Game scene
 # Sets up Player1 as first active player
 func instance_players() -> void:
@@ -183,18 +173,6 @@ func add_to_energy_row(energy_arr) -> void:
 			energy_dispenser.append(energy_type)
 	restock_energy_row()
 	node_energy_row.update_energy_counters(energy_row)
-
-
-# Initializes energy_dispenser and energy_row
-func init_energy_dispenser_row() -> void:
-	energy_dispenser = []
-	energy_row = [0, 0, 0, 0]
-	for _i in range(MAX_DISPENSER):
-		energy_dispenser.append(Utils.RED)
-		energy_dispenser.append(Utils.YELLOW)
-		energy_dispenser.append(Utils.BLUE)
-		energy_dispenser.append(Utils.BLACK)
-	restock_energy_row()
 
 
 # Removes energy from energy_dispenser and returns energy
@@ -498,9 +476,13 @@ func new_game():
 	instance_players()
 
 	node_energy_row = game.get_node("EnergyRow")
-	init_energy_dispenser_row()
 	game.set_turn_indicator()
 	Server.player_loaded()
+
+
+# Update counters of energy row
+func update_energy_row(s_energy_row: Array):
+	node_energy_row.update_energy_counters(s_energy_row)
 
 
 func add_revealed_card(card_json: Dictionary) -> void:
