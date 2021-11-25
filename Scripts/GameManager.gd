@@ -41,46 +41,6 @@ func _ready():
 	self.connect("player_joined", get_tree().get_root().get_node("Lobby"), "_on_player_joined")
 
 
-# Last card from deck is start_card
-func set_deck() -> void:
-	# TODO: Remove not_implemented once cards are implemented
-	var not_implemented = [16, 17, 27, 28, 29, 30]
-	if typeof(deck) == TYPE_DICTIONARY:
-		var it = 0
-		var deck_size = deck.size() - 1
-		while it < deck_size:
-			var card_json = deck[str(it)]
-			var card_tier = card_json['tier']
-			if card_json['id'] in not_implemented and card_json['tier'] == 3:
-				print("Skip adding this card")
-			else:
-				tier_decks[card_tier - 1].append(card_json['id'])
-			it += 1
-		start_card = deck[str(it)]
-
-
-# Fills all revealed_cards with cards from tier_decks
-func fill_all() -> void:
-	for i in range (0, 3):
-		fill_tier_deck(i, 5 - (i + 1))
-
-
-# Fills revealed_cards[tier] with count cards
-func fill_tier_deck(tier : int, count : int) -> void:
-	var size = revealed_cards[tier].size()
-	var card = load("res://Scenes/Card.tscn")
-	while size < count:
-		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
-		tier_decks[tier].erase(rand_card_id)
-		revealed_cards[tier].push_back(rand_card_id)
-		rand_card_id = rand_card_id + 36 * tier
-		var rand_card = card.instance()
-		rand_card.init(deck[str(rand_card_id)])
-		rand_card.status = Utils.REVEALED_GIZMO
-		game.get_node('Container/GridTier' + str(tier + 1)).add_child(rand_card)
-		size += 1
-
-
 # Removes cards from tier deck. Tier is 0 index based
 func remove_tier_cards(tier : int, count: int) -> void:
 	# Already removed 6 unimplemented cards. TODO remove if later
@@ -107,13 +67,13 @@ func instance_players() -> void:
 		
 		player_order.append(new_player.get_instance_id())
 		
-		var start_card_instance = card.instance()
-		start_card_instance.init(start_card)
-		start_card_instance.set_active()
-		
-		new_player.card_to_container(start_card_instance)
-		new_player.stats['gizmos'].append(start_card_instance.get_deck_id())
-		start_card_instance.owner_id = new_player.get_instance_id()
+#		var start_card_instance = card.instance()
+#		start_card_instance.init(start_card)
+#		start_card_instance.set_active()
+#
+#		new_player.card_to_container(start_card_instance)
+#		new_player.stats['gizmos'].append(start_card_instance.get_deck_id())
+#		start_card_instance.owner_id = new_player.get_instance_id()
 	active_player = game.get_node('Players/Player1')
 	active_player.visible = true
 	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
@@ -277,7 +237,7 @@ func give_card(card: Card, player: Player):
 
 	player.update_energy_counters()
 	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_node("PlayerBoard").get_score())
-	fill_all()
+#	fill_all()
 	update_tier_decks_counter()
 
 
@@ -522,32 +482,30 @@ func set_players(s_players):
 
 func set_ready_players(s_ready_players):
 	ready_players = s_ready_players
-	all_players_ready()
-
-
-func all_players_ready():
-	print(players.size())
-	print(ready_players.size())
-	if players.size() == ready_players.size():
-		print("starting game")
-		new_game()
 
 
 func new_game():
 	get_tree().get_root().get_node("Lobby").visible = false
 	
 	var new_game_scene = load("res://Scenes/Game.tscn")
-	var new_game = new_game_scene.instance()
-	get_tree().get_root().add_child(new_game)
-	game = new_game
-	
-	randomize()
-	set_deck()
-	fill_all()
-	remove_tier_cards(2, 20) # Randomly remove 20 cards from tier 3
-	update_tier_decks_counter()
+	game = new_game_scene.instance()
+	get_tree().get_root().add_child(game)
+
+#	set_deck()
+#	fill_all()
+#	remove_tier_cards(2, 20) # Randomly remove 20 cards from tier 3
+#	update_tier_decks_counter()
 	instance_players()
 
 	node_energy_row = game.get_node("EnergyRow")
 	init_energy_dispenser_row()
 	game.set_turn_indicator()
+	Server.player_loaded()
+
+
+func add_revealed_card(card_json: Dictionary) -> void:
+	var card = load("res://Scenes/Card.tscn")
+	var new_card = card.instance()
+	new_card.init(card_json)
+	new_card.status = Utils.REVEALED_GIZMO
+	game.get_node('Container/GridTier' + str(card_json['tier'])).add_child(new_card)

@@ -27,7 +27,7 @@ enum {
 
 # Functions
 
-func init(var card_json):
+func init(card_json):
 	card_info = card_json
 	face = load("res://Assets/Set"+str(card_info['tier'])+"/card"+str(card_info['id'])+".png")
 #	back = load("res://Assets/CardBack"+str(card_info['tier'])+".png")

@@ -34,3 +34,15 @@ func set_player_status(player_status):
 
 remote func set_ready_players(s_ready_players):
 	GameManager.set_ready_players(s_ready_players)
+
+
+remote func start_game():
+	GameManager.new_game()
+
+
+func player_loaded():
+	rpc_id(1, "player_loaded")
+
+
+remote func add_revealed_card(s_card_json):
+	GameManager.add_revealed_card(s_card_json)
