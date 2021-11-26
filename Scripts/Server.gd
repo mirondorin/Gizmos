@@ -36,22 +36,39 @@ remote func set_ready_players(s_ready_players):
 	GameManager.set_ready_players(s_ready_players)
 
 
-remote func start_game():
+remote func start_game() -> void:
 	GameManager.new_game()
 
 
-func player_loaded():
+func player_loaded() -> void:
 	rpc_id(1, "player_loaded")
 
 
-remote func add_revealed_card(s_card_json):
+remote func add_revealed_card(s_card_json) -> void:
 	GameManager.add_revealed_card(s_card_json)
+	fetch_tier_decks_count()
 
 
-func fetch_energy_row():
+func fetch_energy_row() -> void:
 	rpc_id(1, "fetch_energy_row")
 
 
-remote func return_energy_row(s_energy_row):
+remote func return_energy_row(s_energy_row) -> void:
 	GameManager.update_energy_row(s_energy_row)
-	return s_energy_row
+
+
+func fetch_start_card() -> void:
+	rpc_id(1, "fetch_start_card")
+
+
+remote func return_start_card(s_start_card: Dictionary) -> void:
+	GameManager.give_start_card(s_start_card)
+
+
+# Fetch cards left in each tier deck
+func fetch_tier_decks_count():
+	rpc_id(1, "fetch_tier_decks_count")
+
+
+remote func return_tier_decks_count(s_tier_decks_count: Array):
+	GameManager.update_tier_decks_counter(s_tier_decks_count)

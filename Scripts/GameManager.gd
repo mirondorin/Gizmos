@@ -8,7 +8,6 @@ var game
 var _deck_object = Deck.new()
 var deck = _deck_object.deck
 var tier_decks = [[], [], []]
-var start_card
 var revealed_cards = [[], [], []]
 
 var energy_dispenser
@@ -19,7 +18,7 @@ var players
 var ready_players
 var player_scene = preload("res://Scenes/Player.tscn")
 var player_order = []
-var active_player: Player # indicates whose turn it is
+var active_player
 
 var current_state
 var end_game = false
@@ -28,7 +27,6 @@ var hint_manager = HintManager.new()
 
 # Constants
 
-const MAX_DISPENSER = 13
 const MAX_ENERGY_ROW = 6
 
 # Custom signals
@@ -44,29 +42,28 @@ func _ready():
 # Create players_count instances of Player class and adds them to Game scene
 # Sets up Player1 as first active player
 func instance_players() -> void:
-	var card = load("res://Scenes/Card.tscn")
-	var count = 1
 	for id in players:
 		var new_player = player_scene.instance()
-		new_player.name = "Player" + str(count)
-		count += 1
+		new_player.name = str(id)
 		new_player.nickname = players[id]
 		new_player.visible = false
 		new_player.board_viewer.init(new_player)
 		game.get_node('Players').add_child(new_player)
+		player_order.append(id)
 		
-		player_order.append(new_player.get_instance_id())
-		
-#		var start_card_instance = card.instance()
-#		start_card_instance.init(start_card)
-#		start_card_instance.set_active()
-#
-#		new_player.card_to_container(start_card_instance)
-#		new_player.stats['gizmos'].append(start_card_instance.get_deck_id())
-#		start_card_instance.owner_id = new_player.get_instance_id()
-	active_player = game.get_node('Players/Player1')
+	active_player = game.get_node('Players/' + str(player_order[0]))
 	active_player.visible = true
 	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
+
+
+# Gives start card to client
+func give_start_card(s_start_card: Dictionary) -> void:
+	var start_card = load("res://Scenes/Card.tscn").instance()
+	start_card.init(s_start_card)
+
+	var client_id = get_tree().get_network_unique_id()
+	var client_container = game.get_node('Players/' + str(client_id))
+	client_container.card_to_container(start_card)
 
 
 # Has to be id from JSON
@@ -216,7 +213,7 @@ func give_card(card: Card, player: Player):
 	player.update_energy_counters()
 	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_node("PlayerBoard").get_score())
 #	fill_all()
-	update_tier_decks_counter()
+	Server.fetch_tier_decks_count()
 
 
 func research(tier : int):
@@ -367,12 +364,12 @@ func is_end_game() -> bool:
 
 
 # Updates the counter for each tier deck
-func update_tier_decks_counter() -> void:
-	var decks = game.get_node("Container/TierDeckContainer")
+func update_tier_decks_counter(tier_decks_count: Array) -> void:
+	var deck_container = game.get_node("Container/TierDeckContainer")
 	
 	for tier in range(0, 3):
-		var el = decks.get_node("TierDeck" + str(tier + 1)) 
-		el.get_node("Label").text = str(tier_decks[tier].size())
+		var el = deck_container.get_node("TierDeck" + str(tier + 1)) 
+		el.get_node("Label").text = str(tier_decks_count[tier])
 
 
 # Game has ended. Show final scoreboard
@@ -453,41 +450,38 @@ func get_player_energy_row(player_id: int):
 			return player.get_energy_row()
 
 
-func set_players(s_players):
+func set_players(s_players) -> void:
 	players = s_players
 	emit_signal("player_joined")
 
 
-func set_ready_players(s_ready_players):
+func set_ready_players(s_ready_players) -> void:
 	ready_players = s_ready_players
 
 
-func new_game():
+func new_game() -> void:
 	get_tree().get_root().get_node("Lobby").visible = false
 	
 	var new_game_scene = load("res://Scenes/Game.tscn")
 	game = new_game_scene.instance()
 	get_tree().get_root().add_child(game)
-
-#	set_deck()
-#	fill_all()
-#	remove_tier_cards(2, 20) # Randomly remove 20 cards from tier 3
-#	update_tier_decks_counter()
-	instance_players()
-
 	node_energy_row = game.get_node("EnergyRow")
+
+	instance_players()
 	game.set_turn_indicator()
+	
 	Server.player_loaded()
+	Server.fetch_start_card()
 
 
 # Update counters of energy row
-func update_energy_row(s_energy_row: Array):
+func update_energy_row(s_energy_row: Array) -> void:
 	node_energy_row.update_energy_counters(s_energy_row)
 
 
+# Reveals new card to players
 func add_revealed_card(card_json: Dictionary) -> void:
 	var card = load("res://Scenes/Card.tscn")
 	var new_card = card.instance()
 	new_card.init(card_json)
-	new_card.status = Utils.REVEALED_GIZMO
 	game.get_node('Container/GridTier' + str(card_json['tier'])).add_child(new_card)
