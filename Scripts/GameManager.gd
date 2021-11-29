@@ -57,7 +57,10 @@ func instance_players() -> void:
 
 func set_active_player(s_player_id: String) -> void:
 	active_player = game.get_player_node(s_player_id)
-#	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
+	if s_player_id == get_own_id():
+		game.set_action_status_text("You must pick an action")
+		active_player.get_node("PlayerBoard").toggle_buttons()
+		hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
 
 
 # Gives start card to client
@@ -384,8 +387,10 @@ func end_screen() -> void:
 	game.add_child(score_board)
 
 
-func set_status(action):
-	game.get_node("ActionStatus").text = active_player.name + " is doing " + action
+func set_status(action: String) -> void:
+	var format_message = "You are doing %s"
+	var status_message = format_message % action
+	game.set_action_status_text(status_message)
 	current_state = action
 	active_player.using_action = true
 	hint_manager.action_highlight(action)
@@ -484,6 +489,7 @@ func setup_game() -> void:
 func _on_players_instanced() -> void:
 	GameManager.game.set_turn_indicator()
 	Server.fetch_start_card()
+	Server.fetch_active_player()
 	board_viewer.init(game.get_player_node(get_own_id()))
 
 

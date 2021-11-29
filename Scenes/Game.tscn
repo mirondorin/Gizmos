@@ -129,7 +129,6 @@ margin_right = 275.0
 margin_bottom = 226.347
 rect_min_size = Vector2( 700, 0 )
 custom_fonts/font = ExtResource( 4 )
-text = "You must pick an action"
 align = 1
 uppercase = true
 __meta__ = {

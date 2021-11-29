@@ -76,6 +76,7 @@ hint_tooltip = "Choose a faceup
 Gizmo from the
 Display Area and add
 it to your Archive"
+disabled = true
 action = "archive"
 
 [node name="ActionTexture" parent="ArchiveBtn/ActionContainer" index="0"]
@@ -98,6 +99,7 @@ margin_bottom = 106.0
 hint_tooltip = "Take 1 Energy from
 the 6 available in
 the Energy Row"
+disabled = true
 action = "pick"
 
 [node name="ActionTexture" parent="PickBtn/ActionContainer" index="0"]
@@ -121,6 +123,7 @@ from the Display Area
 or your Archive.
 Spend Energy to add it to
 your Active Gizmo Area"
+disabled = true
 action = "build"
 
 [node name="ActionTexture" parent="BuildBtn/ActionContainer" index="0"]
@@ -145,6 +148,7 @@ facedown Level Decks
 equal to your Research
 Amount. You may
 choose 1 to Build or File"
+disabled = true
 action = "research"
 
 [node name="ActionTexture" parent="ResearchBtn/ActionContainer" index="0"]

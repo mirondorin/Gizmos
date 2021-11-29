@@ -8,3 +8,7 @@ func set_turn_indicator() -> void:
 
 func get_player_node(player_id: String):
 	return $Players.get_node(player_id)
+
+
+func set_action_status_text(message: String):
+	$ActionStatus.text = message
