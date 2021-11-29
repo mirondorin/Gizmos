@@ -23,6 +23,7 @@ var active_player
 var current_state
 var end_game = false
 
+var board_viewer = BoardViewer.new()
 var hint_manager = HintManager.new()
 
 # Constants
@@ -32,38 +33,40 @@ const MAX_ENERGY_ROW = 6
 # Custom signals
 
 signal player_joined
+signal players_instanced
 
 # Functions
 
 func _ready():
 	self.connect("player_joined", get_tree().get_root().get_node("Lobby"), "_on_player_joined")
+	self.connect("players_instanced", self, "_on_players_instanced")
 
 
-# Create players_count instances of Player class and adds them to Game scene
-# Sets up Player1 as first active player
+# Create instance for each player and add them to Game scene
 func instance_players() -> void:
-	for id in players:
+	yield() # Waiting for player order
+	for id in player_order:
 		var new_player = player_scene.instance()
-		new_player.name = str(id)
+		new_player.name = id
 		new_player.nickname = players[id]
 		new_player.visible = false
-		new_player.board_viewer.init(new_player)
 		game.get_node('Players').add_child(new_player)
-		player_order.append(id)
-		
-	active_player = game.get_node('Players/' + str(player_order[0]))
-	active_player.visible = true
-	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
+	active_player = game.get_player_node(player_order[0])
+	emit_signal("players_instanced")
+
+
+func set_active_player(s_player_id: String) -> void:
+	active_player = game.get_player_node(s_player_id)
+#	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
 
 
 # Gives start card to client
-func give_start_card(s_start_card: Dictionary) -> void:
+func give_start_card(s_start_card: Dictionary, s_player_id: String) -> void:
 	var start_card = load("res://Scenes/Card.tscn").instance()
 	start_card.init(s_start_card)
 
-	var client_id = get_tree().get_network_unique_id()
-	var client_container = game.get_node('Players/' + str(client_id))
-	client_container.card_to_container(start_card)
+	var player_node = game.get_player_node(s_player_id)
+	player_node.card_to_container(start_card)
 
 
 # Has to be id from JSON
@@ -431,16 +434,15 @@ func get_affordable_cards(player: Player, card_arr):
 	return affordable_cards
 
 
-func view_player_board(player_id: int):
-	for player in game.get_node("Players").get_children():
-		if player.get_instance_id() == player_id:
-			active_player.board_viewer.change_view(player)
-			player.get_node("PlayerEnergy").update_label()
-			
+func view_player_board(player_id: String):
+	var player_node = game.get_player_node(player_id)
+	board_viewer.change_view(player_node)
+	player_node.get_node("PlayerEnergy").update_label()
+
 
 func get_player_board(player_id: int):
 	for player in game.get_node("Players").get_children():
-		if player.get_instance_id() == player_id:
+		if player.name == player_id:
 			return player.get_board()
 
 
@@ -459,19 +461,30 @@ func set_ready_players(s_ready_players) -> void:
 	ready_players = s_ready_players
 
 
-func new_game() -> void:
+func set_player_order(s_player_order: Array):
+	var wait_player_order = GameManager.instance_players()
+	player_order = s_player_order
+	wait_player_order.resume()
+
+
+func start_game() -> void:
 	get_tree().get_root().get_node("Lobby").visible = false
 	
 	var new_game_scene = load("res://Scenes/Game.tscn")
 	game = new_game_scene.instance()
 	get_tree().get_root().add_child(game)
 	node_energy_row = game.get_node("EnergyRow")
-
-	instance_players()
-	game.set_turn_indicator()
-	
 	Server.player_loaded()
+
+
+func setup_game() -> void:
+	Server.fetch_player_order()
+
+
+func _on_players_instanced() -> void:
+	GameManager.game.set_turn_indicator()
 	Server.fetch_start_card()
+	board_viewer.init(game.get_player_node(get_own_id()))
 
 
 # Update counters of energy row
@@ -480,8 +493,12 @@ func update_energy_row(s_energy_row: Array) -> void:
 
 
 # Reveals new card to players
-func add_revealed_card(card_json: Dictionary) -> void:
+func add_revealed_card(s_card_json: Dictionary) -> void:
 	var card = load("res://Scenes/Card.tscn")
 	var new_card = card.instance()
-	new_card.init(card_json)
-	game.get_node('Container/GridTier' + str(card_json['tier'])).add_child(new_card)
+	new_card.init(s_card_json)
+	game.get_node('Container/GridTier' + str(s_card_json['tier'])).add_child(new_card)
+
+
+func get_own_id() -> String:
+	return str(get_tree().get_network_unique_id())

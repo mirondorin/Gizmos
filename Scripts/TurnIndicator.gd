@@ -11,19 +11,20 @@ func init_turn_indicator(players_node) -> void:
 		var player_info = player_info_scene.instance()
 		player_info.set_player_name(player.nickname)
 		player_info.set_points(player.get_node("PlayerBoard").get_score())
-		player_info.player_id = player.get_instance_id()
+		player_info.player_id = player.name
 		self.add_child(player_info)
-		player_info.set_turn_indicator(GameManager.active_player.get_instance_id())
+		player_info.set_turn_indicator(GameManager.active_player.name)
 
 
-func init_selected_view():
+func init_selected_view() -> void:
 	for player_info in self.get_children():
-		selected_view = player_info.get_player_name_btn()
-		selected_view.disabled = true
-		break 
+		if player_info.player_id == GameManager.get_own_id():
+			selected_view = player_info.get_player_name_btn()
+			selected_view.disabled = true
+			break 
 
 
-func update_selected_view(player_name_btn):
+func update_selected_view(player_name_btn) -> void:
 	selected_view.disabled = false
 	selected_view = player_name_btn
 	selected_view.disabled = true
@@ -32,11 +33,11 @@ func update_selected_view(player_name_btn):
 # Updates turn indicator (green arrow displayed next to player's name)
 func update_turn_indicator() -> void:
 	for player_info in self.get_children():
-		player_info.set_turn_indicator(GameManager.active_player.get_instance_id())
+		player_info.set_turn_indicator(GameManager.active_player.name)
 
 
 # Updates score of overview scoreboard in top right corner
-func update_player_points(player_id : int, score : int) -> void:
+func update_player_points(player_id: String, score: int) -> void:
 	for player_info in self.get_children():
 		if player_info.player_id == player_id:
 			player_info.set_points(score)
@@ -44,5 +45,5 @@ func update_player_points(player_id : int, score : int) -> void:
 
 func get_active_player_btn():
 	for player_info in self.get_children():
-		if player_info.player_id == GameManager.active_player.get_instance_id():
+		if player_info.player_id == GameManager.active_player.name:
 			return player_info.get_player_name_btn()

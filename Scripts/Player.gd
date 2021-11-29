@@ -39,8 +39,6 @@ var disabled_actions = {
 var used_action = false
 var using_action = false
 
-var board_viewer = BoardViewer.new()
-
 
 # Returns total energy of player
 func get_energy_count() -> int:

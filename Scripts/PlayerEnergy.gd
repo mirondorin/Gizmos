@@ -13,7 +13,7 @@ func update_energy_counters(energy_arr, excess_energy):
 
 
 func update_label():
-	if get_parent() == GameManager.active_player:
+	if get_parent().name == GameManager.get_own_id():
 		$Label.text = "Your energy"
 	else:
 		var format_string = "%s's energy"

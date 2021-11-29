@@ -10,6 +10,7 @@ var player_energy_row
 func init(player):
 	player_board = player.get_board()
 	player_energy_row = player.get_energy_row()
+	player.visible = true
 
 
 func change_view(new_player):
