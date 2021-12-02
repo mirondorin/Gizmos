@@ -21,6 +21,7 @@ var player_order = []
 var active_player
 
 var current_state
+var action_id # Will become the new current_state
 var end_game = false
 
 var board_viewer = BoardViewer.new()
@@ -28,6 +29,7 @@ var hint_manager = HintManager.new()
 
 # Constants
 
+enum {ARCHIVE, PICK, BUILD, RESEARCH}
 const MAX_ENERGY_ROW = 6
 
 # Custom signals
@@ -487,10 +489,14 @@ func setup_game() -> void:
 
 
 func _on_players_instanced() -> void:
-	GameManager.game.set_turn_indicator()
+	game.set_turn_indicator()
 	Server.fetch_start_card()
 	Server.fetch_active_player()
 	board_viewer.init(game.get_player_node(get_own_id()))
+
+
+func player_stats_updated(s_player_id: String, s_player_stats: Dictionary) -> void:
+	game.player_stats_updated(s_player_id, s_player_stats)
 
 
 # Update counters of energy row
@@ -504,6 +510,10 @@ func add_revealed_card(s_card_json: Dictionary) -> void:
 	var new_card = card.instance()
 	new_card.init(s_card_json)
 	game.get_node('Container/GridTier' + str(s_card_json['tier'])).add_child(new_card)
+
+
+func set_action_id(id: int) -> void:
+	action_id = id
 
 
 func get_own_id() -> String:

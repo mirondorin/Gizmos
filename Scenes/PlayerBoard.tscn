@@ -101,6 +101,7 @@ the 6 available in
 the Energy Row"
 disabled = true
 action = "pick"
+action_id = 1
 
 [node name="ActionTexture" parent="PickBtn/ActionContainer" index="0"]
 margin_bottom = 106.0
@@ -125,6 +126,7 @@ Spend Energy to add it to
 your Active Gizmo Area"
 disabled = true
 action = "build"
+action_id = 2
 
 [node name="ActionTexture" parent="BuildBtn/ActionContainer" index="0"]
 margin_bottom = 106.0
@@ -150,6 +152,7 @@ Amount. You may
 choose 1 to Build or File"
 disabled = true
 action = "research"
+action_id = 3
 
 [node name="ActionTexture" parent="ResearchBtn/ActionContainer" index="0"]
 margin_bottom = 106.0

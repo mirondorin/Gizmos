@@ -42,7 +42,7 @@ margin_left = 78.0
 margin_right = 152.0
 margin_bottom = 74.0
 texture_normal = ExtResource( 4 )
-type = 1
+energy_type = 1
 
 [node name="EnergyButton3" parent="EnergyContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -51,7 +51,7 @@ margin_left = 156.0
 margin_right = 230.0
 margin_bottom = 74.0
 texture_normal = ExtResource( 3 )
-type = 2
+energy_type = 2
 
 [node name="EnergyButton4" parent="EnergyContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -60,7 +60,7 @@ margin_left = 234.0
 margin_right = 308.0
 margin_bottom = 74.0
 texture_normal = ExtResource( 2 )
-type = 3
+energy_type = 3
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5

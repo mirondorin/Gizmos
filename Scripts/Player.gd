@@ -45,7 +45,6 @@ func get_energy_count() -> int:
 	var sum = 0
 	for count in stats['energy']:
 		sum += count
-#	print(self.name + "'s energy count is ", sum)
 	return sum
 
 

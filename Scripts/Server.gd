@@ -64,6 +64,14 @@ remote func return_active_player(s_player_id: String):
 	GameManager.set_active_player(s_player_id)
 
 
+remote func player_stats_updated(s_player_id: String, s_player_stats: Dictionary):
+	GameManager.player_stats_updated(s_player_id, s_player_stats)
+
+
+func send_event(action_id: int, info) -> void:
+	rpc_id(1, "process_event", action_id, info)
+
+
 remote func add_revealed_card(s_card_json: Dictionary) -> void:
 	GameManager.add_revealed_card(s_card_json)
 	fetch_tier_decks_count()
