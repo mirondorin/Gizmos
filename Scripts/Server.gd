@@ -72,8 +72,12 @@ func send_event(action_id: int, info):
 	rpc_id(1, "process_event", action_id, info)
 
 
-remote func receive_status_msg(msg: String):
-	GameManager.set_action_status_text(msg)
+remote func successful_action():
+	GameManager.successful_action()
+
+
+remote func receive_status_msg(s_msg: String):
+	GameManager.set_action_status_text(s_msg)
 
 
 remote func add_revealed_card(s_card_json: Dictionary):

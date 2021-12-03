@@ -511,9 +511,15 @@ func display_end_btn() -> void:
 	player_container.display_end_btn()
 
 
-func set_action_status_text(msg: String) -> void:
-	game.set_action_status_text(msg)
+func set_action_status_text(s_msg: String) -> void:
+	game.set_action_status_text(s_msg)
 
 
 func update_turn_indicator() -> void:
 	game.update_turn_indicator()
+
+
+# Disable player board after initial action and set state to nothing
+func successful_action() -> void:
+	GameManager.current_state = ""
+	active_player.get_node("PlayerBoard").disable_action_buttons(true)
