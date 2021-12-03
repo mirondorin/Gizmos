@@ -59,10 +59,16 @@ func instance_players() -> void:
 
 func set_active_player(s_player_id: String) -> void:
 	active_player = game.get_player_node(s_player_id)
+	update_turn_indicator()
+	
 	if s_player_id == get_own_id():
-		game.set_action_status_text("You must pick an action")
-		active_player.get_node("PlayerBoard").toggle_buttons()
+		set_action_status_text("You must pick an action")
+		active_player.get_node("PlayerBoard").disable_action_buttons(false)
 		hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
+	else:
+		var format_msg = "Waiting for %s to end his turn"
+		var actual_msg = format_msg % active_player.nickname
+		set_action_status_text(actual_msg)
 
 
 # Gives start card to client
@@ -72,22 +78,6 @@ func give_start_card(s_start_card: Dictionary, s_player_id: String) -> void:
 
 	var player_node = game.get_player_node(s_player_id)
 	player_node.card_to_container(start_card)
-
-
-# Has to be id from JSON
-func give_test_card(id : int, status: int, player : Player) -> void:
-	var card = load("res://Scenes/Card.tscn").instance()
-	card.init(deck[str(id)])
-	card.is_usable = true
-	card.status = status
-	player.card_to_container(card, true)
-
-
-func give_test_stats(player : Player, score, gizmos, energy):
-	player.stats['vp_tokens'] = score
-	for _i in range(0, gizmos):
-		player.stats['gizmos'].append(0)
-	player.stats['energy'][0] += energy
 
 
 # Returns array of ScoreEntry nodes sorted so first player is first element
@@ -102,17 +92,11 @@ func get_final_scores():
 	return score_entries
 
 
-func debug_state(player: Player) -> void:
-	for el in range(0, 4):
-		player.stats['energy'][el] = 6
-#		player.stats['excess_energy'][el] = 1
-
-
 # Sets used_action to true if action finalized using action button
 # Returns true if action was just used. False otherwise
 func finished_action() -> bool:
 	if active_player.using_action == true:
-		GameManager.game.get_node("ActionStatus").text = ""
+		set_action_status_text("")
 		current_state = ""
 		active_player.using_action = false
 		active_player.used_action = true
@@ -392,7 +376,7 @@ func end_screen() -> void:
 func set_status(action: String) -> void:
 	var format_message = "You are doing %s"
 	var status_message = format_message % action
-	game.set_action_status_text(status_message)
+	set_action_status_text(status_message)
 	current_state = action
 	active_player.using_action = true
 	hint_manager.action_highlight(action)
@@ -441,7 +425,7 @@ func get_affordable_cards(player: Player, card_arr):
 	return affordable_cards
 
 
-func view_player_board(player_id: String):
+func view_player_board(player_id: String) -> void:
 	var player_node = game.get_player_node(player_id)
 	board_viewer.change_view(player_node)
 	player_node.get_node("PlayerEnergy").update_label()
@@ -468,6 +452,7 @@ func set_ready_players(s_ready_players) -> void:
 	ready_players = s_ready_players
 
 
+# Sets turn order for players
 func set_player_order(s_player_order: Array):
 	var wait_player_order = GameManager.instance_players()
 	player_order = s_player_order
@@ -491,10 +476,11 @@ func setup_game() -> void:
 func _on_players_instanced() -> void:
 	game.set_turn_indicator()
 	Server.fetch_start_card()
-	Server.fetch_active_player()
 	board_viewer.init(game.get_player_node(get_own_id()))
+	Server.fetch_first_player()
 
 
+# Update player node with new stats
 func player_stats_updated(s_player_id: String, s_player_stats: Dictionary) -> void:
 	game.player_stats_updated(s_player_id, s_player_stats)
 
@@ -518,3 +504,16 @@ func set_action_id(id: int) -> void:
 
 func get_own_id() -> String:
 	return str(get_tree().get_network_unique_id())
+
+
+func display_end_btn() -> void:
+	var player_container = game.get_player_node(get_own_id())
+	player_container.display_end_btn()
+
+
+func set_action_status_text(msg: String) -> void:
+	game.set_action_status_text(msg)
+
+
+func update_turn_indicator() -> void:
+	game.update_turn_indicator()

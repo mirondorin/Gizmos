@@ -33,6 +33,9 @@ margin_right = 83.5
 margin_bottom = 89.2724
 custom_fonts/font = ExtResource( 3 )
 text = "END TURN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ResearchTab" parent="." instance=ExtResource( 4 )]
 visible = false

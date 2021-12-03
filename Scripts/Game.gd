@@ -6,6 +6,10 @@ func set_turn_indicator() -> void:
 	$TurnIndicator.init_selected_view()
 
 
+func update_turn_indicator() -> void:
+	$TurnIndicator.update_turn_indicator()
+
+
 func player_stats_updated(player_id: String, player_stats: Dictionary) -> void:
 	var player_container = get_player_node(player_id)
 	player_container.stats = player_stats
@@ -16,5 +20,5 @@ func get_player_node(player_id: String):
 	return $Players.get_node(player_id)
 
 
-func set_action_status_text(message: String) -> void:
-	$ActionStatus.text = message
+func set_action_status_text(msg: String) -> void:
+	$ActionStatus.text = msg

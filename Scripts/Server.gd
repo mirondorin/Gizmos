@@ -36,15 +36,15 @@ remote func set_ready_players(s_ready_players):
 	GameManager.set_ready_players(s_ready_players)
 
 
-remote func start_game() -> void:
+remote func start_game():
 	GameManager.start_game()
 
 
-remote func setup_game() -> void:
+remote func setup_game():
 	GameManager.setup_game()
 
 
-func player_loaded() -> void:
+func player_loaded():
 	rpc_id(1, "player_loaded")
 
 
@@ -56,8 +56,8 @@ remote func return_player_order(s_player_order: Array):
 	GameManager.set_player_order(s_player_order)
 
 
-func fetch_active_player():
-	rpc_id(1, "fetch_active_player")
+func fetch_first_player():
+	rpc_id(1, "fetch_first_player")
 
 
 remote func return_active_player(s_player_id: String):
@@ -68,11 +68,15 @@ remote func player_stats_updated(s_player_id: String, s_player_stats: Dictionary
 	GameManager.player_stats_updated(s_player_id, s_player_stats)
 
 
-func send_event(action_id: int, info) -> void:
+func send_event(action_id: int, info):
 	rpc_id(1, "process_event", action_id, info)
 
 
-remote func add_revealed_card(s_card_json: Dictionary) -> void:
+remote func receive_status_msg(msg: String):
+	GameManager.set_action_status_text(msg)
+
+
+remote func add_revealed_card(s_card_json: Dictionary):
 	GameManager.add_revealed_card(s_card_json)
 	fetch_tier_decks_count()
 
@@ -81,15 +85,15 @@ func fetch_energy_row() -> void:
 	rpc_id(1, "fetch_energy_row")
 
 
-remote func return_energy_row(s_energy_row: Array) -> void:
+remote func return_energy_row(s_energy_row: Array):
 	GameManager.update_energy_row(s_energy_row)
 
 
-func fetch_start_card() -> void:
+func fetch_start_card():
 	rpc_id(1, "fetch_start_card")
 
 
-remote func return_start_card(s_start_card: Dictionary, s_player_id: String) -> void:
+remote func return_start_card(s_start_card: Dictionary, s_player_id: String):
 	GameManager.give_start_card(s_start_card, s_player_id)
 
 
@@ -100,3 +104,11 @@ func fetch_tier_decks_count():
 
 remote func return_tier_decks_count(s_tier_decks_count: Array):
 	GameManager.update_tier_decks_counter(s_tier_decks_count)
+
+
+remote func display_end_btn():
+	GameManager.display_end_btn()
+
+
+func end_turn():
+	rpc_id(1, "end_turn")

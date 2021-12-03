@@ -71,11 +71,13 @@ func get_capacities():
 
 func _on_EndBtn_button_up():
 	$EndBtn.visible = false
-	$PlayerBoard.reset_active_gizmos()
-	reset_flags()
-	reset_free_action()
-	reset_excess_energy()
-	GameManager.end_turn()
+	$PlayerBoard.disable_action_buttons(true)
+#	$PlayerBoard.reset_active_gizmos()
+#	reset_flags()
+#	reset_free_action()
+#	reset_excess_energy()
+#	GameManager.end_turn()
+	Server.end_turn()
 
 
 func card_to_container(card, archived:bool = false):
@@ -215,3 +217,7 @@ func get_energy_row():
 
 func get_nickname():
 	return nickname
+
+
+func display_end_btn():
+	$EndBtn.visible = true

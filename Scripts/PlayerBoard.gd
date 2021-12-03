@@ -63,9 +63,9 @@ func get_score() -> int:
 	return total
 
 
-func toggle_buttons():
+func disable_action_buttons(disable: bool):
 	for btn in action_btn_arr:
-		btn.disabled = !btn.disabled
+		btn.disabled = disable
 
 
 # Iterates through all active gizmos player has and if gizmo is usable
@@ -91,7 +91,3 @@ func reset_active_gizmos():
 			for card in card_arr:
 				card.set_is_usable(true)
 				card.set_condition_sign(false)
-
-
-func toggle_visibility():
-	self.visible = !self.visible
