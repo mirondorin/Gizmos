@@ -101,8 +101,8 @@ remote func return_start_card(s_start_card: Dictionary, s_player_id: String):
 	GameManager.give_start_card(s_start_card, s_player_id)
 
 
-remote func give_player_card(s_card_json: Dictionary, s_player_id: String):
-	GameManager.give_card(s_card_json, s_player_id)
+remote func give_player_card(s_card_json: Dictionary, s_prev_card_state: int, s_player_id: String):
+	GameManager.give_card(s_card_json, s_prev_card_state, s_player_id)
 
 
 # Fetch cards left in each tier deck

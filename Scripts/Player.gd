@@ -17,7 +17,8 @@ var stats = {
 var flags = {
 	"archived": false,
 	"picked": [0, 0, 0, 0],
-	"built": [0, 0, 0, 0, 0], # Last element is if built from archive
+	"built": [0, 0, 0, 0],
+	"archive_built": false,
 	"built_tier": [0, 0, 0]
 }
 var build_discount = {

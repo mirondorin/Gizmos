@@ -52,7 +52,7 @@ func _pressed():
 			"archive":
 				Server.send_event(GameManager.ARCHIVE, card_info)
 			"build":
-				print("Request to server to build")
+				Server.send_event(GameManager.BUILD, card_info)
 
 
 func is_owner(player_id: int):

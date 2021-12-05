@@ -82,18 +82,24 @@ func give_start_card(s_start_card: Dictionary, s_player_id: String) -> void:
 
 
 # Removes card from old parent node and adds it to player board
-func give_card(s_card_json: Dictionary, s_player_id: String) -> void:
+func give_card(s_card_json: Dictionary, s_prev_card_state: int, s_player_id: String) -> void:
 	var player = game.get_player_node(s_player_id)
-	var card = get_revealed_card(s_card_json)
-	if card:
-		card.card_info = s_card_json
-		var card_parent = card.get_parent()
-		card_parent.remove_child(card)
-		
-		if s_card_json['status'] == ACTIVE_GIZMO:
-			player.card_to_active_container(card)
-		else:
-			player.card_to_archive_container(card)
+	var card
+	
+	match s_prev_card_state:
+		REVEALED_GIZMO:
+			card = get_revealed_card(s_card_json)
+		ARCHIVED_GIZMO:
+			card = get_archived_card(s_card_json, s_player_id)
+
+	card.card_info = s_card_json
+	var card_parent = card.get_parent()
+	card_parent.remove_child(card)
+	
+	if s_card_json['status'] == ACTIVE_GIZMO:
+		player.card_to_active_container(card)
+	else:
+		player.card_to_archive_container(card)
 
 #	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_node("PlayerBoard").get_score())
 	Server.fetch_tier_decks_count()
@@ -391,6 +397,14 @@ func get_cards_anim_player_arr(card_arr):
 	for card in card_arr:
 		anim_player_arr.append(card.get_anim_player())
 	return anim_player_arr
+
+
+func get_archived_card(card_json: Dictionary, player_id: String):
+	var player = game.get_player_node(player_id)
+	var card_container = player.get_node("PlayerBoard").get_archive_container().get_children()
+	for card in card_container:
+		if card.card_info['id'] == card_json['id'] and card.card_info['tier'] == card_json['tier']:
+			return card
 
 
 # Returns array of archived cards from player
