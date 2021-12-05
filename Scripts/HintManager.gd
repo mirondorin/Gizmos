@@ -30,13 +30,13 @@ func get_action_anim_players(action):
 	var anim_player_arr = []
 	match action:
 		"archive":
-			var revealed_cards = GameManager.get_revealed_cards()
+			var revealed_cards = GameManager.get_revealed_card_arr()
 			anim_player_arr = GameManager.get_cards_anim_player_arr(revealed_cards)
 		"pick":
 			anim_player_arr = game.get_node("EnergyRow").get_anim_player_arr()
 		"build":
 			var player = GameManager.active_player
-			var revealed_cards = GameManager.get_revealed_cards()
+			var revealed_cards = GameManager.get_revealed_card_arr()
 			var archived_cards = GameManager.get_archived_cards(player)
 			var affordable_cards = GameManager.get_affordable_cards(player, revealed_cards + archived_cards)
 			anim_player_arr = GameManager.get_cards_anim_player_arr(affordable_cards)

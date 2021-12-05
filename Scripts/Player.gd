@@ -80,11 +80,11 @@ func _on_EndBtn_button_up():
 	Server.end_turn()
 
 
-func card_to_container(card, archived:bool = false):
-	if archived:
-		$PlayerBoard.get_archive_container().add_child(card)
-	else:
-		$PlayerBoard.get_card_container(card).add_child(card)
+func card_to_archive_container(card):
+	$PlayerBoard.get_archive_container().add_child(card)
+
+func card_to_active_container(card):
+	$PlayerBoard.get_card_container(card).add_child(card)
 
 
 func _on_ResearchBtn_pressed():

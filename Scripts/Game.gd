@@ -20,5 +20,9 @@ func get_player_node(player_id: String):
 	return $Players.get_node(player_id)
 
 
+func get_revealed_tier_node(tier: int):
+	return get_node('Container/GridTier' + str(tier))
+
+
 func set_action_status_text(msg: String) -> void:
 	$ActionStatus.text = msg

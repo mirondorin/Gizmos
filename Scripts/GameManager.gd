@@ -30,6 +30,7 @@ var hint_manager = HintManager.new()
 # Constants
 
 enum {ARCHIVE, PICK, BUILD, RESEARCH}
+enum {ACTIVE_GIZMO, ARCHIVED_GIZMO, RESEARCH_GIZMO, REVEALED_GIZMO}
 const MAX_ENERGY_ROW = 6
 
 # Custom signals
@@ -77,7 +78,25 @@ func give_start_card(s_start_card: Dictionary, s_player_id: String) -> void:
 	start_card.init(s_start_card)
 
 	var player_node = game.get_player_node(s_player_id)
-	player_node.card_to_container(start_card)
+	player_node.card_to_active_container(start_card)
+
+
+# Removes card from old parent node and adds it to player board
+func give_card(s_card_json: Dictionary, s_player_id: String) -> void:
+	var player = game.get_player_node(s_player_id)
+	var card = get_revealed_card(s_card_json)
+	if card:
+		card.card_info = s_card_json
+		var card_parent = card.get_parent()
+		card_parent.remove_child(card)
+		
+		if s_card_json['status'] == ACTIVE_GIZMO:
+			player.card_to_active_container(card)
+		else:
+			player.card_to_archive_container(card)
+
+#	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_node("PlayerBoard").get_score())
+	Server.fetch_tier_decks_count()
 
 
 # Returns array of ScoreEntry nodes sorted so first player is first element
@@ -106,14 +125,6 @@ func finished_action() -> bool:
 	return false
 
 
-# Used in end_turn for setting up next active player
-func get_next_player() -> String:
-	var player_nr = (int(active_player.name) + 1) % (game.players_count + 1)
-	if player_nr == 0:
-		player_nr += 1
-	return "Player" + str(player_nr)
-
-
 # Used in end_turn for reseting values of used_action and using_action 
 # for active_player
 func reset_action_status() -> void:
@@ -134,8 +145,8 @@ func end_turn() -> void:
 		print("Game end flag triggered")
 		if active_player.get_instance_id() == player_order[-1]:
 			end_screen()
-	var next_player = get_next_player()
-	active_player = game.get_node('Players/' + next_player)
+#	var next_player = get_next_player()
+#	active_player = game.get_node('Players/' + next_player)
 	active_player.visible = true
 	active_player.get_node("PlayerBoard").visible = true
 	active_player.get_node("PlayerEnergy").visible = true
@@ -182,30 +193,6 @@ func restock_energy_row():
 		var rand_energy = rand_from_dispenser()
 		energy_row[rand_energy] += 1
 		node_energy_row.update_energy_counters(energy_row)
-
-
-# arr HAS TO BE revealed_cards or tier_decks
-func remove_card(card : Card, arr):
-	var tier = card.card_info['tier'] - 1
-	var id = card.card_info['id']
-#	print("Before removing card ", arr)
-	arr[tier].erase(id)
-#	print("After removing card ", arr)
-
-
-func give_card(card: Card, player: Player):
-	var card_parent = card.get_parent()
-	card_parent.remove_child(card)
-	match current_state:
-		"": # Research action
-			remove_card(card, tier_decks) 
-		_: # Otherwise it was a build/archive action
-			remove_card(card, revealed_cards)
-
-	player.update_energy_counters()
-	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_node("PlayerBoard").get_score())
-#	fill_all()
-	Server.fetch_tier_decks_count()
 
 
 func research(tier : int):
@@ -382,7 +369,14 @@ func set_status(action: String) -> void:
 	hint_manager.action_highlight(action)
 
 
-func get_revealed_cards():
+func get_revealed_card(card_json: Dictionary):
+	var revealed_container = game.get_revealed_tier_node(card_json['tier'])
+	for card in revealed_container.get_children():
+		if card.card_info['id'] == card_json['id']:
+			return card
+
+
+func get_revealed_card_arr():
 	var card_arr = []
 	var container_arr = game.get_node("Container").get_children()
 	for container in container_arr:
@@ -495,7 +489,8 @@ func add_revealed_card(s_card_json: Dictionary) -> void:
 	var card = load("res://Scenes/Card.tscn")
 	var new_card = card.instance()
 	new_card.init(s_card_json)
-	game.get_node('Container/GridTier' + str(s_card_json['tier'])).add_child(new_card)
+	var revealed_container = game.get_revealed_tier_node(s_card_json['tier'])
+	revealed_container.add_child(new_card)
 
 
 func set_action_id(id: int) -> void:
