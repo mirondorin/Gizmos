@@ -105,6 +105,10 @@ remote func give_player_card(s_card_json: Dictionary, s_prev_card_state: int, s_
 	GameManager.give_card(s_card_json, s_prev_card_state, s_player_id)
 
 
+remote func return_research_cards(s_research_cards: Array):
+	GameManager.research(s_research_cards)
+
+
 # Fetch cards left in each tier deck
 func fetch_tier_decks_count():
 	rpc_id(1, "fetch_tier_decks_count")

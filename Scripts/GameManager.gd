@@ -201,19 +201,16 @@ func restock_energy_row():
 		node_energy_row.update_energy_counters(energy_row)
 
 
-func research(tier : int):
+func research(s_research_cards: Array):
 	var card = load("res://Scenes/Card.tscn")
-	var research_tab = active_player.get_node("ResearchTab")
-	for _i in range(0, active_player.stats['max_research']):
-		var rand_card_id = tier_decks[tier][randi() % tier_decks[tier].size()]
-		rand_card_id = rand_card_id + 36 * tier
-		var rand_card = card.instance()
-		rand_card.init(deck[str(rand_card_id)])
-		rand_card.status = Utils.RESEARCH_GIZMO
-		research_tab.add_card(rand_card)
-	if active_player.using_action == true:
-		active_player.used_action = true
+	var player_node = game.get_player_node(get_own_id())
+	var research_tab = player_node.get_node("ResearchTab")
 	research_tab.visible = true
+	
+	for card_json in s_research_cards:
+		var rand_card = card.instance()
+		rand_card.init(card_json)
+		research_tab.add_card(rand_card)
 
 
 # Gives count random energy from energy_dispenser to active_player
