@@ -6,7 +6,6 @@ class_name Card
 
 var card_info = {} # id, tier, cost, action, effect, type_id, vp
 var status # Will use for active, archived, in research tab, or revealed gizmo
-var owner_id
 var is_usable
 var face
 var back
@@ -31,7 +30,6 @@ func init(card_json):
 	card_info = card_json
 	face = load("res://Assets/Set"+str(card_info['tier'])+"/card"+str(card_info['id'])+".png")
 #	back = load("res://Assets/CardBack"+str(card_info['tier'])+".png")
-	owner_id = null
 	set_normal_texture(face)
 	init_card_actions_container()
 	init_used_indicator()
@@ -39,13 +37,12 @@ func init(card_json):
 
 
 func _pressed():
-	if card_info['status'] == Utils.ACTIVE_GIZMO and !is_passive():
-		if is_owner(GameManager.active_player.get_instance_id()):
+	if card_info['status'] == GameManager.ACTIVE_GIZMO and !is_passive():
+		if card_info['owner_id'] == GameManager.get_own_id():
 			use_effect()
 		else:
-			print(owner_id)
 			print("This is another player's card")
-	elif card_info['status'] == Utils.RESEARCH_GIZMO:
+	elif card_info['status'] == GameManager.RESEARCH_GIZMO:
 		action_container.visible = true
 	else:
 		match GameManager.current_state:
@@ -53,10 +50,6 @@ func _pressed():
 				Server.send_event(GameManager.ARCHIVE, card_info)
 			"build":
 				Server.send_event(GameManager.BUILD, card_info)
-
-
-func is_owner(player_id: int):
-	return player_id == owner_id
 
 
 func set_active():

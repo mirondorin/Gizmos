@@ -7,28 +7,6 @@ func _on_Control_pressed():
 		Server.send_event(GameManager.action_id, energy_type)
 
 
-#func give_energy(player : Player, energy_type : int):
-#	if GameManager.energy_row[energy_type] > 0:
-#		if player.has_energy_space():
-#			player.stats['energy'][energy_type] += 1
-#			player.flags['picked'][energy_type] = 1
-#			player.update_energy_counters()
-#			GameManager.energy_row[energy_type] -= 1
-#			decrement_counter()
-#			GameManager.restock_energy_row()
-#			if GameManager.finished_action() == false:
-#				print("Removed free pick action")
-#				GameManager.dec_free_action('pick')
-#			player.get_node("PlayerBoard").check_condition_gizmos()
-#			print(player.name + "'s energy ", player.stats['energy'])
-#		else:
-#			GameManager.set_warning("You do not have enough energy capacity")
-#			print(player.name + " does not have enough energy capacity")
-#	else:
-#		GameManager.set_warning("No more energy of this type")
-#		print("No more energy of this type")
-
-
 func decrement_counter():
 	var count = int($Counter.text)
 	count -= 1

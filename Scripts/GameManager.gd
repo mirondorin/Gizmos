@@ -5,12 +5,6 @@ extends Node
 
 var game
 
-var _deck_object = Deck.new()
-var deck = _deck_object.deck
-var tier_decks = [[], [], []]
-var revealed_cards = [[], [], []]
-
-var energy_dispenser
 var energy_row
 var node_energy_row
 
@@ -171,36 +165,6 @@ func get_energy_row_count() -> int:
 	return sum
 
 
-# Actually adds energy to energy_dispenser and then restocks energy_row
-func add_to_energy_row(energy_arr) -> void:
-	for energy_type in range(0, 4):
-		var count = energy_arr[energy_type]
-		for _i in range (0, count):
-			energy_dispenser.append(energy_type)
-	restock_energy_row()
-	node_energy_row.update_energy_counters(energy_row)
-
-
-# Removes energy from energy_dispenser and returns energy
-# Return value in range [0, 3]. Check above constants for energy type codes
-func rand_from_dispenser():
-	var dispenser_size = energy_dispenser.size()
-	if dispenser_size == 0:
-		print("Dispenser is empty")
-		return
-	var rand_energy = energy_dispenser[randi() % dispenser_size]
-	energy_dispenser.erase(rand_energy)
-	return rand_energy
-
-
-# !Not treating case where dispenser is empty
-func restock_energy_row():
-	while get_energy_row_count() != MAX_ENERGY_ROW:
-		var rand_energy = rand_from_dispenser()
-		energy_row[rand_energy] += 1
-		node_energy_row.update_energy_counters(energy_row)
-
-
 func research(s_research_cards: Array):
 	var card = load("res://Scenes/Card.tscn")
 	var player_node = game.get_player_node(get_own_id())
@@ -214,16 +178,16 @@ func research(s_research_cards: Array):
 
 
 # Gives count random energy from energy_dispenser to active_player
-func give_rand_energy(count : int):
-	while count > 0:
-		if active_player.has_energy_space():
-			var energy_type = rand_from_dispenser()
-			active_player.stats['energy'][energy_type] += 1
-		else:
-			active_player.update_energy_counters()
-			return
-		count -= 1
-	active_player.update_energy_counters()
+#func give_rand_energy(count: int):
+#	while count > 0:
+#		if active_player.has_energy_space():
+#			var energy_type = rand_from_dispenser()
+#			active_player.stats['energy'][energy_type] += 1
+#		else:
+#			active_player.update_energy_counters()
+#			return
+#		count -= 1
+#	active_player.update_energy_counters()
 
 
 # params HAS TO BE array

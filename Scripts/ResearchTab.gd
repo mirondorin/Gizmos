@@ -8,7 +8,7 @@ func _on_HideBtn_pressed():
 
 func _on_DoneBtn_pressed():
 	clear_cards()
-	GameManager.finished_action()
+#	GameManager.finished_action()
 
 
 func clear_cards():
@@ -18,6 +18,5 @@ func clear_cards():
 	self.visible = false
 
 
-func add_card(card : Card):
+func add_card(card: Card):
 	$ResearchContainer/Bg/ScrollContainer/GridContainer.add_child(card)
-	card.status = Utils.RESEARCH_GIZMO
