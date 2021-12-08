@@ -85,6 +85,8 @@ func give_card(s_card_json: Dictionary, s_prev_card_state: int, s_player_id: Str
 			card = get_revealed_card(s_card_json)
 		ARCHIVED_GIZMO:
 			card = get_archived_card(s_card_json, s_player_id)
+		RESEARCH_GIZMO:
+			print("get card from player research tab")
 
 	card.card_info = s_card_json
 	var card_parent = card.get_parent()
@@ -292,11 +294,12 @@ func reduce_tier_build(params) -> void:
 	active_player.build_discount['tier'][params[0]] += params[1]
 
 
-# Sets warning message for active_player
-func set_warning(msg : String):
-	active_player.get_node("Warning").text = msg
+# Sets warning message
+func set_warning(s_msg: String):
+	var warning_label = game.get_node("WarningStatus")
+	warning_label.text = s_msg
 	yield(get_tree().create_timer(0.5), "timeout")
-	active_player.get_node("Warning").text = ""
+	warning_label.text = ""
 
 
 # Checks if a player built their 4th tier3 gizmo or their 16th gizmo
@@ -331,8 +334,8 @@ func set_status(action: String) -> void:
 	var format_message = "You are doing %s"
 	var status_message = format_message % action
 	set_action_status_text(status_message)
+
 	current_state = action
-	active_player.using_action = true
 	hint_manager.action_highlight(action)
 
 

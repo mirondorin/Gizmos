@@ -4,9 +4,7 @@ class_name Card
 
 # Variables
 
-var card_info = {} # id, tier, cost, action, effect, type_id, vp
-var status # Will use for active, archived, in research tab, or revealed gizmo
-var is_usable
+var card_info = {} # id, tier, cost, action, effect, type_id, vp, owner_id, status, usable
 var face
 var back
 var action_container
@@ -33,7 +31,6 @@ func init(card_json):
 	set_normal_texture(face)
 	init_card_actions_container()
 	init_used_indicator()
-	is_usable = false
 
 
 func _pressed():
@@ -41,7 +38,7 @@ func _pressed():
 		if card_info['owner_id'] == GameManager.get_own_id():
 			use_effect()
 		else:
-			print("This is another player's card")
+			GameManager.set_warning("This is another player's card")
 	elif card_info['status'] == GameManager.RESEARCH_GIZMO:
 		action_container.visible = true
 	else:
@@ -52,13 +49,7 @@ func _pressed():
 				Server.send_event(GameManager.BUILD, card_info)
 
 
-func set_active():
-	status = Utils.ACTIVE_GIZMO
-	is_usable = true
-
-
 func set_is_usable(can_use : bool):
-	is_usable = can_use
 	is_used_container.visible = !can_use
 
 
@@ -221,7 +212,7 @@ func is_condition_met(player : Player) -> bool:
 
 # If card is usable and player meets card's conditions then use effect
 func use_effect():
-	if is_usable:
+	if card_info['usable']:
 		if is_condition_met(GameManager.active_player):
 			var effect_split = card_info['effect'].split('(')
 			var effect_func = effect_split[0]

@@ -192,9 +192,9 @@ func can_tier_build(tier : int):
 func apply_discounts(card, cost : int):
 	var card_tier = card.card_info['tier']
 	cost -= build_discount['tier'][card_tier - 1]
-	if card.status == Utils.ARCHIVED_GIZMO:
+	if card.card_info['status'] == Utils.ARCHIVED_GIZMO:
 		cost -= build_discount['archive']
-	elif card.status == Utils.RESEARCH_GIZMO:
+	elif card.card_info['status'] == Utils.RESEARCH_GIZMO:
 		cost -= build_discount['research']
 	if cost > 0:
 		return cost

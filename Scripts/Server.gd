@@ -76,10 +76,6 @@ remote func successful_action():
 	GameManager.successful_action()
 
 
-remote func receive_status_msg(s_msg: String):
-	GameManager.set_action_status_text(s_msg)
-
-
 remote func add_revealed_card(s_card_json: Dictionary):
 	GameManager.add_revealed_card(s_card_json)
 	fetch_tier_decks_count()
@@ -124,3 +120,11 @@ remote func display_end_btn():
 
 func end_turn():
 	rpc_id(1, "end_turn")
+
+
+remote func receive_status_msg(s_msg: String):
+	GameManager.set_action_status_text(s_msg)
+
+
+remote func receive_warning_msg(s_msg: String):
+	GameManager.set_warning(s_msg)

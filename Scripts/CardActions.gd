@@ -2,9 +2,8 @@ extends ColorRect
 
 
 func _on_ArchiveBtn_pressed():
-	var archive_succ = self.get_parent().archive(GameManager.active_player)
-	if archive_succ:
-		hide()
+	Server.send_event(GameManager.ARCHIVE, get_parent().card_info)
+	
 
 
 func _on_BuildBtn_pressed():
