@@ -12,11 +12,15 @@ func _on_DoneBtn_pressed():
 
 
 func clear_cards():
-	var card_container = $ResearchContainer/Bg/ScrollContainer/GridContainer
+	var card_container = get_card_container()
 	for card in card_container.get_children():
 		card.queue_free()
 	self.visible = false
 
 
 func add_card(card: Card):
-	$ResearchContainer/Bg/ScrollContainer/GridContainer.add_child(card)
+	get_card_container().add_child(card)
+
+
+func get_card_container():
+	return $ResearchContainer/Bg/ScrollContainer/GridContainer

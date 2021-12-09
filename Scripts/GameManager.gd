@@ -83,14 +83,18 @@ func give_card(s_card_json: Dictionary, s_prev_card_state: int, s_player_id: Str
 	match s_prev_card_state:
 		REVEALED_GIZMO:
 			card = get_revealed_card(s_card_json)
+			var card_parent = card.get_parent()
+			card_parent.remove_child(card)
 		ARCHIVED_GIZMO:
 			card = get_archived_card(s_card_json, s_player_id)
+			var card_parent = card.get_parent()
+			card_parent.remove_child(card)
 		RESEARCH_GIZMO:
-			print("get card from player research tab")
+			card = get_research_card(s_card_json)
+			if s_player_id == get_own_id():
+				player.get_node("ResearchTab").clear_cards()
 
 	card.card_info = s_card_json
-	var card_parent = card.get_parent()
-	card_parent.remove_child(card)
 	
 	if s_card_json['status'] == ACTIVE_GIZMO:
 		player.card_to_active_container(card)
@@ -177,6 +181,13 @@ func research(s_research_cards: Array):
 		var rand_card = card.instance()
 		rand_card.init(card_json)
 		research_tab.add_card(rand_card)
+
+
+func get_research_card(card_json: Dictionary):
+	var card = load("res://Scenes/Card.tscn").instance()
+	card.init(card_json)
+	card.action_container.visible = false
+	return card
 
 
 # Gives count random energy from energy_dispenser to active_player

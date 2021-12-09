@@ -7,9 +7,7 @@ func _on_ArchiveBtn_pressed():
 
 
 func _on_BuildBtn_pressed():
-	var build_succ = self.get_parent().build(GameManager.active_player)
-	if build_succ:
-		hide()
+	Server.send_event(GameManager.BUILD, get_parent().card_info)
 
 
 func _on_HideBtn_pressed():
