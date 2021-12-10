@@ -34,9 +34,9 @@ func init(card_json):
 
 
 func _pressed():
-	if card_info['status'] == GameManager.ACTIVE_GIZMO and !is_passive():
+	if card_info['status'] == GameManager.ACTIVE_GIZMO:
 		if card_info['owner_id'] == GameManager.get_own_id():
-			use_effect()
+			Server.send_event(GameManager.CARD_EFFECT, card_info)
 		else:
 			GameManager.set_warning("This is another player's card")
 	elif card_info['status'] == GameManager.RESEARCH_GIZMO:
@@ -189,19 +189,8 @@ func string_to_func(func_string : String):
 #	return false
 
 
-func built_from_archive(player: Player):
-	player.flags['built'][Utils.ARCHIVE_BUILT] = 1
-	player.stats['archive'].erase(get_deck_id())
-
-
-func set_built_flags(player: Player):
-	var energy_type = get_energy_type()
-	player.flags['built'][energy_type] = 1
-	player.flags['built_tier'][card_info['tier'] - 1] = 1
-
-
 # If active_player meets condition sets condition_met to true, false otherwise
-func is_condition_met(player : Player) -> bool:
+func is_condition_met(player: Player) -> bool:
 	var condition_split = string_to_func(card_info['action'])
 	if condition_split[1]:
 		condition_met = player.call(condition_split[0], condition_split[1])

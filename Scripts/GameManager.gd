@@ -23,7 +23,7 @@ var hint_manager = HintManager.new()
 
 # Constants
 
-enum {ARCHIVE, PICK, BUILD, RESEARCH}
+enum {ARCHIVE, PICK, BUILD, RESEARCH, CARD_EFFECT}
 enum {ACTIVE_GIZMO, ARCHIVED_GIZMO, RESEARCH_GIZMO, REVEALED_GIZMO}
 const MAX_ENERGY_ROW = 6
 
