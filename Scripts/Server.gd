@@ -68,6 +68,10 @@ remote func player_stats_updated(s_player_id: String, s_player_stats: Dictionary
 	GameManager.player_stats_updated(s_player_id, s_player_stats)
 
 
+remote func player_flags_updated(s_player_id: String, s_player_flags: Dictionary):
+	GameManager.player_flags_updated(s_player_id, s_player_flags)
+
+
 func send_event(action_id: int, info):
 	rpc_id(1, "process_event", action_id, info)
 

@@ -68,7 +68,7 @@ func disable_action_buttons(disable: bool):
 		btn.disabled = disable
 
 
-# Iterates through all active gizmos player has and if gizmo is usable
+# Iterates through all active cards player has and if gizmo is usable
 # show the checkmark on the bottom right 
 func check_condition_gizmos():
 	for btn in btn_arr:
@@ -76,7 +76,7 @@ func check_condition_gizmos():
 			var card_container = btn.get_node("ScrollContainer/VBoxContainer")
 			var card_arr = card_container.get_children()
 			for card in card_arr:
-				if card.is_usable and card.is_condition_met(self.get_parent()):
+				if card.card_info['usable'] and card.is_condition_met(self.get_parent()):
 					card.set_condition_sign(true)
 				else:
 					card.set_condition_sign(false)

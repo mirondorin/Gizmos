@@ -468,6 +468,10 @@ func player_stats_updated(s_player_id: String, s_player_stats: Dictionary) -> vo
 	game.player_stats_updated(s_player_id, s_player_stats)
 
 
+func player_flags_updated(s_player_id: String, s_player_flags: Dictionary):
+	game.player_flags_updated(s_player_id, s_player_flags)
+
+
 # Update counters of energy row
 func update_energy_row(s_energy_row: Array) -> void:
 	node_energy_row.update_energy_counters(s_energy_row)

@@ -16,6 +16,12 @@ func player_stats_updated(player_id: String, player_stats: Dictionary) -> void:
 	player_container.update_energy_counters()
 
 
+func player_flags_updated(player_id: String, player_flags: Dictionary):
+	var player_container = get_player_node(player_id)
+	player_container.flags = player_flags
+	player_container.get_node("PlayerBoard").check_condition_gizmos()
+
+
 func get_player_node(player_id: String):
 	return $Players.get_node(player_id)
 
