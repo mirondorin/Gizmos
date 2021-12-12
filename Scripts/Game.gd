@@ -10,16 +10,28 @@ func update_turn_indicator() -> void:
 	$TurnIndicator.update_turn_indicator()
 
 
+func update_turn_indicator_points(player_id: String) -> void:
+	var player_container = get_player_node(player_id)
+	$TurnIndicator.update_player_points(player_id, player_container.get_node("PlayerBoard").get_score())
+
+
 func player_stats_updated(player_id: String, player_stats: Dictionary) -> void:
 	var player_container = get_player_node(player_id)
 	player_container.stats = player_stats
 	player_container.update_energy_counters()
+	update_turn_indicator_points(player_id)
+	player_capacity_updated(player_id)
 
 
 func player_flags_updated(player_id: String, player_flags: Dictionary):
 	var player_container = get_player_node(player_id)
 	player_container.flags = player_flags
 	player_container.get_node("PlayerBoard").check_condition_gizmos()
+
+
+func player_capacity_updated(player_id: String):
+	var player_container = get_player_node(player_id)
+	player_container.get_node("PlayerBoard").update_capacities()
 
 
 func disable_player_card(card_json: Dictionary, player_id: String):

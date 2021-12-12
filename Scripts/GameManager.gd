@@ -101,7 +101,6 @@ func give_card(s_card_json: Dictionary, s_prev_card_state: int, s_player_id: Str
 	else:
 		player.card_to_archive_container(card)
 
-#	game.get_node("TurnIndicator").update_player_points(player.get_instance_id(), player.get_node("PlayerBoard").get_score())
 	Server.fetch_tier_decks_count()
 
 
@@ -246,22 +245,6 @@ func disable_action(code : int) -> void:
 	print(active_player.disabled_actions)
 
 
-# Gives count vp_tokens to active_player
-func give_vp_tokens(count : int) -> void:
-	active_player.stats['vp_tokens'] += count
-	game.get_node("TurnIndicator").update_player_points(active_player.get_instance_id(), \
-		active_player.get_node("PlayerBoard").get_score())
-	print("From give_vp_tokens ", active_player.stats)
-
-
-# params HAS TO be an array
-func upgrade_capacities(params) -> void:
-	active_player.stats['max_energy'] += params[0]
-	active_player.stats['max_archive'] += params[1]
-	active_player.stats['max_research'] += params[2]
-	active_player.get_node("PlayerBoard").update_capacities()
-
-
 # params HAS TO BE format of [[converting], [result], [amount]]
 # Sets convert tab with the appropiate actions
 func convert_tab(params) -> void:
@@ -270,7 +253,7 @@ func convert_tab(params) -> void:
 
 # Checks if player has initial type of energy and
 # Gives player excess_energy of type result if he does
-func convert_energy(initial : int, result : int, amount : int) -> bool:
+func convert_energy(initial: int, result: int, amount: int) -> bool:
 	if active_player.stats['excess_energy'][initial] > 0:
 		active_player.stats['excess_energy'][initial] -= 1
 		active_player.stats['excess_energy'][result] += amount

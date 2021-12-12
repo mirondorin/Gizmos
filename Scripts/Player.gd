@@ -149,8 +149,6 @@ func reset_flags():
 		flags['built'][el] = 0
 	for el in range(0, flags['built_tier'].size()):
 		flags['built_tier'][el] = 0
-#	print(flags['picked'])
-#	print(flags['built'])
 
 
 # Resets all values from free_action to 0

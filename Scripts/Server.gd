@@ -68,6 +68,10 @@ remote func player_stats_updated(s_player_id: String, s_player_stats: Dictionary
 	GameManager.player_stats_updated(s_player_id, s_player_stats)
 
 
+remote func player_capacity_updated(s_player_id: String):
+	GameManager.game.player_capacity_updated(s_player_id)
+
+
 remote func player_flags_updated(s_player_id: String, s_player_flags: Dictionary):
 	GameManager.player_flags_updated(s_player_id, s_player_flags)
 
