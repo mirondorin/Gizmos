@@ -109,6 +109,10 @@ remote func return_research_cards(s_research_cards: Array):
 	GameManager.research(s_research_cards)
 
 
+remote func return_disabled_card(s_card_json: Dictionary, s_player_id: String):
+	GameManager.game.disable_player_card(s_card_json, s_player_id)
+
+
 # Fetch cards left in each tier deck
 func fetch_tier_decks_count():
 	rpc_id(1, "fetch_tier_decks_count")

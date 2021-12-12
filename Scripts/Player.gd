@@ -73,11 +73,7 @@ func get_capacities():
 func _on_EndBtn_button_up():
 	$EndBtn.visible = false
 	$PlayerBoard.disable_action_buttons(true)
-#	$PlayerBoard.reset_active_gizmos()
-#	reset_flags()
 #	reset_free_action()
-#	reset_excess_energy()
-#	GameManager.end_turn()
 	Server.end_turn()
 
 
@@ -122,14 +118,18 @@ func has_energy_type(energy_arr) -> bool:
 	return false
 
 
-# build_type HAS TO BE an arr. Values of arr in range [0,4] resemble the code 
+# build_type HAS TO BE an arr. Values of arr in range [0,3] resemble the code 
 # for building color. Refer to Utils script to check color codes
 func has_built(build_type):
 	for el in build_type:
 		if flags['built'][el]:
 			return true
 	return false
-	
+
+
+func has_archive_built() -> bool:
+	return flags['archive_built']
+
 
 # build_tier HAS TO BE an arr. Values of arr in range [0,2] resemble the tier of
 # the building. 0 index based so tier 0 is actually tier 1

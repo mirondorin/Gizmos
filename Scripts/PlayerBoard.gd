@@ -68,6 +68,16 @@ func disable_action_buttons(disable: bool):
 		btn.disabled = disable
 
 
+func get_card(card_json: Dictionary):
+	for btn in btn_arr:
+		if btn.is_in_group("effect_gizmo_btn"):
+			var card_container = btn.get_node("ScrollContainer/VBoxContainer")
+			var card_arr = card_container.get_children()
+			for card in card_arr:
+				if card.card_info['tier'] == card_json['tier'] and card.card_info['id'] == card_json['id']:
+					return card
+
+
 # Iterates through all active cards player has and if gizmo is usable
 # show the checkmark on the bottom right 
 func check_condition_gizmos():

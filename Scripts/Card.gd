@@ -49,7 +49,8 @@ func _pressed():
 				Server.send_event(GameManager.BUILD, card_info)
 
 
-func set_is_usable(can_use : bool):
+func set_is_usable(can_use: bool):
+	card_info['usable'] = can_use
 	is_used_container.visible = !can_use
 
 

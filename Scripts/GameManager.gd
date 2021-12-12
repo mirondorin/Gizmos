@@ -25,7 +25,6 @@ var hint_manager = HintManager.new()
 
 enum {ARCHIVE, PICK, BUILD, RESEARCH, CARD_EFFECT}
 enum {ACTIVE_GIZMO, ARCHIVED_GIZMO, RESEARCH_GIZMO, REVEALED_GIZMO}
-const MAX_ENERGY_ROW = 6
 
 # Custom signals
 
@@ -54,6 +53,7 @@ func instance_players() -> void:
 
 func set_active_player(s_player_id: String) -> void:
 	active_player = game.get_player_node(s_player_id)
+	active_player.get_node("PlayerBoard").reset_active_gizmos()
 	update_turn_indicator()
 	
 	if s_player_id == get_own_id():

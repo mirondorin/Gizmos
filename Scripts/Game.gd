@@ -22,6 +22,13 @@ func player_flags_updated(player_id: String, player_flags: Dictionary):
 	player_container.get_node("PlayerBoard").check_condition_gizmos()
 
 
+func disable_player_card(card_json: Dictionary, player_id: String):
+	var player_container = get_player_node(player_id)
+	var card = player_container.get_node("PlayerBoard").get_card(card_json)
+	card.set_is_usable(false)
+	card.set_condition_sign(false)
+
+
 func get_player_node(player_id: String):
 	return $Players.get_node(player_id)
 
