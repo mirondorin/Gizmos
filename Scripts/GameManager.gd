@@ -189,19 +189,6 @@ func get_research_card(card_json: Dictionary):
 	return card
 
 
-# Gives count random energy from energy_dispenser to active_player
-#func give_rand_energy(count: int):
-#	while count > 0:
-#		if active_player.has_energy_space():
-#			var energy_type = rand_from_dispenser()
-#			active_player.stats['energy'][energy_type] += 1
-#		else:
-#			active_player.update_energy_counters()
-#			return
-#		count -= 1
-#	active_player.update_energy_counters()
-
-
 # params HAS TO BE array
 # params[0] has value in action_code from Utils script
 # params[1] is the amount of free actions player will get
@@ -238,13 +225,6 @@ func add_free_tier_build(params):
 	active_player.free_action['build_tier'][params[0]] += params[1]
 	
 
-# Disable action PERMANENTLY for player
-func disable_action(code : int) -> void:
-	var action = Utils.action_code[code]
-	active_player.disabled_actions[action] = true
-	print(active_player.disabled_actions)
-
-
 # params HAS TO BE format of [[converting], [result], [amount]]
 # Sets convert tab with the appropiate actions
 func convert_tab(params) -> void:
@@ -269,23 +249,6 @@ func convert_energy(initial: int, result: int, amount: int) -> bool:
 	else:
 		print(active_player.name + " does not have required energy type")
 	return false
-
-
-# Permanently reduces cost of building gizmos from the archive zone by amount
-func reduce_archive_build(amount : int) -> void:
-	active_player.build_discount['archive'] += amount
-
-
-# Permanently reduces cost of building gizmos from the research zone by amount
-func reduce_research_build(amount : int) -> void:
-	active_player.build_discount['research'] += amount
-
-
-# Permanently reduces cost of building specific tier gizmos by amount
-# params[0] - tier, params[1] - amount
-# 0 index based so if params[0] = 1, tier is actually 2
-func reduce_tier_build(params) -> void:
-	active_player.build_discount['tier'][params[0]] += params[1]
 
 
 # Sets warning message
