@@ -113,6 +113,18 @@ remote func return_research_cards(s_research_cards: Array):
 	GameManager.research(s_research_cards)
 
 
+remote func return_converter_tab(s_convert_arr: Array):
+	GameManager.set_converter_tab(s_convert_arr)
+
+
+remote func return_converter_card(s_card_json: Dictionary):
+	GameManager.set_converter_card_face(s_card_json)
+
+
+func convert_request(initial: int, result: int, amount: int):
+	rpc_id(1, "convert_request", initial, result, amount)
+
+
 remote func return_disabled_card(s_card_json: Dictionary, s_player_id: String):
 	GameManager.game.disable_player_card(s_card_json, s_player_id)
 

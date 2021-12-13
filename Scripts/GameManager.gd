@@ -54,6 +54,7 @@ func instance_players() -> void:
 func set_active_player(s_player_id: String) -> void:
 	active_player = game.get_player_node(s_player_id)
 	active_player.get_node("PlayerBoard").reset_active_gizmos()
+	active_player.get_node("PlayerBoard").check_condition_gizmos()
 	update_turn_indicator()
 	
 	if s_player_id == get_own_id():
@@ -116,20 +117,6 @@ func get_final_scores():
 	return score_entries
 
 
-# Sets used_action to true if action finalized using action button
-# Returns true if action was just used. False otherwise
-func finished_action() -> bool:
-	if active_player.using_action == true:
-		set_action_status_text("")
-		current_state = ""
-		active_player.using_action = false
-		active_player.used_action = true
-		active_player.get_node("EndBtn").visible = true
-		active_player.get_node("PlayerBoard").toggle_buttons()
-		return true
-	return false
-
-
 # Used in end_turn for reseting values of used_action and using_action 
 # for active_player
 func reset_action_status() -> void:
@@ -160,14 +147,6 @@ func end_turn() -> void:
 	var turn_indicator = game.get_node("TurnIndicator")
 	turn_indicator.update_turn_indicator()
 	turn_indicator.update_selected_view(turn_indicator.get_active_player_btn())
-
-
-# Returns total energy in energy_row
-func get_energy_row_count() -> int:
-	var sum = 0
-	for count in energy_row:
-		sum += count
-	return sum
 
 
 func research(s_research_cards: Array):
@@ -227,28 +206,13 @@ func add_free_tier_build(params):
 
 # params HAS TO BE format of [[converting], [result], [amount]]
 # Sets convert tab with the appropiate actions
-func convert_tab(params) -> void:
-	active_player.get_node("ConvertTab").set_converter(params)
+func set_converter_tab(s_convert_arr: Array) -> void:
+	active_player.get_node("ConvertTab").set_converter(s_convert_arr)
 
 
-# Checks if player has initial type of energy and
-# Gives player excess_energy of type result if he does
-func convert_energy(initial: int, result: int, amount: int) -> bool:
-	if active_player.stats['excess_energy'][initial] > 0:
-		active_player.stats['excess_energy'][initial] -= 1
-		active_player.stats['excess_energy'][result] += amount
-		active_player.update_energy_counters()
-		print("Excess energy ", active_player.stats['excess_energy'])
-		return true
-	elif active_player.stats['energy'][initial] > 0:
-		active_player.stats['energy'][initial] -= 1
-		active_player.stats['excess_energy'][result] += amount
-		active_player.update_energy_counters()
-		print("Excess energy ", active_player.stats['excess_energy'])
-		return true
-	else:
-		print(active_player.name + " does not have required energy type")
-	return false
+func set_converter_card_face(s_card_json: Dictionary) -> void:
+	var card_face = load("res://Assets/Set"+str(s_card_json['tier'])+"/card"+str(s_card_json['id'])+".png")
+	active_player.get_node("ConvertTab").set_gizmo_preview(card_face)
 
 
 # Sets warning message

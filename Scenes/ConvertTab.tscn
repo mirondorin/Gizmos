@@ -54,10 +54,13 @@ margin_bottom = 132.0
 
 [node name="ConvertActionBtn1" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 visible = false
+margin_right = 327.0
+margin_bottom = 43.0
 
 [node name="ConvertActionBtn2" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 visible = false
 margin_right = 327.0
+margin_bottom = 43.0
 text = "ACTION 2"
 
 [node name="EnergyContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource( 3 )]

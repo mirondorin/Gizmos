@@ -4,14 +4,15 @@ var initial_energy = [-1, -1]
 var result_energy = [-1, -1]
 var amount_energy = [-1, -1]
 
-# Recieves an arr of type [[], [], []] and sets values of above arays
-func set_converter(arr) -> void:
+
+# Recieves an arr of type [[converting], [result], [amount]] and sets values of above arays
+func set_converter(convert_arr: Array) -> void:
 	self.visible = true
-	for el in range(0, arr[0].size()):
-		initial_energy[el] = arr[0][el]
-		result_energy[el] = arr[1][el]
-		amount_energy[el] = arr[2][el]
-	set_convert_btns(arr[0].size(), true)
+	for el in range(0, convert_arr[0].size()):
+		initial_energy[el] = convert_arr[0][el]
+		result_energy[el] = convert_arr[1][el]
+		amount_energy[el] = convert_arr[2][el]
+	set_convert_btns(convert_arr[0].size(), true)
 
 
 # Set texture of gizmo that is being used
@@ -20,7 +21,7 @@ func set_gizmo_preview(card_texture):
 
 
 # Function to toggle visibility of convert buttons and set their values
-func set_convert_btns(count : int, can_see : bool) -> void:
+func set_convert_btns(count: int, can_see: bool) -> void:
 	for el in range(1, count + 1):
 		var btn = get_node("MarginContainer/VBoxContainer/HBoxContainer/ConvertActionBtn" + str(el))
 		btn.visible = can_see

@@ -200,31 +200,6 @@ func is_condition_met(player: Player) -> bool:
 	return condition_met
 
 
-# If card is usable and player meets card's conditions then use effect
-func use_effect():
-	if card_info['usable']:
-		if is_condition_met(GameManager.active_player):
-			var effect_split = card_info['effect'].split('(')
-			var effect_func = effect_split[0]
-			var effect_params = effect_split[1].split(')')[0]
-			
-			if effect_params.is_valid_integer():
-				effect_params = int(effect_params)
-				print("Cast effect_params to int")
-			else:
-				print("Cast effect_params to vector")
-				effect_params = str2var(effect_params)
-			if card_info['type_id'] == CONVERT:
-				GameManager.active_player.get_node("ConvertTab").set_gizmo_preview(face)
-			GameManager.call(effect_func, effect_params)
-			set_is_usable(false)
-			set_condition_sign(false)
-		else:
-			GameManager.set_warning("Condition for gizmo was not met")
-	else:
-		GameManager.set_warning("Gizmo was already used this turn")
-
-
 func get_anim_player():
 	return $AnimationPlayer
 
