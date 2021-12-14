@@ -20,11 +20,6 @@ _global_script_classes=[ {
 "path": "res://Scripts/Card.gd"
 }, {
 "base": "Node",
-"class": "Deck",
-"language": "GDScript",
-"path": "res://Scripts/Deck.gd"
-}, {
-"base": "Node",
 "class": "HintManager",
 "language": "GDScript",
 "path": "res://Scripts/HintManager.gd"
@@ -42,7 +37,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BoardViewer": "",
 "Card": "",
-"Deck": "",
 "HintManager": "",
 "Player": "",
 "ScoreEntry": ""

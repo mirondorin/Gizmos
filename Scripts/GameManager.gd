@@ -16,7 +16,6 @@ var active_player
 
 var current_state
 var action_id # Will become the new current_state
-var end_game = false
 
 var board_viewer = BoardViewer.new()
 var hint_manager = HintManager.new()
@@ -117,38 +116,6 @@ func get_final_scores():
 	return score_entries
 
 
-# Used in end_turn for reseting values of used_action and using_action 
-# for active_player
-func reset_action_status() -> void:
-	active_player.used_action = false
-	active_player.using_action = false
-
-
-# Ends turn for active_player and gets next active_player
-func end_turn() -> void:
-	active_player.visible = false
-	reset_action_status()
-	active_player.update_energy_counters()
-	active_player.get_node("ResearchTab").clear_cards()
-	active_player.get_node("ResearchBtn").visible = false
-	active_player.get_node("PlayerBoard").toggle_buttons()
-	game.get_node("ActionStatus").text = "You must pick an action"
-	if GameManager.is_end_game():
-		print("Game end flag triggered")
-		if active_player.get_instance_id() == player_order[-1]:
-			end_screen()
-#	var next_player = get_next_player()
-#	active_player = game.get_node('Players/' + next_player)
-	active_player.visible = true
-	active_player.get_node("PlayerBoard").visible = true
-	active_player.get_node("PlayerEnergy").visible = true
-	active_player.get_node("PlayerBoard").check_condition_gizmos() # Used for converters
-	hint_manager.set_all_animation(active_player.get_btn_anim_player_arr(), "Highlight")
-	var turn_indicator = game.get_node("TurnIndicator")
-	turn_indicator.update_turn_indicator()
-	turn_indicator.update_selected_view(turn_indicator.get_active_player_btn())
-
-
 func research(s_research_cards: Array):
 	var card = load("res://Scenes/Card.tscn")
 	var player_node = game.get_player_node(get_own_id())
@@ -167,42 +134,6 @@ func get_research_card(card_json: Dictionary):
 	card.action_container.visible = false
 	return card
 
-
-# params HAS TO BE array
-# params[0] has value in action_code from Utils script
-# params[1] is the amount of free actions player will get
-func add_free_action(params):
-	var action = Utils.action_code[params[0]]
-	active_player.free_action[action] += params[1]
-	current_state = action
-	var format_string = "%s has %d free %s"
-	var status = format_string % [active_player.name, params[1], action]
-	game.get_node("ActionStatus").text = status
-	hint_manager.action_highlight(action)
-#	print(active_player.free_action)
-
-
-# Remove one free_action of type action from active player
-func dec_free_action(action: String) -> void:
-	active_player.free_action[action] -= 1
-	var counter = active_player.free_action[action]
-	var format_string = "%s has %d free %s"
-	var status = format_string % [active_player.name, counter, action]
-	
-	if counter:
-		game.get_node("ActionStatus").text = status
-	else:
-		game.get_node("ActionStatus").text = ""
-		current_state = ""
-
-
-# params HAS TO BE array
-# params[0] tier of building (0 index based tier 1 is tier 0)
-# params[1] amount of free tier builds
-func add_free_tier_build(params):
-	current_state = "build"
-	active_player.free_action['build_tier'][params[0]] += params[1]
-	
 
 # params HAS TO BE format of [[converting], [result], [amount]]
 # Sets convert tab with the appropiate actions
@@ -223,16 +154,6 @@ func set_warning(s_msg: String):
 	warning_label.text = ""
 
 
-# Checks if a player built their 4th tier3 gizmo or their 16th gizmo
-# Returns true if that's the case. False otherwise
-func is_end_game() -> bool:
-	if (active_player.stats['gizmos'].size() >= Utils.END_TOTAL_GIZMOS
-	or active_player.get_node("PlayerBoard").get_tier_gizmos(3) >= Utils.END_TOP_TIER_GIZMOS):
-		end_game = true
-		print("Triggered end game")
-	return end_game
-
-
 # Updates the counter for each tier deck
 func update_tier_decks_counter(tier_decks_count: Array) -> void:
 	var deck_container = game.get_node("Container/TierDeckContainer")
@@ -251,10 +172,11 @@ func end_screen() -> void:
 	game.add_child(score_board)
 
 
-func set_status(action: String) -> void:
+func set_status(action: String, s_action_id: int) -> void:
 	var format_message = "You are doing %s"
 	var status_message = format_message % action
 	set_action_status_text(status_message)
+	set_action_id(s_action_id)
 
 	current_state = action
 	hint_manager.action_highlight(action)

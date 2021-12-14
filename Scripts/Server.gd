@@ -142,8 +142,16 @@ remote func display_end_btn():
 	GameManager.display_end_btn()
 
 
+remote func receive_action_status(s_action: String, s_action_id: int):
+	GameManager.set_status(s_action, s_action_id)
+
+
 func end_turn():
 	rpc_id(1, "end_turn")
+
+
+remote func end_game():
+	GameManager.end_screen()
 
 
 remote func receive_status_msg(s_msg: String):

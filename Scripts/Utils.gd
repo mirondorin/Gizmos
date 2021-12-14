@@ -2,11 +2,7 @@ extends Node
 
 # Constants
 
-const ARCHIVE_BUILT = 4
 const WILD_ENERGY = 4
-
-const END_TOTAL_GIZMOS = 16
-const END_TOP_TIER_GIZMOS = 4
 
 # Enums
 
