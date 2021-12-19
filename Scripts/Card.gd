@@ -110,86 +110,6 @@ func string_to_func(func_string : String):
 	return [func_name, func_params]
 
 
-# Need exception for cards with cost [7, 7, 7, 7]
-# Returns true if build was succesful, false otherwise
-# TODO code refactoring IS NECESSARY. DUPLICATE CODE
-#func build(player : Player) -> bool:
-#	if player.can_tier_build(card_info['tier'] - 1) and status != Utils.RESEARCH_GIZMO:
-#		if status == Utils.ARCHIVED_GIZMO:
-#			built_from_archive(player)
-#		player.stats['gizmos'].append(get_deck_id())
-#		set_built_flags(player)
-#		player.free_action['build_tier'][card_info['tier'] - 1] -= 1
-#
-#		GameManager.give_card(self, player)
-#
-#		status = Utils.ACTIVE_GIZMO
-#		is_usable = true
-#		action_container.visible = false
-#
-#		if is_passive():
-#			var effect_split = string_to_func(card_info['effect'])
-#			if effect_split[1] != null:
-#				GameManager.call(effect_split[0], effect_split[1])
-#			else:
-#				GameManager.call(effect_split[0])
-#
-#		player.get_node("PlayerBoard").check_condition_gizmos()
-#		player.card_to_container(self)
-#		owner_id = player.get_instance_id()
-#		GameManager.game.get_node("ActionStatus").text = ""
-#		GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
-#		return true
-#
-#	elif status == Utils.RESEARCH_GIZMO or player.can_do('build'):
-#		var energy_type = get_energy_type()
-#		var cost = get_cost()
-#		cost = player.apply_discounts(self, cost)
-#		if (player.stats['energy'][energy_type] 
-#		+ player.stats['excess_energy'][energy_type] >= cost):			
-#			while player.stats['excess_energy'][energy_type] > 0 and cost > 0:
-#				player.stats['excess_energy'][energy_type] -= 1
-#				cost -= 1
-#			player.stats['energy'][energy_type] -= cost
-#			var paid = [0, 0, 0, 0]
-#			paid[energy_type] += cost
-#
-#			if status == Utils.ARCHIVED_GIZMO:
-#				built_from_archive(player)
-#			player.stats['gizmos'].append(get_deck_id())
-#			set_built_flags(player)
-#
-#			GameManager.give_card(self, player)
-#			GameManager.add_to_energy_row(paid)
-#
-#			if (status != Utils.RESEARCH_GIZMO 
-#			and GameManager.finished_action() == false):
-#				print("Removed free build action")
-#				GameManager.dec_free_action('build')
-#
-#			status = Utils.ACTIVE_GIZMO
-#			is_usable = true
-#			action_container.visible = false
-#
-#			if is_passive():
-#				var effect_split = string_to_func(card_info['effect'])
-#				if effect_split[1] != null:
-#					GameManager.call(effect_split[0], effect_split[1])
-#				else:
-#					GameManager.call(effect_split[0])
-#
-#			player.get_node("PlayerBoard").check_condition_gizmos()
-#			player.card_to_container(self)
-#			owner_id = player.get_instance_id()
-#			GameManager.hint_manager.set_animation(get_anim_player(), "Idle")
-#			return true
-#		else:
-#			GameManager.set_warning("You do not have enough energy")
-#	else:
-#		GameManager.set_warning("You can't build")
-#	return false
-
-
 # If active_player meets condition sets condition_met to true, false otherwise
 func is_condition_met(player: Player) -> bool:
 	var condition_split = string_to_func(card_info['action'])
@@ -204,8 +124,16 @@ func get_anim_player():
 	return $AnimationPlayer
 
 
+func valid_archive_highlight():
+	return GameManager.current_state == "archive" and not card_info.has('owner_id')
+
+
+func valid_build_highlight():
+	return GameManager.current_state == "build" and card_info['status'] != GameManager.ACTIVE_GIZMO
+
+
 func _on_Card_mouse_entered():
-	if GameManager.current_state == "archive" or GameManager.current_state == "build":
+	if valid_archive_highlight() or valid_build_highlight():
 		GameManager.hint_manager.set_all_animation([get_anim_player()], "Idle")
 		$AnimationPlayer.stop()
 		self.modulate = Color(1.4, 1.4, 1.4)

@@ -173,13 +173,14 @@ func end_screen() -> void:
 
 
 func set_status(action: String, s_action_id: int) -> void:
-	var format_message = "You are doing %s"
-	var status_message = format_message % action
-	set_action_status_text(status_message)
 	set_action_id(s_action_id)
 
 	current_state = action
 	hint_manager.action_highlight(action)
+
+
+func set_action_status_text(s_msg: String) -> void:
+	game.set_action_status_text(s_msg)
 
 
 func get_revealed_card(card_json: Dictionary):
@@ -329,10 +330,6 @@ func get_own_id() -> String:
 func display_end_btn() -> void:
 	var player_container = game.get_player_node(get_own_id())
 	player_container.display_end_btn()
-
-
-func set_action_status_text(s_msg: String) -> void:
-	game.set_action_status_text(s_msg)
 
 
 func update_turn_indicator() -> void:
