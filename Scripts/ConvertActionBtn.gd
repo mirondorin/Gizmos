@@ -15,7 +15,7 @@ func _on_ConvertActionBtn_pressed():
 	var player = GameManager.active_player
 	
 	self.visible = false
-	if result == Utils.WILD_ENERGY:
+	if result == GameManager.WILD_ENERGY:
 		var energy_container = player.get_node("ConvertTab").get_energy_container()
 		energy_container.visible = true
 		energy_container.set_converting_values(initial, amount)

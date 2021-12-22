@@ -9,7 +9,7 @@ func set_player_name(name: String) -> void:
 
 
 # Sets points for player
-func set_points(score : int) -> void:
+func set_points(score: int) -> void:
 	$PointsContainer/Points.text = str(score)
 
 

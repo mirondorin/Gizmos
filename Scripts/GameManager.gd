@@ -24,6 +24,7 @@ var hint_manager = HintManager.new()
 
 enum {ARCHIVE, PICK, BUILD, RESEARCH, CARD_EFFECT}
 enum {ACTIVE_GIZMO, ARCHIVED_GIZMO, RESEARCH_GIZMO, REVEALED_GIZMO}
+enum {RED, YELLOW, BLUE, BLACK, WILD_ENERGY}
 
 # Custom signals
 
@@ -135,7 +136,7 @@ func get_research_card(card_json: Dictionary):
 	return card
 
 
-# params HAS TO BE format of [[converting], [result], [amount]]
+# s_convert_arr HAS TO BE format of [[converting], [result], [amount]]
 # Sets convert tab with the appropiate actions
 func set_converter_tab(s_convert_arr: Array) -> void:
 	active_player.get_node("ConvertTab").set_converter(s_convert_arr)
@@ -144,14 +145,6 @@ func set_converter_tab(s_convert_arr: Array) -> void:
 func set_converter_card_face(s_card_json: Dictionary) -> void:
 	var card_face = load("res://Assets/Set"+str(s_card_json['tier'])+"/card"+str(s_card_json['id'])+".png")
 	active_player.get_node("ConvertTab").set_gizmo_preview(card_face)
-
-
-# Sets warning message
-func set_warning(s_msg: String):
-	var warning_label = game.get_node("WarningStatus")
-	warning_label.text = s_msg
-	yield(get_tree().create_timer(0.5), "timeout")
-	warning_label.text = ""
 
 
 # Updates the counter for each tier deck
@@ -181,6 +174,14 @@ func set_status(action: String, s_action_id: int) -> void:
 
 func set_action_status_text(s_msg: String) -> void:
 	game.set_action_status_text(s_msg)
+
+
+# Sets warning message
+func set_warning(s_msg: String):
+	var warning_label = game.get_node("WarningStatus")
+	warning_label.text = s_msg
+	yield(get_tree().create_timer(0.5), "timeout")
+	warning_label.text = ""
 
 
 func get_revealed_card(card_json: Dictionary):
@@ -303,6 +304,11 @@ func player_stats_updated(s_player_id: String, s_player_stats: Dictionary) -> vo
 
 func player_flags_updated(s_player_id: String, s_player_flags: Dictionary):
 	game.player_flags_updated(s_player_id, s_player_flags)
+
+
+func disable_action(s_action: String, s_player_id: String):
+	var player = game.get_player_node(s_player_id)
+	player.get_node("PlayerBoard").disable_action(s_action)
 
 
 # Update counters of energy row

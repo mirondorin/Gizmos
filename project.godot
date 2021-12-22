@@ -49,7 +49,6 @@ run/main_scene="res://Scenes/Lobby.tscn"
 
 [autoload]
 
-Utils="*res://Scripts/Utils.gd"
 GameManager="*res://Scripts/GameManager.gd"
 Server="*res://Scripts/Server.gd"
 

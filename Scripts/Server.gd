@@ -146,6 +146,10 @@ remote func receive_action_status(s_action: String, s_action_id: int):
 	GameManager.set_status(s_action, s_action_id)
 
 
+remote func disable_action(s_action: String, s_player_id: String):
+	GameManager.disable_action(s_action, s_player_id)
+
+
 func end_turn():
 	rpc_id(1, "end_turn")
 

@@ -1,11 +1,8 @@
 extends Control
 
 
-enum {RED, YELLOW, BLUE, BLACK}
-
-
 func update_energy_counters(energy_arr):
-	var energy_type = RED
+	var energy_type = GameManager.RED
 	var energy_container = $EnergyContainer
 	for energy_btn in energy_container.get_children():
 		energy_btn.update_counter(energy_arr[energy_type])

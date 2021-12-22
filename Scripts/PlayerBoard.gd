@@ -50,7 +50,6 @@ func get_tier_gizmos(tier: int) -> int:
 	return count
 
 
-# TODO: Make new class ScoreManager and move this function there
 # Returns score of player (includes vp_tokens)
 func get_score() -> int:
 	var total = self.get_parent().stats['vp_tokens']
@@ -66,6 +65,15 @@ func get_score() -> int:
 func disable_action_buttons(disable: bool):
 	for btn in action_btn_arr:
 		btn.disabled = disable
+
+
+# Permanently disable action button
+func disable_action(action: String):
+	for btn in action_btn_arr:
+		if btn.action == action:
+			btn.disabled = true
+			action_btn_arr.erase(btn)
+			return
 
 
 func get_card(card_json: Dictionary):

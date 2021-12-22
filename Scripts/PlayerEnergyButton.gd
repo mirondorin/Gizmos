@@ -15,5 +15,5 @@ func increment_counter() -> void:
 
 # Receives string from player energy script and updates player's
 # energy button counter
-func update_counter(str_value : String) -> void:
+func update_counter(str_value: String) -> void:
 	$Counter.text = str_value

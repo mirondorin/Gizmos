@@ -73,7 +73,6 @@ func get_capacities():
 func _on_EndBtn_button_up():
 	$EndBtn.visible = false
 	$PlayerBoard.disable_action_buttons(true)
-#	reset_free_action()
 	Server.end_turn()
 
 
@@ -111,7 +110,7 @@ func has_picked(energy_type):
 # Returns true if he does, false otherwise
 func has_energy_type(energy_arr) -> bool:
 	for energy_type in energy_arr:
-		if energy_type == Utils.WILD_ENERGY:
+		if energy_type == GameManager.WILD_ENERGY:
 			return get_energy_count() > 0
 		elif stats['energy'][energy_type] or stats['excess_energy'][energy_type]:
 			return true
@@ -184,15 +183,14 @@ func can_tier_build(tier : int):
 	return free_action['build_tier'][tier] > 0
 	
 
-# TODO remove cost from paramter. Call function of card.get_cost() instead
 # Receives card and returns reduced cost of card depending 
 # on player's build_discount and/or card's type
 func apply_discounts(card, cost : int):
 	var card_tier = card.card_info['tier']
 	cost -= build_discount['tier'][card_tier - 1]
-	if card.card_info['status'] == Utils.ARCHIVED_GIZMO:
+	if card.card_info['status'] == GameManager.ARCHIVED_GIZMO:
 		cost -= build_discount['archive']
-	elif card.card_info['status'] == Utils.RESEARCH_GIZMO:
+	elif card.card_info['status'] == GameManager.RESEARCH_GIZMO:
 		cost -= build_discount['research']
 	if cost > 0:
 		return cost
