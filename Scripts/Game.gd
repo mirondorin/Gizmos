@@ -29,6 +29,11 @@ func player_flags_updated(player_id: String, player_flags: Dictionary):
 	player_container.get_node("PlayerBoard").check_condition_gizmos()
 
 
+func player_free_action_updated(player_id: String, free_action: Dictionary):
+	var player_container = get_player_node(player_id)
+	player_container.free_action = free_action
+
+
 func player_capacity_updated(player_id: String):
 	var player_container = get_player_node(player_id)
 	player_container.get_node("PlayerBoard").update_capacities()

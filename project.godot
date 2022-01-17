@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Gizmos"
-run/main_scene="res://Scenes/Lobby.tscn"
+run/main_scene="res://Scenes/MainMenu.tscn"
 
 [autoload]
 
@@ -56,9 +56,8 @@ Server="*res://Scripts/Server.gd"
 
 window/size/width=1920
 window/size/height=1080
-window/size/resizable=false
-window/size/test_width=1600
-window/size/test_height=900
+window/size/test_width=1280
+window/size/test_height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 

@@ -3,6 +3,7 @@ extends Node
 
 # Variables
 
+var lobby_node
 var game
 
 var energy_row
@@ -34,7 +35,8 @@ signal players_instanced
 # Functions
 
 func _ready():
-	self.connect("player_joined", get_tree().get_root().get_node("Lobby"), "_on_player_joined")
+	lobby_node = get_tree().get_root().get_node("Control").get_node("MarginContainer").get_node("Lobby")
+	self.connect("player_joined", lobby_node, "_on_player_joined")
 	self.connect("players_instanced", self, "_on_players_instanced")
 
 
@@ -277,7 +279,7 @@ func set_player_order(s_player_order: Array):
 
 
 func start_game() -> void:
-	get_tree().get_root().get_node("Lobby").visible = false
+	lobby_node.visible = false
 	
 	var new_game_scene = load("res://Scenes/Game.tscn")
 	game = new_game_scene.instance()
@@ -298,12 +300,16 @@ func _on_players_instanced() -> void:
 
 
 # Update player node with new stats
-func player_stats_updated(s_player_id: String, s_player_stats: Dictionary) -> void:
+func player_stats_updated(s_player_id: String, s_player_stats: Dictionary):
 	game.player_stats_updated(s_player_id, s_player_stats)
 
 
 func player_flags_updated(s_player_id: String, s_player_flags: Dictionary):
 	game.player_flags_updated(s_player_id, s_player_flags)
+
+
+func player_free_action_updated(s_player_id: String, s_free_action: Dictionary):
+	game.player_free_action_updated(s_player_id, s_free_action)
 
 
 func disable_action(s_action: String, s_player_id: String):

@@ -19,3 +19,7 @@ func _on_JoinBtn_pressed():
 
 func refresh_lobby():
 	$Players.set_player_list()
+
+
+func _on_LobbyJoinBtn_pressed():
+	self.visible = true
