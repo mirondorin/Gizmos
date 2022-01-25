@@ -106,6 +106,10 @@ margin_right = -265.5
 margin_bottom = 307.5
 rect_scale = Vector2( 0.6, 0.6 )
 
+[node name="EnergyRow" parent="." instance=ExtResource( 3 )]
+margin_top = 16.4539
+margin_bottom = 116.454
+
 [node name="Players" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -113,12 +117,6 @@ mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="EnergyRow" parent="." instance=ExtResource( 3 )]
-margin_left = -385.674
-margin_top = 41.8041
-margin_right = -77.674
-margin_bottom = 115.804
 
 [node name="ActionStatus" type="Label" parent="."]
 anchor_right = 1.0

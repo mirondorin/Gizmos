@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/EnergyButton.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Assets/RedEnergy.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Highlight"
@@ -43,7 +42,7 @@ margin_right = -1846.0
 margin_bottom = -1006.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture_normal = ExtResource( 3 )
+expand = true
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -54,9 +53,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -8.5
-margin_top = -42.0
-margin_right = 8.5
+margin_left = -7.5
+margin_top = -37.0
+margin_right = 7.5
 custom_fonts/font = ExtResource( 2 )
 text = "0"
 __meta__ = {
