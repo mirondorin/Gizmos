@@ -10,6 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1593.0
 margin_bottom = -952.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 color = Color( 0.0980392, 0.0588235, 0.0588235, 0.784314 )
 script = ExtResource( 4 )
 __meta__ = {
@@ -25,6 +27,8 @@ margin_left = -154.0
 margin_top = -50.0
 margin_right = 154.0
 margin_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -32,20 +36,32 @@ __meta__ = {
 [node name="ArchiveBtn" type="TextureButton" parent="HBoxContainer"]
 margin_right = 100.0
 margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 4
 
 [node name="BuildBtn" type="TextureButton" parent="HBoxContainer"]
 margin_left = 104.0
 margin_right = 204.0
 margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 4
 
 [node name="HideBtn" type="TextureButton" parent="HBoxContainer"]
 modulate = Color( 0.803922, 0.0666667, 0.0666667, 1 )
 margin_left = 208.0
 margin_right = 308.0
 margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 4
 [connection signal="pressed" from="HBoxContainer/ArchiveBtn" to="." method="_on_ArchiveBtn_pressed"]
 [connection signal="pressed" from="HBoxContainer/BuildBtn" to="." method="_on_BuildBtn_pressed"]
 [connection signal="pressed" from="HBoxContainer/HideBtn" to="." method="_on_HideBtn_pressed"]

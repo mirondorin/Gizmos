@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/PlayerBoardBtn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/ArchiveIcon.png" type="Texture" id=2]
-[ext_resource path="res://Assets/UpgradeIcon.png" type="Texture" id=3]
 [ext_resource path="res://Assets/BuildIcon.png" type="Texture" id=4]
 [ext_resource path="res://Assets/research.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/UpgradeBtn.tscn" type="PackedScene" id=6]
@@ -20,7 +19,6 @@ margin_left = -861.282
 margin_top = 137.0
 margin_right = 838.718
 margin_bottom = 243.0
-rect_scale = Vector2( 1, 0.9 )
 columns = 7
 script = ExtResource( 9 )
 __meta__ = {
@@ -30,18 +28,10 @@ __meta__ = {
 [node name="UpgradeBtn" parent="." groups=[
 "active_gizmo_btn",
 ] instance=ExtResource( 6 )]
-margin_right = 239.0
-margin_bottom = 106.0
 hint_tooltip = "Upgrades to increase capacity of energy, archive and research"
-size_flags_horizontal = 7
 
-[node name="ActionTexture" parent="UpgradeBtn/ActionContainer" index="0"]
-margin_bottom = 106.0
-texture = ExtResource( 3 )
-
-[node name="ActionText" parent="UpgradeBtn/ActionContainer" index="1"]
-margin_top = 34.0
-margin_bottom = 71.0
+[node name="UpgradeContainer" parent="UpgradeBtn" index="0"]
+alignment = 2
 
 [node name="ConvertBtn" parent="." groups=[
 "active_gizmo_btn",
@@ -56,12 +46,15 @@ different types or
 different quantities"
 
 [node name="ActionTexture" parent="ConvertBtn/ActionContainer" index="0"]
+margin_right = 117.0
 margin_bottom = 106.0
 texture = ExtResource( 7 )
+stretch_mode = 5
 
 [node name="ActionText" parent="ConvertBtn/ActionContainer" index="1"]
+margin_left = 121.0
 margin_top = 34.0
-margin_right = 211.0
+margin_right = 239.0
 margin_bottom = 71.0
 text = "Convert"
 
@@ -80,12 +73,15 @@ disabled = true
 action = "archive"
 
 [node name="ActionTexture" parent="ArchiveBtn/ActionContainer" index="0"]
+margin_right = 117.0
 margin_bottom = 106.0
 texture = ExtResource( 2 )
+stretch_mode = 5
 
 [node name="ActionText" parent="ArchiveBtn/ActionContainer" index="1"]
+margin_left = 121.0
 margin_top = 34.0
-margin_right = 206.0
+margin_right = 239.0
 margin_bottom = 71.0
 text = "Archive"
 
@@ -104,11 +100,14 @@ action = "pick"
 action_id = 1
 
 [node name="ActionTexture" parent="PickBtn/ActionContainer" index="0"]
+margin_right = 117.0
 margin_bottom = 106.0
+stretch_mode = 5
 
 [node name="ActionText" parent="PickBtn/ActionContainer" index="1"]
+margin_left = 121.0
 margin_top = 34.0
-margin_right = 160.0
+margin_right = 239.0
 margin_bottom = 71.0
 text = "Pick"
 
@@ -129,12 +128,15 @@ action = "build"
 action_id = 2
 
 [node name="ActionTexture" parent="BuildBtn/ActionContainer" index="0"]
+margin_right = 117.0
 margin_bottom = 106.0
 texture = ExtResource( 4 )
+stretch_mode = 5
 
 [node name="ActionText" parent="BuildBtn/ActionContainer" index="1"]
+margin_left = 121.0
 margin_top = 34.0
-margin_right = 173.0
+margin_right = 239.0
 margin_bottom = 71.0
 text = "Build"
 
@@ -155,13 +157,18 @@ action = "research"
 action_id = 3
 
 [node name="ActionTexture" parent="ResearchBtn/ActionContainer" index="0"]
+margin_right = 112.0
 margin_bottom = 106.0
+size_flags_stretch_ratio = 2.0
 texture = ExtResource( 5 )
+stretch_mode = 5
 
 [node name="ActionText" parent="ResearchBtn/ActionContainer" index="1"]
+margin_left = 116.0
 margin_top = 34.0
-margin_right = 227.0
+margin_right = 239.0
 margin_bottom = 71.0
+size_flags_horizontal = 2
 text = "Research"
 
 [node name="Archive" parent="." instance=ExtResource( 1 )]
@@ -171,18 +178,19 @@ margin_bottom = 106.0
 hint_tooltip = "Your archive"
 
 [node name="ActionTexture" parent="Archive/ActionContainer" index="0"]
+margin_right = 116.0
 margin_bottom = 106.0
 texture = ExtResource( 10 )
+stretch_mode = 5
 
 [node name="ActionText" parent="Archive/ActionContainer" index="1"]
+margin_left = 120.0
 margin_top = 34.0
-margin_right = 223.0
+margin_right = 239.0
 margin_bottom = 71.0
 text = "Archived"
 
 [editable path="UpgradeBtn"]
-
-[editable path="UpgradeBtn/ActionContainer"]
 
 [editable path="ConvertBtn"]
 

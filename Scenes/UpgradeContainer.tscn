@@ -3,13 +3,15 @@
 [ext_resource path="res://Fonts/CapacityFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/ResearchCap.png" type="Texture" id=2]
 [ext_resource path="res://Assets/EnergyCap.png" type="Texture" id=3]
-[ext_resource path="res://Assets/ArchiveCap.png" type="Texture" id=4]
+[ext_resource path="res://Assets/ArchiveCapSmall.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/UpgradeContainer.gd" type="Script" id=5]
 
 [node name="UpgradeContainer" type="HBoxContainer"]
 margin_right = 308.0
 margin_bottom = 100.0
-rect_scale = Vector2( 0.6, 0.6 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -18,8 +20,10 @@ __meta__ = {
 [node name="TextureRect1" type="TextureRect" parent="."]
 margin_right = 100.0
 margin_bottom = 100.0
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="TextureRect1"]
 anchor_left = 0.5
@@ -27,9 +31,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -17.0
-margin_top = -18.6667
+margin_top = -27.0
 margin_right = 17.0
-margin_bottom = 23.3333
+margin_bottom = 15.0
 rect_min_size = Vector2( 34, 0 )
 custom_fonts/font = ExtResource( 1 )
 text = "5"
@@ -42,17 +46,20 @@ __meta__ = {
 margin_left = 104.0
 margin_right = 204.0
 margin_bottom = 100.0
+size_flags_horizontal = 3
 texture = ExtResource( 4 )
+expand = true
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="TextureRect2"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -18.0
-margin_top = -16.6667
-margin_right = 16.0
-margin_bottom = 25.3333
+margin_left = -16.3701
+margin_top = -21.0
+margin_right = 17.6299
+margin_bottom = 21.0
 rect_min_size = Vector2( 34, 0 )
 custom_fonts/font = ExtResource( 1 )
 text = "1"
@@ -65,15 +72,18 @@ __meta__ = {
 margin_left = 208.0
 margin_right = 308.0
 margin_bottom = 100.0
+size_flags_horizontal = 3
 texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="TextureRect3"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -6.0
-margin_top = 21.6667
-margin_right = 28.0
-margin_bottom = 63.6667
+margin_left = -3.66666
+margin_top = 6.66667
+margin_right = 30.3333
+margin_bottom = 48.6667
 rect_min_size = Vector2( 33.985, 0 )
 custom_fonts/font = ExtResource( 1 )
 text = "3"
