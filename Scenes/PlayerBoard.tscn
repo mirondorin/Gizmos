@@ -30,9 +30,6 @@ __meta__ = {
 ] instance=ExtResource( 6 )]
 hint_tooltip = "Upgrades to increase capacity of energy, archive and research"
 
-[node name="UpgradeContainer" parent="UpgradeBtn" index="0"]
-alignment = 2
-
 [node name="ConvertBtn" parent="." groups=[
 "active_gizmo_btn",
 "effect_gizmo_btn",

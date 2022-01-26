@@ -1,6 +1,6 @@
-extends HBoxContainer
+extends TextureRect
 
 
 func update_labels(params):
 	for el in range (1, 4):
-		get_node("TextureRect" + str(el) + "/Label").text = str(params[el - 1])
+		get_node("Label" + str(el)).text = str(params[el - 1])

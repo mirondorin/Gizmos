@@ -48,6 +48,7 @@ margin_left = 69.0
 margin_right = 193.0
 margin_bottom = 71.0
 rect_min_size = Vector2( 124, 65 )
+mouse_default_cursor_shape = 2
 size_flags_vertical = 3
 custom_styles/hover = SubResource( 1 )
 custom_styles/disabled = SubResource( 2 )

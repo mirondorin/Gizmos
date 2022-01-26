@@ -1,93 +1,68 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Fonts/CapacityFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Assets/ResearchCap.png" type="Texture" id=2]
-[ext_resource path="res://Assets/EnergyCap.png" type="Texture" id=3]
-[ext_resource path="res://Assets/ArchiveCapSmall.png" type="Texture" id=4]
-[ext_resource path="res://Scripts/UpgradeContainer.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/UpgradeContainer.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/CapacityFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Capacities.png" type="Texture" id=3]
 
-[node name="UpgradeContainer" type="HBoxContainer"]
-margin_right = 308.0
-margin_bottom = 100.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-alignment = 1
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect1" type="TextureRect" parent="."]
-margin_right = 100.0
-margin_bottom = 100.0
-size_flags_horizontal = 3
+[node name="UpgradeContainer" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 0
 texture = ExtResource( 3 )
 expand = true
-stretch_mode = 5
+stretch_mode = 6
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Label" type="Label" parent="TextureRect1"]
+[node name="Label1" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -17.0
-margin_top = -27.0
-margin_right = 17.0
-margin_bottom = 15.0
-rect_min_size = Vector2( 34, 0 )
-custom_fonts/font = ExtResource( 1 )
+margin_left = -100.0
+margin_top = -32.0
+margin_right = -60.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 2 )
 text = "5"
 align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="."]
-margin_left = 104.0
-margin_right = 204.0
-margin_bottom = 100.0
-size_flags_horizontal = 3
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="TextureRect2"]
+[node name="Label2" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -16.3701
-margin_top = -21.0
-margin_right = 17.6299
-margin_bottom = 21.0
-rect_min_size = Vector2( 34, 0 )
-custom_fonts/font = ExtResource( 1 )
+margin_left = -14.0
+margin_top = -32.0
+margin_right = 26.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 2 )
 text = "1"
 align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect3" type="TextureRect" parent="."]
-margin_left = 208.0
-margin_right = 308.0
-margin_bottom = 100.0
-size_flags_horizontal = 3
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="TextureRect3"]
+[node name="Label3" type="Label" parent="."]
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-margin_left = -3.66666
-margin_top = 6.66667
-margin_right = 30.3333
-margin_bottom = 48.6667
-rect_min_size = Vector2( 33.985, 0 )
-custom_fonts/font = ExtResource( 1 )
+anchor_bottom = 0.5
+margin_left = 67.0
+margin_top = -32.0
+margin_right = 107.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 2 )
 text = "3"
 align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

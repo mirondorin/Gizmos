@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scenes/UpgradeContainer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/UpgradeContainer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UpgradeBtn.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/CardScrollContainer.tscn" type="PackedScene" id=4]
 
@@ -22,35 +22,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UpgradeContainer" parent="." instance=ExtResource( 1 )]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -119.5
-margin_top = -40.0
-margin_right = 119.5
-margin_bottom = 40.0
-
-[node name="TextureRect1" parent="UpgradeContainer" index="0"]
-margin_right = 77.0
-margin_bottom = 80.0
-
-[node name="TextureRect2" parent="UpgradeContainer" index="1"]
-margin_left = 81.0
-margin_right = 158.0
-margin_bottom = 80.0
-
-[node name="TextureRect3" parent="UpgradeContainer" index="2"]
-margin_left = 162.0
-margin_right = 239.0
-margin_bottom = 80.0
-
-[node name="Label" parent="UpgradeContainer/TextureRect3" index="0"]
-margin_left = -6.66666
-margin_top = -0.333335
-margin_right = 27.3333
-margin_bottom = 41.6667
+[node name="UpgradeContainer" parent="." instance=ExtResource( 2 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../ColorRect")
@@ -58,5 +30,3 @@ anims/Highlight = SubResource( 1 )
 anims/Idle = SubResource( 2 )
 
 [node name="ScrollContainer" parent="." instance=ExtResource( 4 )]
-
-[editable path="UpgradeContainer"]
