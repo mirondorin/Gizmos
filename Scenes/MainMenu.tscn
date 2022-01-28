@@ -88,6 +88,6 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1720.0
 margin_bottom = 680.0
-[connection signal="pressed" from="MarginContainer/VBoxContainer/JoinBtn" to="MarginContainer/VBoxContainer/JoinBtn" method="_on_JoinBtn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/JoinBtn" to="MarginContainer/Lobby" method="_on_LobbyJoinBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/JoinBtn" to="MarginContainer/VBoxContainer/JoinBtn" method="_on_JoinBtn_pressed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/OptionButton" to="MarginContainer/VBoxContainer/PlayBtn" method="_on_OptionButton_item_selected"]
