@@ -150,6 +150,7 @@ equal to your Research
 Amount. You may
 choose 1 to Build or File"
 disabled = true
+align = 0
 action = "research"
 action_id = 3
 
@@ -165,8 +166,8 @@ margin_left = 116.0
 margin_top = 34.0
 margin_right = 239.0
 margin_bottom = 71.0
-size_flags_horizontal = 2
 text = "Research"
+align = 1
 
 [node name="Archive" parent="." instance=ExtResource( 1 )]
 margin_left = 1458.0
@@ -178,7 +179,7 @@ hint_tooltip = "Your archive"
 margin_right = 116.0
 margin_bottom = 106.0
 texture = ExtResource( 10 )
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="ActionText" parent="Archive/ActionContainer" index="1"]
 margin_left = 120.0

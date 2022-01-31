@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/ActionButtonText.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/PickIcon.png" type="Texture" id=2]
 
 [node name="ActionContainer" type="HBoxContainer"]

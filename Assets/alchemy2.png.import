@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/temp-background.jpg-e08ec5c9b176bd418073589c82d62b23.stex"
+path="res://.import/alchemy2.png-2973204895cf63110474f5ffae2c65e3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/temp-background.jpg"
-dest_files=[ "res://.import/temp-background.jpg-e08ec5c9b176bd418073589c82d62b23.stex" ]
+source_file="res://Assets/alchemy2.png"
+dest_files=[ "res://.import/alchemy2.png-2973204895cf63110474f5ffae2c65e3.stex" ]
 
 [params]
 

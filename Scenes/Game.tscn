@@ -5,7 +5,7 @@
 [ext_resource path="res://Scenes/EnergyRow.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Fonts/OpenSans30.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/TurnIndicator.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/temp-background.jpg.png" type="Texture" id=6]
+[ext_resource path="res://Assets/alchemy1.png" type="Texture" id=6]
 
 [sub_resource type="Environment" id=1]
 glow_enabled = true
