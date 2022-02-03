@@ -16,7 +16,7 @@ var player_order = []
 var active_player
 
 var current_state
-var action_id # Will become the new current_state
+var action_id
 
 var board_viewer = BoardViewer.new()
 var hint_manager = HintManager.new()

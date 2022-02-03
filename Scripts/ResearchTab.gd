@@ -8,7 +8,6 @@ func _on_HideBtn_pressed():
 
 func _on_DoneBtn_pressed():
 	clear_cards()
-#	GameManager.finished_action()
 
 
 func clear_cards():

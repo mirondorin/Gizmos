@@ -4,8 +4,9 @@ export(int) var tier
 
 
 func _on_TierDeck_pressed():
-	Server.send_event(GameManager.RESEARCH, tier)
-	
+	if GameManager.current_state == "research":
+		Server.send_event(GameManager.RESEARCH, tier)
+
 
 func get_anim_player():
 	return $AnimationPlayer
