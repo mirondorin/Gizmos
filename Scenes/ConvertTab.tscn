@@ -61,6 +61,7 @@ margin_bottom = 43.0
 
 [node name="ConvertActionBtn2" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 visible = false
+margin_left = 165.0
 margin_right = 327.0
 margin_bottom = 43.0
 text = "ACTION 2"
